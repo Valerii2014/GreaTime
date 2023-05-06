@@ -1,0 +1,125 @@
+.app-header {
+  min-height: 193px;
+}
+.nav {
+  max-height: 45px;
+  background: #f2f2f2;
+  &-wrapper {
+    padding: 14.5px 0 14.5px 0;
+    display: grid;
+    grid-template-columns: 309px 691px 180px;
+    grid-template-rows: 1fr;
+    align-items: self-start;
+  }
+  &_address {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
+  &_links {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+  }
+  &_link {
+    list-style-type: none;
+    font-weight: 350;
+    font-size: 14px;
+    line-height: 18px;
+    a {
+      text-decoration: none;
+      color: #000;
+    }
+  }
+  &_phone {
+    text-align: end;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+  }
+}
+.company {
+  min-height: 50px;
+  padding-top: 15px;
+  &-wrapper {
+    padding-bottom: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: solid 1px #b0b0b0;
+  }
+  &_social {
+    display: flex;
+    align-items: center;
+    a {
+      margin-right: 27.5px;
+    }
+  }
+  &_logo {
+    text-align: center;
+  }
+  &_info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    &_links {
+      margin-left: 48px;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 23px;
+    }
+  }
+}
+.func-panel {
+  margin: 19px 0 23px 0;
+  min-height: 40px;
+  &-wrapper {
+    display: flex;
+  }
+  &_icons {
+    width: 238px;
+    margin-left: 53px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &_icon {
+    width: 70px;
+    height: 50px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    &_active {
+      &:before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        transform: translate(11px, -19px);
+        border: solid 2px #fff;
+        border-radius: 65%;
+        background-color: #ffb745;
+      }
+    }
+  }
+}
+.search_form {
+  width: 702px;
+  height: 40px;
+  margin-left: 20px;
+  display: flex;
+  border: solid 1px #4174cb;
+  border-radius: 4px;
+  overflow: hidden;
+  input {
+    width: 600px;
+    border: none;
+    &:focus {
+      outline: none !important;
+    }
+  }
+}
