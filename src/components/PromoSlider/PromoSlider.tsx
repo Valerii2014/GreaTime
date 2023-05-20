@@ -1,32 +1,48 @@
 import "./promoSlider.scss";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 interface ContentDB {
   src: string;
   alt: string;
+  id: number;
 }
 
 const sliderContentFromDB: ContentDB[] = [
   {
     src: "./imgs/slide1.jpg",
     alt: "fdsfsdf",
+    id: 3248745,
   },
   {
     src: "./imgs/slide1.jpg",
     alt: "fdsfsdf",
+    id: 3243905,
   },
   {
     src: "./imgs/slide1.jpg",
     alt: "fdsfsdf",
+    id: 32432545,
   },
   {
     src: "./imgs/slide1.jpg",
     alt: "fdsfsdf",
+    id: 32437432,
   },
   {
     src: "./imgs/slide1.jpg",
     alt: "fdsfsdf",
+    id: 32430334,
+  },
+  {
+    src: "./imgs/slide1.jpg",
+    alt: "fdsfsdf",
+    id: 32437432,
+  },
+  {
+    src: "./imgs/slide1.jpg",
+    alt: "fdsfsdf",
+    id: 32430334,
   },
 ];
 
@@ -44,16 +60,35 @@ const PromoSlider = () => {
     } else if (move === "prev") {
       const newPosition = sliderPosition - 1;
       newPosition < 0
-        ? setSliderPosition(sliderContentFromDB.length)
+        ? setSliderPosition(sliderContentFromDB.length - 1)
         : setSliderPosition(newPosition);
     }
   };
 
-  const onBuildContent = (data: ContentDB[]) => {
-    const { src, alt } = data[sliderPosition];
+  const onBuildSliderImage = (data: ContentDB[]) => {
+    return data.map((slide) => {
+      const { src, alt, id } = slide;
+      return (
+        <div key={id} className="slider_img">
+          <img src={src} alt={alt} />
+        </div>
+      );
+    });
+  };
+
+  const onBuildSliderDots = (data: ContentDB[]) => {
     return (
-      <div id={`${sliderPosition}`} className="slider_img">
-        <img src={src} alt={alt} />
+      <div className="slider_dots">
+        {data.map((item, key) => {
+          return (
+            <span
+              className={`slider_dots_item ${
+                key === sliderPosition ? "slider_dots_item_active" : null
+              }`}
+              onClick={() => setSliderPosition(key)}
+            ></span>
+          );
+        })}
       </div>
     );
   };
@@ -64,11 +99,9 @@ const PromoSlider = () => {
         <div className="slider_wrapper">
           <div
             className="slider_images"
-            style={{
-              transform: `translateX(-${sliderPosition}px)`,
-            }}
+            style={{ transform: `translateX(-${sliderPosition * 1190}px)` }}
           >
-            {onBuildContent(sliderContentFromDB)}
+            {onBuildSliderImage(sliderContentFromDB)}
           </div>
           <div className="slider_btn">
             <div
@@ -84,6 +117,7 @@ const PromoSlider = () => {
               <img src="./icons/short_right.svg" alt="prev" />
             </div>
           </div>
+          {onBuildSliderDots(sliderContentFromDB)}
         </div>
       </div>
     </section>

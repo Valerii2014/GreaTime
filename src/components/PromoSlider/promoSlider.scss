@@ -6,13 +6,19 @@
     overflow: hidden;
   }
   &_images {
+    height: 400px;
     position: relative;
+    display: flex;
+    transition: all 0.8s;
   }
   &_img {
     width: 1190px;
+    height: 400px;
     padding-right: 10px;
-    position: absolute;
-    display: none;
+    transition: all 700ms;
+    &img {
+      object-fit: cover;
+    }
   }
   &_btn {
     width: 113px;
@@ -37,60 +43,43 @@
       }
     }
   }
+  &_dots {
+    left: 30px;
+    bottom: 36px;
+    position: absolute;
+    display: flex;
+    &_item {
+      height: 6px;
+      width: 6px;
+      margin-right: 16px;
+      border-radius: 65%;
+      background-color: #fff;
+      transition: all 0.4s;
+      cursor: pointer;
+      opacity: 0.9;
+      &:hover {
+        opacity: 1;
+      }
+      &_active {
+        scale: 2;
+      }
+    }
+  }
 }
 
-.fade-left,
-.fade-right,
-.show-left,
-.show-right {
-  animation: 2s;
+.fade-enter {
+  opacity: 0;
+  transform: translateX(-100%);
 }
-.fade-left {
-  animation: fade-left;
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
 }
-.fade-right {
-  animation: fade-right;
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0%);
 }
-.show-left {
-  animation: show-left;
-}
-.show-right {
-  animation: show-right;
-}
-
-@keyframes fade-left {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-1190px);
-    display: none;
-  }
-}
-@keyframes fade-right {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(1190px);
-    display: none;
-  }
-}
-@keyframes show-left {
-  from {
-    transform: translateX(-1190px);
-    display: none;
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-@keyframes show-right {
-  from {
-    transform: translateX(1190px);
-    display: none;
-  }
-  to {
-    transform: translateX(0);
-  }
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
 }
