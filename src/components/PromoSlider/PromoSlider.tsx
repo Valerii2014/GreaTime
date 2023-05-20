@@ -1,26 +1,61 @@
 import "./promoSlider.scss";
 
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState } from "react";
+
+interface ContentDB {
+  src: string;
+  alt: string;
+}
+
+const sliderContentFromDB: ContentDB[] = [
+  {
+    src: "./imgs/slide1.jpg",
+    alt: "fdsfsdf",
+  },
+  {
+    src: "./imgs/slide1.jpg",
+    alt: "fdsfsdf",
+  },
+  {
+    src: "./imgs/slide1.jpg",
+    alt: "fdsfsdf",
+  },
+  {
+    src: "./imgs/slide1.jpg",
+    alt: "fdsfsdf",
+  },
+  {
+    src: "./imgs/slide1.jpg",
+    alt: "fdsfsdf",
+  },
+];
 
 const PromoSlider = () => {
   const [sliderPosition, setSliderPosition] = useState(0);
 
   console.log(sliderPosition);
-  const imagesRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const onChangeSlide = (move: "prev" | "next") => {
-    const width = imagesRef.current[0] ? imagesRef.current[0].offsetWidth : 0;
     if (move === "next") {
-      const newPosition = sliderPosition + width;
-      newPosition === width * imagesRef.current.length
+      const newPosition = sliderPosition + 1;
+      newPosition >= sliderContentFromDB.length
         ? setSliderPosition(0)
         : setSliderPosition(newPosition);
     } else if (move === "prev") {
-      const newPosition = sliderPosition - width;
+      const newPosition = sliderPosition - 1;
       newPosition < 0
-        ? setSliderPosition(width * (imagesRef.current.length - 1))
+        ? setSliderPosition(sliderContentFromDB.length)
         : setSliderPosition(newPosition);
     }
+  };
+
+  const onBuildContent = (data: ContentDB[]) => {
+    const { src, alt } = data[sliderPosition];
+    return (
+      <div id={`${sliderPosition}`} className="slider_img">
+        <img src={src} alt={alt} />
+      </div>
+    );
   };
 
   return (
@@ -33,41 +68,7 @@ const PromoSlider = () => {
               transform: `translateX(-${sliderPosition}px)`,
             }}
           >
-            <div
-              id="0"
-              className="slider_img"
-              ref={(el) => (imagesRef.current[0] = el)}
-            >
-              <img src="./imgs/slide1.jpg" alt="fdsfsdf" />
-            </div>
-            <div
-              id="1"
-              className="slider_img"
-              ref={(el) => (imagesRef.current[1] = el)}
-            >
-              <img src="./imgs/slide1.jpg" alt="fdsfsdf" />
-            </div>
-            <div
-              id="2"
-              className="slider_img"
-              ref={(el) => (imagesRef.current[2] = el)}
-            >
-              <img src="./imgs/slide1.jpg" alt="fdsfsdf" />
-            </div>
-            <div
-              id="3"
-              className="slider_img"
-              ref={(el) => (imagesRef.current[3] = el)}
-            >
-              <img src="./imgs/slide1.jpg" alt="fdsfsdf" />
-            </div>
-            <div
-              id="4"
-              className="slider_img"
-              ref={(el) => (imagesRef.current[4] = el)}
-            >
-              <img src="./imgs/slide1.jpg" alt="fdsfsdf" />
-            </div>
+            {onBuildContent(sliderContentFromDB)}
           </div>
           <div className="slider_btn">
             <div
