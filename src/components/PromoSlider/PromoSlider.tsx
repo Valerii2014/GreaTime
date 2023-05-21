@@ -1,6 +1,6 @@
 import "./promoSlider.scss";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface ContentDB {
   src: string;
@@ -10,37 +10,37 @@ interface ContentDB {
 
 const sliderContentFromDB: ContentDB[] = [
   {
-    src: "./imgs/slide1.jpg",
+    src: "./contentDB/imgs/sliderContent/slide1.jpg",
     alt: "fdsfsdf",
     id: 3248745,
   },
   {
-    src: "./imgs/slide1.jpg",
+    src: "./contentDB/imgs/sliderContent/slide1.jpg",
     alt: "fdsfsdf",
-    id: 3243905,
+    id: 324397705,
   },
   {
-    src: "./imgs/slide1.jpg",
+    src: "./contentDB/imgs/sliderContent/slide1.jpg",
     alt: "fdsfsdf",
-    id: 32432545,
+    id: 3243256645,
   },
   {
-    src: "./imgs/slide1.jpg",
+    src: "./contentDB/imgs/sliderContent/slide1.jpg",
     alt: "fdsfsdf",
-    id: 32437432,
+    id: 3243745532,
   },
   {
-    src: "./imgs/slide1.jpg",
+    src: "./contentDB/imgs/sliderContent/slide1.jpg",
     alt: "fdsfsdf",
-    id: 32430334,
+    id: 3243033534,
   },
   {
-    src: "./imgs/slide1.jpg",
+    src: "./contentDB/imgs/sliderContent/slide1.jpg",
     alt: "fdsfsdf",
-    id: 32437432,
+    id: 3243743332,
   },
   {
-    src: "./imgs/slide1.jpg",
+    src: "./contentDB/imgs/sliderContent/slide1.jpg",
     alt: "fdsfsdf",
     id: 32430334,
   },
@@ -48,20 +48,57 @@ const sliderContentFromDB: ContentDB[] = [
 
 const PromoSlider = () => {
   const [sliderPosition, setSliderPosition] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
-  console.log(sliderPosition);
+  useEffect(() => {
+    const sliderChangeInterval = setInterval(() => {
+      onChangeSlide("next");
+    }, 4000);
+
+    return () => {
+      clearInterval(sliderChangeInterval);
+    };
+  }, [sliderPosition]);
+
+  const onSliderDefaultTransition = () => {
+    if (sliderRef.current !== null) {
+      sliderRef.current.style.transition = "all 1.2s";
+    }
+  };
+
+  const onSliderSlowlyTransition = () => {
+    if (sliderRef.current !== null) {
+      const transitionDuration = 0.4 * sliderContentFromDB.length;
+      sliderRef.current.style.transition = `all ${transitionDuration}s`;
+    }
+  };
+
+  const onSliderBeginning = () => {
+    setSliderPosition(0);
+    onSliderSlowlyTransition();
+  };
+
+  const onSliderEnd = () => {
+    setSliderPosition(sliderContentFromDB.length - 1);
+    onSliderSlowlyTransition();
+  };
 
   const onChangeSlide = (move: "prev" | "next") => {
+    onSliderDefaultTransition();
     if (move === "next") {
       const newPosition = sliderPosition + 1;
-      newPosition >= sliderContentFromDB.length
-        ? setSliderPosition(0)
-        : setSliderPosition(newPosition);
+      if (newPosition >= sliderContentFromDB.length) {
+        onSliderBeginning();
+      } else {
+        setSliderPosition(newPosition);
+      }
     } else if (move === "prev") {
       const newPosition = sliderPosition - 1;
-      newPosition < 0
-        ? setSliderPosition(sliderContentFromDB.length - 1)
-        : setSliderPosition(newPosition);
+      if (newPosition < 0) {
+        onSliderEnd();
+      } else {
+        setSliderPosition(newPosition);
+      }
     }
   };
 
@@ -79,13 +116,14 @@ const PromoSlider = () => {
   const onBuildSliderDots = (data: ContentDB[]) => {
     return (
       <div className="slider_dots">
-        {data.map((item, key) => {
+        {data.map((slide, num) => {
           return (
             <span
+              key={slide.id}
               className={`slider_dots_item ${
-                key === sliderPosition ? "slider_dots_item_active" : null
+                num === sliderPosition ? "slider_dots_item_active" : null
               }`}
-              onClick={() => setSliderPosition(key)}
+              onClick={() => setSliderPosition(num)}
             ></span>
           );
         })}
@@ -99,6 +137,7 @@ const PromoSlider = () => {
         <div className="slider_wrapper">
           <div
             className="slider_images"
+            ref={sliderRef}
             style={{ transform: `translateX(-${sliderPosition * 1190}px)` }}
           >
             {onBuildSliderImage(sliderContentFromDB)}
@@ -108,13 +147,13 @@ const PromoSlider = () => {
               className="slider_btn_prev"
               onClick={() => onChangeSlide("prev")}
             >
-              <img src="./icons/short_right.svg" alt="prev" />
+              <img src="./icons/system/arrowBlue.svg" alt="prev" />
             </div>
             <div
               className="slider_btn_next"
               onClick={() => onChangeSlide("next")}
             >
-              <img src="./icons/short_right.svg" alt="prev" />
+              <img src="./icons/system/arrowBlue.svg" alt="prev" />
             </div>
           </div>
           {onBuildSliderDots(sliderContentFromDB)}

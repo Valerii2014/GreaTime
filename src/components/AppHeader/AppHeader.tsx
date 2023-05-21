@@ -31,10 +31,10 @@ const AppHeader = () => {
             <div className="company_social">
               <div className="company_social_container">
                 <a href="dsfds">
-                  <img src="./icons/whatsapp.svg" alt="whatsapp" />
+                  <img src="./icons/system/whatsapp.svg" alt="whatsapp" />
                 </a>
                 <a href="dsfds">
-                  <img src="./icons/telegram.svg" alt="telegram" />
+                  <img src="./icons/system/telegram.svg" alt="telegram" />
                 </a>
               </div>
             </div>
@@ -56,15 +56,15 @@ const AppHeader = () => {
             </form>
             <div className="func-panel_icons">
               <div className="func-panel_icon func-panel_icon_active">
-                <img src="./icons/profile.svg" alt="customicon" />
+                <img src="./icons/system/profile.svg" alt="customicon" />
                 <div>Войти</div>
               </div>
               <div className="func-panel_icon func-panel_icon_active">
-                <img src="./icons/heart.svg" alt="customicon" />
+                <img src="./icons/system/heart.svg" alt="customicon" />
                 <div>Избранное</div>
               </div>
               <div className="func-panel_icon func-panel_icon_active">
-                <img src="./icons/buy.svg" alt="customicon" />
+                <img src="./icons/system/buy.svg" alt="customicon" />
                 <div>Корзина</div>
               </div>
             </div>
