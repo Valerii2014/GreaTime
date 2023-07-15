@@ -1,0 +1,10 @@
+.popular-items {
+    padding-top: 88px;
+    &_wrapper {
+        margin: 32px auto 0 auto;
+        width: 1080px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 20px;
+    }
+}
