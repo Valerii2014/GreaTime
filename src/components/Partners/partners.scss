@@ -1,0 +1,12 @@
+.partners {
+    margin-top: 136px;
+    min-height: 400px;
+    &_wrapper {
+        padding-left: 10px;
+        display: grid;
+        grid-template-columns: 3fr 2fr 2fr 2fr;
+        grid-template-rows: 50px;
+        row-gap: 50px;
+        column-gap: 80px;
+    }
+}

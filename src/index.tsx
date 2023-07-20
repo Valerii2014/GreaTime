@@ -1,10 +1,11 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
-import App from "./components/App/App";
-import "./index.scss";
+import './styles/styles.scss'
 
-const container = document.getElementById("root")!;
-const root = createRoot(container);
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import { Provider } from 'react-redux'
+import App from './components/App/App'
 
-root.render(<App />);
+const container = document.getElementById('root')!
+const root = createRoot(container)
+
+root.render(<App />)

@@ -1,0 +1,102 @@
+.footer {
+    min-height: 410px;
+    margin-top: 150px;
+    background-color: #153e84;
+    &_flex {
+        padding-top: 32px;
+        display: flex;
+        justify-content: space-between;
+        &_info {
+            &_header {
+                margin-bottom: 24px;
+                font-size: 20px;
+                font-weight: 400;
+                color: #fff;
+            }
+            &_list {
+                margin-bottom: 20px;
+                padding: 0;
+                &_item {
+                    margin-top: 5px;
+                    list-style: none;
+                    font-size: 14px;
+                    line-height: 16px;
+                    a {
+                        text-decoration: none;
+                        color: #bdbdbd;
+                    }
+                    address {
+                        margin-left: 3px;
+                        color: #bdbdbd;
+                    }
+                }
+            }
+            &_description {
+                margin-bottom: 16px;
+                width: 216px;
+                display: block;
+                font-size: 14px;
+                font-weight: 400;
+                color: #bdbdbd;
+                a {
+                    text-decoration: none;
+                    color: #ffb745;
+                }
+            }
+        }
+        &_contacts {
+            display: flex;
+            flex-direction: column;
+            &_company-name,
+            &_confidential {
+                font-size: 14px;
+                font-weight: 400;
+            }
+            &_company-name {
+                margin-top: 40px;
+                color: #fff;
+            }
+            &_confidential {
+                margin-top: 8px;
+                a {
+                    color: #fff;
+                    text-decoration: none;
+                }
+            }
+            &_icons {
+                margin-top: 24px;
+                img {
+                    margin-right: 24px;
+                }
+            }
+        }
+    }
+    &_line {
+        margin-top: 10px;
+        height: 2px;
+        width: 100%;
+        background-color: #fff;
+    }
+    &_bottom {
+        margin-top: 32px;
+        display: flex;
+        justify-content: space-between;
+        color: #e0e0e0;
+        font-size: 14px;
+        font-weight: 400;
+
+        &_inn {
+            font-size: 14px;
+            font-weight: 400;
+            span {
+                margin-left: 7px;
+                color: #fff;
+            }
+        }
+    }
+    a {
+        img {
+            transform: translateY(-25%);
+        }
+    }
+}

@@ -1,0 +1,35 @@
+.benefits {
+    margin-top: 100px;
+    &_grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 250px;
+        column-gap: 24px;
+        row-gap: 34px;
+    }
+    &_item {
+        &_img {
+            margin: auto;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 65%;
+            background-color: #4174cb;
+        }
+        &_header {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 400;
+            text-align: center;
+            color: #153e84;
+        }
+        &_description {
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 350;
+            text-align: center;
+        }
+    }
+}

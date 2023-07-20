@@ -126,11 +126,6 @@ const popularPositionsData: ItemDataInterface[] = [
 ]
 
 const PopularPosition = () => {
-    // const onBuildItemsList = (cardsArray: ItemDataInterface[]) => {
-    //     return cardsArray.map((card) => {
-    //         return ItemCard(card)
-    //     })
-    // }
     const [itemDataIndex, setItemDataIndex] = useState(0)
     const [cardsMove, setCardsMove] = useState('next')
 
@@ -179,13 +174,43 @@ const PopularPosition = () => {
         setCardsMove(move)
     }
 
+    const getItemPositions = (dataArray: ItemDataInterface[]) => {
+        let index = (dataArray.length - 1) / 4
+        if ((dataArray.length - 1) % 4 !== 0) index++
+        return index
+    }
+
+    const onBuildItemDots = (data: ItemDataInterface[]) => {
+        const dots = []
+        for (let i = 0; i <= data.length - 1; i = i + 4) {
+            const dot = (
+                <span
+                    key={i}
+                    className={`popular-items_dots_item ${
+                        itemDataIndex === i
+                            ? 'popular-items_dots_item_active'
+                            : null
+                    }`}
+                    onClick={() => {
+                        i > itemDataIndex
+                            ? setCardsMove('next')
+                            : setCardsMove('prev')
+                        setItemDataIndex(i)
+                    }}
+                />
+            )
+            dots.push(dot)
+        }
+        return <div className="popular-items_dots">{dots}</div>
+    }
+
     return (
         <section className="popular-items">
             <div className="container">
                 <h2 className="section-header">Популярные товары</h2>
 
                 <div className="popular-items_wrapper">
-                    <div className="popular-items_cards-wrapper">
+                    <div className="popular-items_wrapper_cards">
                         {onBuildItemsList(popularPositionsData, itemDataIndex)}
                     </div>
                     <div
@@ -206,6 +231,7 @@ const PopularPosition = () => {
                             alt="next"
                         ></img>
                     </div>
+                    {onBuildItemDots(popularPositionsData)}
                 </div>
             </div>
         </section>

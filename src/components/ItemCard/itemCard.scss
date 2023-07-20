@@ -6,7 +6,7 @@
     cursor: pointer;
     transition: all 0.5s;
     &:hover {
-        box-shadow: -10px 5px 15px rgba(33, 33, 33, 0.2);
+        box-shadow: -10px 7px 15px rgba(33, 33, 33, 0.2);
     }
     &_favorite {
         position: absolute;
@@ -33,7 +33,7 @@
     &_rate {
         height: 16px;
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
         &_img {
             margin-right: 5px;
         }
@@ -52,7 +52,7 @@
         &_sale {
             display: flex;
             flex-direction: column;
-            align-items: end;
+            align-items: flex-end;
             color: #e7552c;
             &_before {
                 font-size: 14px;
