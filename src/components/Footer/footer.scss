@@ -1,5 +1,5 @@
 .footer {
-    min-height: 410px;
+    min-height: 395px;
     margin-top: 150px;
     background-color: #153e84;
     &_flex {
@@ -29,6 +29,10 @@
                         margin-left: 3px;
                         color: #bdbdbd;
                     }
+                    &:hover {
+                        text-decoration: underline;
+                        text-decoration-color: #fff;
+                    }
                 }
             }
             &_description {
@@ -41,6 +45,9 @@
                 a {
                     text-decoration: none;
                     color: #ffb745;
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }
@@ -51,6 +58,11 @@
             &_confidential {
                 font-size: 14px;
                 font-weight: 400;
+                a {
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
             }
             &_company-name {
                 margin-top: 40px;

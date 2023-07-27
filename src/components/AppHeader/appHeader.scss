@@ -1,5 +1,6 @@
 .app-header {
-    min-height: 193px;
+    min-height: 203px;
+    box-shadow: 0 5px 5px #00000033;
 }
 .nav {
     max-height: 45px;
@@ -29,6 +30,9 @@
         a {
             text-decoration: none;
             color: #000;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
     &_phone {
@@ -36,6 +40,10 @@
         font-weight: 400;
         font-size: 18px;
         line-height: 21px;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 .company {
@@ -66,11 +74,15 @@
             font-weight: 400;
             font-size: 20px;
             line-height: 23px;
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 }
 .func-panel {
-    margin: 19px 0 15px 0;
+    margin: 19px 0 19px 0;
     min-height: 40px;
     &-wrapper {
         display: flex;
@@ -126,8 +138,40 @@
     input {
         width: 600px;
         border: none;
+        font-size: 24px;
         &:focus {
             outline: none !important;
+        }
+    }
+}
+
+.button_catalog {
+    padding: 0 32px;
+    font-size: 18px;
+    font-weight: 400;
+    &_span-container {
+        margin-right: 15px;
+        width: 14px;
+        display: flex;
+        flex-direction: column;
+        span {
+            margin-bottom: 3px;
+            width: 14px;
+            height: 3px;
+            border-radius: 3px;
+            background-color: #fff;
+            &:nth-child(2) {
+                width: 20px;
+            }
+        }
+    }
+    &:hover {
+        span {
+            transition: all 0.5s;
+            width: 20px;
+            &:nth-child(2) {
+                width: 14px;
+            }
         }
     }
 }

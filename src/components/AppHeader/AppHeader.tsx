@@ -47,7 +47,7 @@ const AppHeader = () => {
                         <h1 className="company_logo">GreaTime</h1>
                         <div className="company_info">
                             <div className="company_info_links">О компании</div>
-                            <div className="company_info_links">Контакті</div>
+                            <div className="company_info_links">Контакты</div>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,14 @@ const AppHeader = () => {
             <div className="func-panel">
                 <div className="container">
                     <div className="func-panel-wrapper">
-                        <button className="button_catalog"></button>
+                        <button className="button_catalog">
+                            <div className="button_catalog_span-container">
+                                <span />
+                                <span />
+                                <span />
+                            </div>
+                            Каталог
+                        </button>
                         <form className="search_form" action="submit">
                             <input type="text" />
                             <button className="button_search-form">

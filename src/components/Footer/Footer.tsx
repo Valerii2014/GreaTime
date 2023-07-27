@@ -142,7 +142,7 @@ const Footer = () => {
                 <div className="footer_bottom">
                     <div className="footer_bottom_company">
                         Интернет-магазин «GreaTime» - спортивные товары по всей
-                        России
+                        Украине
                     </div>
                     <div className="footer_bottom_inn">
                         <span> Инн: </span> 667027205771{' '}

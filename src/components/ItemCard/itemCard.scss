@@ -17,6 +17,15 @@
             scale: 1.05;
         }
     }
+    &_img {
+        width: 250px;
+        height: 250px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+    }
     &_percent-sale {
         width: 38px;
         height: 20px;
@@ -66,9 +75,12 @@
         &_basket {
             width: 32px;
             height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: #4174cb;
             border-radius: 65%;
-            text-align: center;
+
             transition: all 0.3s;
             &:hover {
                 background-color: #233c66;

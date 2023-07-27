@@ -3,7 +3,7 @@ import './styles/styles.scss'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import App from './components/App/App'
+import App from './App/App'
 
 const container = document.getElementById('root')!
 const root = createRoot(container)
