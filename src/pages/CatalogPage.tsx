@@ -1,7 +1,7 @@
 import NavigationSteps from '../components/NavigationStep/NavigationStep'
 import CatalogGrid from '../components/CatalogGrid/CatalogGrid'
 
-const Catalog = () => {
+const CatalogPage = () => {
     return (
         <>
             <NavigationSteps steps={['главная', 'КАТАЛОГ']} />
@@ -10,4 +10,4 @@ const Catalog = () => {
     )
 }
 
-export default Catalog
+export default CatalogPage

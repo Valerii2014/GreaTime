@@ -10,14 +10,14 @@ import Footer from '../components/Footer/Footer'
 const PreviousPage = () => {
     return (
         <>
-            <AppHeader />
             <PromoSlider />
-            <CategoryCards />
-            <PopularPosition />
-            <Benefits />
-            <Connection />
-            <Partners />
-            <Footer />
+            <div className="container">
+                <CategoryCards />
+                <PopularPosition />
+                <Benefits />
+                <Connection />
+                <Partners />
+            </div>
         </>
     )
 }

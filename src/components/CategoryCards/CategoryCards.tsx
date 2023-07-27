@@ -73,11 +73,9 @@ const CatalogCards = () => {
     }
     return (
         <section className="catalog_cards">
-            <div className="container">
-                <h2 className="section-header">Наш асортимент</h2>
-                <div className="catalog_cards_wrapper">
-                    {onBuildCategoryItems(categoryFromDB)}
-                </div>
+            <h2 className="section-header">Наш асортимент</h2>
+            <div className="catalog_cards_wrapper">
+                {onBuildCategoryItems(categoryFromDB)}
             </div>
         </section>
     )

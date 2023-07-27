@@ -2,7 +2,7 @@ import NavigationSteps from '../components/NavigationStep/NavigationStep'
 import CartTable from '../components/CartTable/CartTable'
 import { ItemDataInterface } from '../components/ItemCard/ItemCard'
 
-const ShopCart = () => {
+const ShopCartPage = () => {
     return (
         <>
             <div className="container">
@@ -13,4 +13,4 @@ const ShopCart = () => {
     )
 }
 
-export default ShopCart
+export default ShopCartPage

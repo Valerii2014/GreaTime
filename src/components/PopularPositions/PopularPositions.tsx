@@ -206,33 +206,25 @@ const PopularPosition = () => {
 
     return (
         <section className="popular-items">
-            <div className="container">
-                <h2 className="section-header">Популярные товары</h2>
+            <h2 className="section-header">Популярные товары</h2>
 
-                <div className="popular-items_wrapper">
-                    <div className="popular-items_wrapper_cards">
-                        {onBuildItemsList(popularPositionsData, itemDataIndex)}
-                    </div>
-                    <div
-                        className="popular-items_btns popular-items_btns_prev"
-                        onClick={() => onChangeIndex('prev')}
-                    >
-                        <img
-                            src="./icons/system/arrowWhite.svg"
-                            alt="prev"
-                        ></img>
-                    </div>
-                    <div
-                        className="popular-items_btns popular-items_btns_next"
-                        onClick={() => onChangeIndex('next')}
-                    >
-                        <img
-                            src="./icons/system/arrowWhite.svg"
-                            alt="next"
-                        ></img>
-                    </div>
-                    {onBuildItemDots(popularPositionsData)}
+            <div className="popular-items_wrapper">
+                <div className="popular-items_wrapper_cards">
+                    {onBuildItemsList(popularPositionsData, itemDataIndex)}
                 </div>
+                <div
+                    className="popular-items_btns popular-items_btns_prev"
+                    onClick={() => onChangeIndex('prev')}
+                >
+                    <img src="./icons/system/arrowWhite.svg" alt="prev"></img>
+                </div>
+                <div
+                    className="popular-items_btns popular-items_btns_next"
+                    onClick={() => onChangeIndex('next')}
+                >
+                    <img src="./icons/system/arrowWhite.svg" alt="next"></img>
+                </div>
+                {onBuildItemDots(popularPositionsData)}
             </div>
         </section>
     )
