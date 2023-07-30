@@ -11,8 +11,8 @@ const App = () => {
         <>
             <AppHeader />
             <PreviousPage />
-            {/* <CatalogPage /> */}
-            {/* <ShopCartPage /> */}
+            <CatalogPage />
+            <ShopCartPage />
             <Footer />
         </>
     )

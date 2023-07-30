@@ -1,6 +1,6 @@
 import './promoSlider.scss'
 
-import { useState, useRef, useEffect } from 'react'
+import { useMemo, useState, useRef, useEffect } from 'react'
 
 interface ContentDB {
     src: string
@@ -48,6 +48,7 @@ const sliderContentFromDB: ContentDB[] = [
 
 const PromoSlider = () => {
     const [sliderPosition, setSliderPosition] = useState(0)
+    const [isAnimating, setIsAnimating] = useState(false)
     const sliderRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -60,57 +61,98 @@ const PromoSlider = () => {
         }
     }, [sliderPosition])
 
-    const onSliderDefaultTransition = () => {
-        if (sliderRef.current !== null) {
-            sliderRef.current.style.transition = 'all 1.2s'
-        }
-    }
-
-    const onSliderSlowlyTransition = () => {
-        if (sliderRef.current !== null) {
-            const transitionDuration = 0.4 * sliderContentFromDB.length
-            sliderRef.current.style.transition = `all ${transitionDuration}s`
-        }
-    }
-
-    const onSliderBeginning = () => {
-        setSliderPosition(0)
-        onSliderSlowlyTransition()
-    }
-
-    const onSliderEnd = () => {
-        setSliderPosition(sliderContentFromDB.length - 1)
-        onSliderSlowlyTransition()
-    }
-
-    const onChangeSlide = (move: 'prev' | 'next') => {
-        onSliderDefaultTransition()
+    const onChangeSlide = (move: 'prev' | 'next', choisedPosition?: number) => {
+        if (isAnimating) return
+        setIsAnimating(true)
         if (move === 'next') {
-            const newPosition = sliderPosition + 1
-            if (newPosition >= sliderContentFromDB.length) {
-                onSliderBeginning()
-            } else {
-                setSliderPosition(newPosition)
+            const newPosition = choisedPosition
+                ? choisedPosition
+                : sliderPosition + 1 >= sliderContentFromDB.length
+                ? 0
+                : sliderPosition + 1
+
+            const children = sliderRef.current?.children
+
+            if (children instanceof HTMLCollection) {
+                const hidingElement = children[sliderPosition] as HTMLElement
+                const showingElement = children[newPosition] as HTMLElement
+                if (hidingElement && showingElement) {
+                    for (let i = 0; i < children.length; i++) {
+                        const hidingElement = children[i] as HTMLElement
+                        hidingElement.classList.remove(
+                            'showSlideRight',
+                            'hideSlideLeft',
+                            'hideSlideRight',
+                            'showSlideLeft'
+                        )
+                        hidingElement.classList.add('hide')
+                    }
+                    showingElement.classList.remove('hide')
+                    hidingElement.classList.remove('hide')
+                    showingElement.classList.add('hideSlideLeft')
+                    hidingElement.classList.add('showSlideRight')
+                    setSliderPosition(
+                        (sliderPosition) => (sliderPosition = newPosition)
+                    )
+                }
             }
         } else if (move === 'prev') {
-            const newPosition = sliderPosition - 1
-            if (newPosition < 0) {
-                onSliderEnd()
-            } else {
-                setSliderPosition(newPosition)
+            const newPosition =
+                typeof choisedPosition === 'number'
+                    ? choisedPosition
+                    : sliderPosition - 1 < 0
+                    ? sliderContentFromDB.length - 1
+                    : sliderPosition - 1
+
+            const children = sliderRef.current?.children
+
+            if (children instanceof HTMLCollection) {
+                const hidingElement = children[sliderPosition] as HTMLElement
+                const showingElement = children[newPosition] as HTMLElement
+                if (hidingElement && showingElement) {
+                    for (let i = 0; i < children.length; i++) {
+                        const hidingElement = children[i] as HTMLElement
+                        hidingElement.classList.remove(
+                            'showSlideRight',
+                            'hideSlideLeft',
+                            'hideSlideRight',
+                            'showSlideLeft'
+                        )
+                        hidingElement.classList.add('hide')
+                    }
+                    showingElement.classList.remove('hide')
+                    hidingElement.classList.remove('hide')
+                    showingElement.classList.add('hideSlideRight')
+                    hidingElement.classList.add('showSlideLeft')
+                    setSliderPosition(
+                        (sliderPosition) => (sliderPosition = newPosition)
+                    )
+                }
             }
         }
+
+        setTimeout(() => setIsAnimating(false), 900)
     }
 
     const onBuildSliderImage = (data: ContentDB[]) => {
-        return data.map((slide) => {
-            const { src, alt, id } = slide
-            return (
-                <div key={id} className="slider_img">
-                    <img src={src} alt={alt} />
-                </div>
-            )
+        const slides = data.map((slide) => {
+            const { src, alt } = slide
+            return <img src={src} alt={alt} />
         })
+        return (
+            <div ref={sliderRef}>
+                {slides.map((slide, index) => (
+                    <div
+                        className={`slider_images_image ${
+                            index === sliderPosition ? '' : 'hide'
+                        }`}
+                        key={index}
+                    >
+                        {slide}
+                    </div>
+                ))}
+            </div>
+        )
     }
 
     const onBuildSliderDots = (data: ContentDB[]) => {
@@ -125,29 +167,29 @@ const PromoSlider = () => {
                                     ? 'slider_dots_item_active'
                                     : null
                             }`}
-                            onClick={() => setSliderPosition(num)}
+                            onClick={() => {
+                                if (num > sliderPosition)
+                                    onChangeSlide('next', num)
+                                else if (num < sliderPosition)
+                                    onChangeSlide('prev', num)
+                                else return
+                            }}
                         ></span>
                     )
                 })}
             </div>
         )
     }
-
+    const sliderImages = useMemo(
+        () => onBuildSliderImage(sliderContentFromDB),
+        [sliderContentFromDB]
+    )
     return (
         <section className="slider">
             <div className="container">
                 <div className="slider_wrapper">
-                    <div
-                        className="slider_images"
-                        ref={sliderRef}
-                        style={{
-                            transform: `translateX(-${
-                                sliderPosition * 1190
-                            }px)`,
-                        }}
-                    >
-                        {onBuildSliderImage(sliderContentFromDB)}
-                    </div>
+                    <div className="slider_images">{sliderImages}</div>
+
                     <div className="slider_btn">
                         <div
                             className="slider_btn_prev"
