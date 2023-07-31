@@ -11,17 +11,15 @@
         position: relative;
         display: flex;
         transition: all 0.8s;
-        &_image {
-            position: absolute;
-            width: 1190px;
-            height: 400px;
-            padding-right: 10px;
-            img {
-                object-fit: cover;
-            }
+    }
+    &_img {
+        width: 1190px;
+        height: 400px;
+        padding-right: 10px;
+        &img {
+            object-fit: cover;
         }
     }
-
     &_btn {
         width: 113px;
         height: 48px;
@@ -30,7 +28,6 @@
         bottom: 25px;
         right: 40px;
         justify-content: space-between;
-        z-index: 200;
         &_prev,
         &_next {
             width: 48px;
@@ -86,53 +83,19 @@
     }
 }
 
-.hide {
-    display: none;
+.fade-enter {
+    opacity: 0;
+    transform: translateX(-100%);
 }
-.showSlideLeft {
-    animation: showSlideLeft 1s ease-out 1;
+.fade-enter-active {
+    opacity: 1;
+    transform: translateX(0%);
 }
-.hideSlideLeft {
-    animation: hideSlideLeft 1s ease-out 1;
+.fade-exit {
+    opacity: 1;
+    transform: translateX(0%);
 }
-
-.showSlideRight {
-    animation: showSlideRight 1s ease-out 1;
-}
-.hideSlideRight {
-    animation: hideSlideRight 1s ease-out 1;
-}
-
-@keyframes showSlideLeft {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0%);
-    }
-}
-@keyframes hideSlideLeft {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-100%);
-    }
-}
-
-@keyframes showSlideRight {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0%);
-    }
-}
-@keyframes hideSlideRight {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(100%);
-    }
+.fade-exit-active {
+    opacity: 0;
+    transform: translateX(100%);
 }
