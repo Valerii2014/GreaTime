@@ -76,7 +76,7 @@ const PromoSlider = () => {
         isAnimating,
         setIsAnimating,
         sliderContentFromDB.length,
-        900
+        animationTimeMilliseconds
     )
 
     const onBuildSliderImage = (data: ContentDB[]) => {
@@ -85,7 +85,7 @@ const PromoSlider = () => {
             return <img key={index} src={src} alt={alt} />
         })
         return (
-            <div ref={sliderRef}>
+            <div className="slider_images" ref={sliderRef}>
                 {slides.map((slide, index) => (
                     <div
                         className={`slider_images_image ${
@@ -133,7 +133,7 @@ const PromoSlider = () => {
         <section className="slider">
             <div className="container">
                 <div className="slider_wrapper">
-                    <div className="slider_images">{sliderImages}</div>
+                    {sliderImages}
 
                     <div className="slider_btn">
                         <div

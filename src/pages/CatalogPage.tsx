@@ -1,11 +1,11 @@
 import NavigationSteps from '../components/NavigationStep/NavigationStep'
-import CatalogGrid from '../components/CatalogGrid/CatalogGrid'
+import Catalog from '../components/Catalog/Catalog'
 
 const CatalogPage = () => {
     return (
         <>
             <NavigationSteps steps={['главная', 'КАТАЛОГ']} />
-            <CatalogGrid />
+            <Catalog />
         </>
     )
 }

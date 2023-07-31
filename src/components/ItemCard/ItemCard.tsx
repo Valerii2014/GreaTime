@@ -14,7 +14,7 @@ export interface ItemDataInterface {
     prevPrice?: number
 }
 
-const ItemCard = (itemData: ItemDataInterface, key: number) => {
+const ItemCard = (itemData: ItemDataInterface, key: number | string) => {
     const { img, rate, name, price, prevPrice } = itemData
 
     const onTransformName = (itemName: string): string => {

@@ -1,7 +1,8 @@
 import './popularPositions.scss'
 
+import { useState, useRef, useEffect, useMemo, Fragment } from 'react'
 import { ItemCard, ItemDataInterface } from '../ItemCard/ItemCard'
-import { useState } from 'react'
+import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
 
 const popularPositionsData: ItemDataInterface[] = [
     {
@@ -126,105 +127,127 @@ const popularPositionsData: ItemDataInterface[] = [
 ]
 
 const PopularPosition = () => {
-    const [itemDataIndex, setItemDataIndex] = useState(0)
-    const [cardsMove, setCardsMove] = useState('next')
+    const animationTimeMilliseconds = 900
+    const [sliderPosition, setSliderPosition] = useState(0)
+    const [isAnimating, setIsAnimating] = useState(false)
+    const sliderRef = useRef<HTMLDivElement>(null)
 
-    const onBuildItemsList = (
-        cardsArray: ItemDataInterface[],
-        itemDataIndex: number
-    ) => {
-        const content = []
-        const moveClass =
-            cardsMove === 'prev' ? 'cards cards_left' : 'cards cards_right'
-        for (let cardNum = 0; cardNum < 4; cardNum++) {
-            const cardIndex = cardNum + itemDataIndex
-            if (cardIndex >= cardsArray.length) break
+    useEffect(() => {
+        const sliderChangeInterval = setInterval(() => {
+            if (isAnimating) {
+                setTimeout(
+                    () => onChangeSlide('next'),
+                    animationTimeMilliseconds
+                )
+            }
+            onChangeSlide('next')
+        }, 4000)
 
-            const cardData: ItemDataInterface = cardsArray[cardIndex]
-            content.push(ItemCard(cardData, cardIndex))
+        return () => {
+            clearInterval(sliderChangeInterval)
         }
+    }, [isAnimating])
+
+    const onBuildSliderImage = (cardsArray: ItemDataInterface[]) => {
+        const allSliderImages: JSX.Element[] = []
+        let sliderImage: JSX.Element[] = []
+        cardsArray.forEach((card, index) => {
+            sliderImage.push(<>{ItemCard(card, card.name)}</>)
+            if ((index + 1) % 4 === 0) {
+                allSliderImages.push(
+                    <div className="cards" key={allSliderImages.length}>
+                        {sliderImage}
+                    </div>
+                )
+                sliderImage = []
+            } else if (index + 1 === cardsArray.length) {
+                allSliderImages.push(
+                    <Fragment key={index}>{sliderImage}</Fragment>
+                )
+            }
+        })
+        return allSliderImages
+    }
+    const Images = onBuildSliderImage(popularPositionsData)
+
+    const sliderImages = (Images: JSX.Element[]) => {
         return (
-            <div key={itemDataIndex} className={moveClass}>
-                {content}
+            <div className="popular-items_wrapper_cards" ref={sliderRef}>
+                {Images.map((image, index) => {
+                    return (
+                        <div
+                            className={`cards ${
+                                index === sliderPosition ? '' : 'hide'
+                            }`}
+                            key={index}
+                        >
+                            {image}
+                        </div>
+                    )
+                })}
             </div>
         )
     }
 
-    const onChangeIndex = (move: 'prev' | 'next') => {
-        if (move === 'next') {
-            const newIndex = itemDataIndex + 4
-            if (newIndex >= popularPositionsData.length) {
-                setItemDataIndex(0)
-            } else {
-                setItemDataIndex(newIndex)
-            }
-        } else if (move === 'prev') {
-            const newIndex = itemDataIndex - 4
-            if (newIndex < 0) {
-                const remainder = popularPositionsData.length % 4
-                if (remainder === 0) {
-                    setItemDataIndex(popularPositionsData.length - 4)
-                } else {
-                    setItemDataIndex(popularPositionsData.length - remainder)
-                }
-            } else {
-                setItemDataIndex(newIndex)
-            }
-        }
-        setCardsMove(move)
+    const onChangeSlide = changeSlideFunctionCreator(
+        sliderRef,
+        sliderPosition,
+        setSliderPosition,
+        isAnimating,
+        setIsAnimating,
+        Images.length,
+        animationTimeMilliseconds
+    )
+
+    const onBuildItemDots = (Images: JSX.Element[]) => {
+        return (
+            <div className="popular-items_dots">
+                {Images.map((slide, index) => {
+                    return (
+                        <span
+                            key={index}
+                            className={`popular-items_dots_item ${
+                                sliderPosition === index
+                                    ? 'popular-items_dots_item_active'
+                                    : ''
+                            }`}
+                            onClick={() => {
+                                index > sliderPosition
+                                    ? onChangeSlide('next', index)
+                                    : onChangeSlide('prev', index)
+                            }}
+                        ></span>
+                    )
+                })}
+            </div>
+        )
     }
 
-    const getItemPositions = (dataArray: ItemDataInterface[]) => {
-        let index = (dataArray.length - 1) / 4
-        if ((dataArray.length - 1) % 4 !== 0) index++
-        return index
-    }
-
-    const onBuildItemDots = (data: ItemDataInterface[]) => {
-        const dots = []
-        for (let i = 0; i <= data.length - 1; i = i + 4) {
-            const dot = (
-                <span
-                    key={i}
-                    className={`popular-items_dots_item ${
-                        itemDataIndex === i
-                            ? 'popular-items_dots_item_active'
-                            : null
-                    }`}
-                    onClick={() => {
-                        i > itemDataIndex
-                            ? setCardsMove('next')
-                            : setCardsMove('prev')
-                        setItemDataIndex(i)
-                    }}
-                />
-            )
-            dots.push(dot)
-        }
-        return <div className="popular-items_dots">{dots}</div>
-    }
+    const sliderContent = useMemo(
+        () => sliderImages(Images),
+        [popularPositionsData]
+    )
+    const sliderDots = onBuildItemDots(Images)
 
     return (
         <section className="popular-items">
             <h2 className="section-header">Популярные товары</h2>
 
             <div className="popular-items_wrapper">
-                <div className="popular-items_wrapper_cards">
-                    {onBuildItemsList(popularPositionsData, itemDataIndex)}
-                </div>
+                {sliderContent}
                 <div
                     className="popular-items_btns popular-items_btns_prev"
-                    onClick={() => onChangeIndex('prev')}
+                    onClick={() => onChangeSlide('prev')}
                 >
                     <img src="./icons/system/arrowWhite.svg" alt="prev"></img>
                 </div>
                 <div
                     className="popular-items_btns popular-items_btns_next"
-                    onClick={() => onChangeIndex('next')}
+                    onClick={() => onChangeSlide('next')}
                 >
                     <img src="./icons/system/arrowWhite.svg" alt="next"></img>
                 </div>
-                {onBuildItemDots(popularPositionsData)}
+                {sliderDots}
             </div>
         </section>
     )

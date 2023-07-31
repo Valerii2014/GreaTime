@@ -3,6 +3,7 @@
 * {
     margin: 0;
     box-sizing: border-box;
+    cursor: default;
 }
 
 body {
@@ -16,11 +17,6 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
-}
-
-.container {
-    width: 1180px;
-    margin: auto;
 }
 button {
     display: flex;
@@ -38,7 +34,26 @@ button {
     }
 }
 
+a {
+    cursor: pointer;
+    * {
+        cursor: pointer;
+    }
+}
+
+input {
+    cursor: text;
+}
+
+.container {
+    width: 1180px;
+    margin: auto;
+}
+
 .button {
+    * {
+        cursor: pointer;
+    }
     &_search-form {
         padding: 7px 32px;
         gap: 10px;

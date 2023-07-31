@@ -1,4 +1,4 @@
-import './catalogGrid.scss'
+import './catalog.scss'
 
 import { useState } from 'react'
 import { ItemDataInterface } from '../ItemCard/ItemCard'
@@ -535,7 +535,7 @@ const catalogItems: categoriesItem[] = [
     },
 ]
 
-const CatalogGrid = () => {
+const Catalog = () => {
     const [visiblitySubcategories, setVisiblitySubcategories] = useState([''])
     const [activeCategories, setActiveCategories] = useState([''])
 
@@ -689,7 +689,7 @@ const CatalogGrid = () => {
     return (
         <div className="catalog">
             <div className="container">
-                <div className="catalog_grid">
+                <div className="catalog_wrapper">
                     <div className="catalog_categories_catalog">Каталог</div>
                     <div className="catalog_categories_choice">Мячи</div>
                     {onBuildCategories(catalogItems)}
@@ -702,4 +702,4 @@ const CatalogGrid = () => {
     )
 }
 
-export default CatalogGrid
+export default Catalog
