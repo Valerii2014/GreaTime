@@ -1,14 +1,26 @@
-.popular-items {
+.popular-positions-slider {
+    height: 424px;
     padding: 40px 0 36px 0;
     &_wrapper {
         position: relative;
-        margin: 32px auto 0 auto;
-        width: 1120px;
-        &_cards {
-            width: 1120px;
-            padding: 0 20px 15px 20px;
-            border-radius: 10px;
-            overflow: hidden;
+        overflow: hidden;
+    }
+    &_images {
+        height: 400px;
+        position: relative;
+        display: flex;
+        transition: all 0.8s;
+        &_image {
+            position: absolute;
+            display: grid;
+            grid-template-columns: repeat(4, 250px);
+            column-gap: 20px;
+            width: 1190px;
+            height: 400px;
+            padding-right: 10px;
+            &[visibility='hide'] {
+                display: none;
+            }
         }
     }
     &_btns {
@@ -68,37 +80,5 @@
                 scale: 2;
             }
         }
-    }
-}
-.cards {
-    position: relative;
-    margin: 32px auto 0 auto;
-    width: 1080px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 20px;
-    &_left {
-        animation: 0.7s linear show-left;
-    }
-    &_right {
-        animation: 0.7s linear show-right;
-    }
-}
-
-@keyframes show-left {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0%);
-    }
-}
-
-@keyframes show-right {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0%);
     }
 }

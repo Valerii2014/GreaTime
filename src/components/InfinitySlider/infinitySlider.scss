@@ -23,17 +23,11 @@
     }
 
     &_btn {
-        width: 113px;
-        height: 48px;
-        display: flex;
-        position: absolute;
-        bottom: 25px;
-        right: 40px;
-        justify-content: space-between;
-        z-index: 200;
         &_prev,
         &_next {
+            position: absolute;
             width: 48px;
+            height: 48px;
             border-radius: 60%;
             background-color: #fff;
             text-align: center;
@@ -48,6 +42,8 @@
             }
         }
         &_next {
+            bottom: 25px;
+            right: 40px;
             img {
                 top: 50%;
                 right: 12px;
@@ -55,6 +51,8 @@
             }
         }
         &_prev {
+            bottom: 25px;
+            right: 105px;
             img {
                 top: 50%;
                 left: 12px;
@@ -86,20 +84,22 @@
     }
 }
 
-.hide {
+[visibility='hide'] {
     display: none;
 }
-.showSlideLeft {
+[visibility='showSlideLeft'] {
+    z-index: 300;
     animation: showSlideLeft 1s ease-out 1;
 }
-.hideSlideLeft {
+[visibility='hideSlideLeft'] {
     animation: hideSlideLeft 1s ease-out 1;
 }
 
-.showSlideRight {
+[visibility='showSlideRight'] {
+    z-index: 300;
     animation: showSlideRight 1s ease-out 1;
 }
-.hideSlideRight {
+[visibility='hideSlideRight'] {
     animation: hideSlideRight 1s ease-out 1;
 }
 
