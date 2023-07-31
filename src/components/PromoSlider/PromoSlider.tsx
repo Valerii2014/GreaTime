@@ -1,6 +1,7 @@
 import './promoSlider.scss'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
+import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
 
 interface ContentDB {
     src: string
@@ -15,12 +16,12 @@ const sliderContentFromDB: ContentDB[] = [
         id: 3248745,
     },
     {
-        src: './contentDB/imgs/sliderContent/slide1.jpg',
+        src: './contentDB/imgs/sliderContent/slide2.jpg',
         alt: 'fdsfsdf',
         id: 324397705,
     },
     {
-        src: './contentDB/imgs/sliderContent/slide1.jpg',
+        src: './contentDB/imgs/sliderContent/slide3.jpg',
         alt: 'fdsfsdf',
         id: 3243256645,
     },
@@ -30,87 +31,73 @@ const sliderContentFromDB: ContentDB[] = [
         id: 3243745532,
     },
     {
-        src: './contentDB/imgs/sliderContent/slide1.jpg',
+        src: './contentDB/imgs/sliderContent/slide2.jpg',
         alt: 'fdsfsdf',
         id: 3243033534,
     },
     {
-        src: './contentDB/imgs/sliderContent/slide1.jpg',
+        src: './contentDB/imgs/sliderContent/slide3.jpg',
         alt: 'fdsfsdf',
         id: 3243743332,
     },
     {
-        src: './contentDB/imgs/sliderContent/slide1.jpg',
+        src: './contentDB/imgs/sliderContent/slide2.jpg',
         alt: 'fdsfsdf',
         id: 32430334,
     },
 ]
 
 const PromoSlider = () => {
+    const animationTimeMilliseconds = 900
     const [sliderPosition, setSliderPosition] = useState(0)
+    const [isAnimating, setIsAnimating] = useState(false)
     const sliderRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const sliderChangeInterval = setInterval(() => {
+            if (isAnimating) {
+                setTimeout(
+                    () => onChangeSlide('next'),
+                    animationTimeMilliseconds
+                )
+            }
             onChangeSlide('next')
         }, 4000)
 
         return () => {
             clearInterval(sliderChangeInterval)
         }
-    }, [sliderPosition])
+    }, [isAnimating])
 
-    const onSliderDefaultTransition = () => {
-        if (sliderRef.current !== null) {
-            sliderRef.current.style.transition = 'all 1.2s'
-        }
-    }
-
-    const onSliderSlowlyTransition = () => {
-        if (sliderRef.current !== null) {
-            const transitionDuration = 0.4 * sliderContentFromDB.length
-            sliderRef.current.style.transition = `all ${transitionDuration}s`
-        }
-    }
-
-    const onSliderBeginning = () => {
-        setSliderPosition(0)
-        onSliderSlowlyTransition()
-    }
-
-    const onSliderEnd = () => {
-        setSliderPosition(sliderContentFromDB.length - 1)
-        onSliderSlowlyTransition()
-    }
-
-    const onChangeSlide = (move: 'prev' | 'next') => {
-        onSliderDefaultTransition()
-        if (move === 'next') {
-            const newPosition = sliderPosition + 1
-            if (newPosition >= sliderContentFromDB.length) {
-                onSliderBeginning()
-            } else {
-                setSliderPosition(newPosition)
-            }
-        } else if (move === 'prev') {
-            const newPosition = sliderPosition - 1
-            if (newPosition < 0) {
-                onSliderEnd()
-            } else {
-                setSliderPosition(newPosition)
-            }
-        }
-    }
+    const onChangeSlide = changeSlideFunctionCreator(
+        sliderRef,
+        sliderPosition,
+        setSliderPosition,
+        isAnimating,
+        setIsAnimating,
+        sliderContentFromDB.length,
+        900
+    )
 
     const onBuildSliderImage = (data: ContentDB[]) => {
-        return data.map((slide) => {
-            const { src, alt, id } = slide
-            return (
-                <div key={id} className="slider_img">
-                    <img src={src} alt={alt} />
-                </div>
-            )
+        const slides = data.map((slide, index) => {
+            const { src, alt } = slide
+            return <img key={index} src={src} alt={alt} />
         })
+        return (
+            <div ref={sliderRef}>
+                {slides.map((slide, index) => (
+                    <div
+                        className={`slider_images_image ${
+                            index === sliderPosition ? '' : 'hide'
+                        }`}
+                        key={index}
+                    >
+                        {slide}
+                    </div>
+                ))}
+            </div>
+        )
     }
 
     const onBuildSliderDots = (data: ContentDB[]) => {
@@ -125,29 +112,29 @@ const PromoSlider = () => {
                                     ? 'slider_dots_item_active'
                                     : null
                             }`}
-                            onClick={() => setSliderPosition(num)}
+                            onClick={() => {
+                                if (num > sliderPosition)
+                                    onChangeSlide('next', num)
+                                else if (num < sliderPosition)
+                                    onChangeSlide('prev', num)
+                                else return
+                            }}
                         ></span>
                     )
                 })}
             </div>
         )
     }
-
+    const sliderImages = useMemo(
+        () => onBuildSliderImage(sliderContentFromDB),
+        [sliderContentFromDB]
+    )
     return (
         <section className="slider">
             <div className="container">
                 <div className="slider_wrapper">
-                    <div
-                        className="slider_images"
-                        ref={sliderRef}
-                        style={{
-                            transform: `translateX(-${
-                                sliderPosition * 1190
-                            }px)`,
-                        }}
-                    >
-                        {onBuildSliderImage(sliderContentFromDB)}
-                    </div>
+                    <div className="slider_images">{sliderImages}</div>
+
                     <div className="slider_btn">
                         <div
                             className="slider_btn_prev"

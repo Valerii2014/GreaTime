@@ -11,15 +11,22 @@
         position: relative;
         display: flex;
         transition: all 0.8s;
-    }
-    &_img {
-        width: 1190px;
-        height: 400px;
-        padding-right: 10px;
-        &img {
-            object-fit: cover;
+        &_image {
+            position: absolute;
+            width: 1190px;
+            height: 400px;
+            padding-right: 10px;
+            img {
+                width: 100%;
+                object-fit: fill;
+            }
+            &.showSlideLeft,
+            &.showSlideRight {
+                z-index: 100;
+            }
         }
     }
+
     &_btn {
         width: 113px;
         height: 48px;
@@ -28,6 +35,7 @@
         bottom: 25px;
         right: 40px;
         justify-content: space-between;
+        z-index: 200;
         &_prev,
         &_next {
             width: 48px;
@@ -63,6 +71,7 @@
         left: 30px;
         bottom: 36px;
         position: absolute;
+        z-index: 200;
         display: flex;
         &_item {
             height: 6px;
@@ -83,19 +92,55 @@
     }
 }
 
-.fade-enter {
-    opacity: 0;
-    transform: translateX(-100%);
+.hide {
+    display: none;
 }
-.fade-enter-active {
-    opacity: 1;
-    transform: translateX(0%);
+.showSlideLeft {
+    animation: showSlideLeft 1s ease-out 1;
 }
-.fade-exit {
-    opacity: 1;
-    transform: translateX(0%);
+.hideSlideLeft {
+    z-index: 0;
+    animation: hideSlideLeft 1s ease-out 1;
 }
-.fade-exit-active {
-    opacity: 0;
-    transform: translateX(100%);
+
+.showSlideRight {
+    animation: showSlideRight 1s ease-out 1;
+}
+.hideSlideRight {
+    z-index: 0;
+    animation: hideSlideRight 1s ease-out 1;
+}
+
+@keyframes showSlideLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+@keyframes hideSlideLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes showSlideRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+@keyframes hideSlideRight {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
 }
