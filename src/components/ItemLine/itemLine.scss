@@ -7,6 +7,15 @@
     border-bottom: 1px solid #b4b4b4;
     justify-content: space-between;
     align-items: center;
+    &-line {
+        padding-right: 12px;
+        .buy-card_functional {
+            width: 40%;
+        }
+        .buy-card_functional_price_summary {
+            width: 120px;
+        }
+    }
     &_info {
         display: flex;
         img {

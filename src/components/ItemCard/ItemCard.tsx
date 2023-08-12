@@ -1,34 +1,15 @@
 import './itemCard.scss'
+import { Position } from '../../store/appSlice/positionsSlice'
+import { ReactEventHandler } from 'react'
+import { onTransformName } from '../../utils/stringTransformer'
+import getItemPercentSale from '../../utils/getPercentSale'
 
-type ItemDataRate = 1 | 2 | 3 | 4 | 5
+const ItemCard = (itemData: Position) => {
+    const { imgs, rate, name, price, prevPrice, _id } = itemData
+    const img = imgs[0]
 
-interface ItemDataImg {
-    src: string
-    alt: string
-}
-export interface ItemDataInterface {
-    name: string
-    img: ItemDataImg
-    rate: ItemDataRate
-    price: number
-    prevPrice?: number
-}
-
-const ItemCard = (itemData: ItemDataInterface, key: number) => {
-    const { img, rate, name, price, prevPrice } = itemData
-
-    const onTransformName = (itemName: string): string => {
-        if (itemName.length >= 55) {
-            return `${itemName.slice(0, 55)}...`
-        }
-        return itemName
-    }
-
-    const getItemPercentSale = (price: number, prevPrice: number): number => {
-        if (prevPrice) {
-            return Math.floor((prevPrice - price) / (prevPrice / 100))
-        }
-        return NaN
+    const handleImageError: ReactEventHandler<HTMLImageElement> = (event) => {
+        event.currentTarget.src = './icons/noImage.jpg'
     }
 
     const getRateStars = (rate: number) => {
@@ -72,10 +53,10 @@ const ItemCard = (itemData: ItemDataInterface, key: number) => {
         }
     }
     return (
-        <div className="item-card" key={key}>
+        <div className="item-card" key={_id}>
             {prevPrice ? (
                 <div className="item-card_percent-sale">
-                    {getItemPercentSale(price, prevPrice)}%
+                    {getItemPercentSale(itemData)}%
                 </div>
             ) : null}
             <img
@@ -84,7 +65,7 @@ const ItemCard = (itemData: ItemDataInterface, key: number) => {
                 className="item-card_favorite"
             />
             <div className="item-card_img">
-                <img src={img.src} alt={img.alt} />
+                <img src={img} onError={handleImageError} alt={name} />
             </div>
             <div className="item-card_rate">{getRateStars(rate)}</div>
             <h4 className="item-card_name">{onTransformName(name)}</h4>

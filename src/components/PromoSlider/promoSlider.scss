@@ -3,11 +3,12 @@
     padding-top: 27px;
     background-color: #fff;
     &_wrapper {
+        height: 400px;
         position: relative;
         overflow: hidden;
     }
     &_images {
-        height: 400px;
+        height: 100%;
         position: relative;
         display: flex;
         transition: all 0.8s;
@@ -17,7 +18,12 @@
             height: 400px;
             padding-right: 10px;
             img {
-                object-fit: cover;
+                width: 100%;
+                object-fit: fill;
+            }
+            &.showSlideLeft,
+            &.showSlideRight {
+                z-index: 100;
             }
         }
     }
@@ -66,6 +72,7 @@
         left: 30px;
         bottom: 36px;
         position: absolute;
+        z-index: 200;
         display: flex;
         &_item {
             height: 6px;
@@ -93,6 +100,7 @@
     animation: showSlideLeft 1s ease-out 1;
 }
 .hideSlideLeft {
+    z-index: 0;
     animation: hideSlideLeft 1s ease-out 1;
 }
 
@@ -100,6 +108,7 @@
     animation: showSlideRight 1s ease-out 1;
 }
 .hideSlideRight {
+    z-index: 0;
     animation: hideSlideRight 1s ease-out 1;
 }
 

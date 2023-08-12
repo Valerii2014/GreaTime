@@ -5,7 +5,9 @@
         margin: 32px auto 0 auto;
         width: 1120px;
         &_cards {
+            position: relative;
             width: 1120px;
+            height: 424px;
             padding: 0 20px 15px 20px;
             border-radius: 10px;
             overflow: hidden;
@@ -20,6 +22,7 @@
         align-items: center;
         border-radius: 65%;
         background-color: #4174cb;
+        z-index: 200;
         cursor: pointer;
         transition: all 0.3s;
 
@@ -71,34 +74,21 @@
     }
 }
 .cards {
-    position: relative;
-    margin: 32px auto 0 auto;
+    position: absolute;
+    top: 0px;
     width: 1080px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
-    &_left {
-        animation: 0.7s linear show-left;
+    &.hide {
+        display: none;
     }
-    &_right {
-        animation: 0.7s linear show-right;
+    &.showSlideRight,
+    &.showSlideLeft {
+        z-index: 100;
     }
-}
-
-@keyframes show-left {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0%);
-    }
-}
-
-@keyframes show-right {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0%);
+    &.hideSlideRight,
+    &.hideSlideLeft {
+        z-index: 0;
     }
 }

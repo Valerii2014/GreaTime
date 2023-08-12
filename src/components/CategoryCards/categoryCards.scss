@@ -1,25 +1,28 @@
 .catalog_cards {
-    min-height: 560px;
     margin-top: 90px;
     &_wrapper {
         margin-top: 48px;
-        display: grid;
-        grid-template-columns: repeat(5, 220px);
-        grid-template-rows: repeat(2, 220px);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
         gap: 20px;
-        grid-auto-flow: row;
     }
 }
 .catalog_card {
-    width: 100%;
-    height: 100%;
+    width: 220px;
+    height: 220px;
     position: relative;
+    display: flex;
+    justify-content: center;
     border-radius: 3%;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.5s;
     &:hover {
         scale: 1.05;
+    }
+    &_img {
+        height: 100%;
     }
     &_name {
         height: 21.5%;
@@ -43,4 +46,17 @@
         background-color: #4174cb;
         opacity: 0.6;
     }
+    &_loading {
+        background-color: rgb(205, 205, 205);
+        cursor: default;
+        &:hover {
+            scale: none;
+        }
+    }
+}
+.error {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 24px;
+    color: #fd6c6c;
 }

@@ -17,11 +17,6 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
-
-.container {
-    width: 1180px;
-    margin: auto;
-}
 button {
     display: flex;
     flex-direction: row;
@@ -38,7 +33,26 @@ button {
     }
 }
 
+a {
+    cursor: pointer;
+    * {
+        cursor: pointer;
+    }
+}
+
+input {
+    cursor: text;
+}
+
+.container {
+    width: 1180px;
+    margin: auto;
+}
+
 .button {
+    * {
+        cursor: pointer;
+    }
     &_search-form {
         padding: 7px 32px;
         gap: 10px;
@@ -62,6 +76,24 @@ button {
             &_bottom {
                 margin-left: 20px;
             }
+        }
+    }
+    &_sort {
+        width: 103px;
+    }
+    &_quantity {
+        width: 86px;
+    }
+    &_card-line {
+        width: 120px;
+        height: 35px;
+    }
+    &_sort,
+    &_quantity {
+        height: 100%;
+        cursor: default;
+        &:hover {
+            background-color: #4174cb;
         }
     }
 }
