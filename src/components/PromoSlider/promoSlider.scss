@@ -3,11 +3,12 @@
     padding-top: 27px;
     background-color: #fff;
     &_wrapper {
+        height: 400px;
         position: relative;
         overflow: hidden;
     }
     &_images {
-        height: 400px;
+        height: 100%;
         position: relative;
         display: flex;
         transition: all 0.8s;

@@ -1,84 +1,64 @@
 import './categoryCards.scss'
+import { useState, useCallback, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useGetAllCategoriesQuery } from '../../services/categoriesApi'
+import { setAllCategories } from '../../store/appSlice/categoriesSlice'
+import { RootState } from '../../store'
+import { categoryDataInterface } from '../../services/categoriesApi'
 
-interface CategoryItem {
-    name: string
-    url: string
-    alt: string
-}
-const categoryFromDB: CategoryItem[] = [
-    {
-        name: 'Обувь',
-        url: './contentDB/imgs/category/category1.jpg',
-        alt: 'ffffdfdfdf',
-    },
-    {
-        name: 'Одежда',
-        url: './contentDB/imgs/category/category2.jpg',
-        alt: 'ffffdfdfdf',
-    },
-    {
-        name: 'Аксессуары',
-        url: './contentDB/imgs/category/category3.jpg',
-        alt: 'ffffdfdfdf',
-    },
-    {
-        name: 'Детям',
-        url: './contentDB/imgs/category/category4.jpg',
-        alt: 'ffffdfdfdf',
-    },
-    {
-        name: 'Красота и здоровье',
-        url: './contentDB/imgs/category/category5.jpg',
-        alt: 'ffffdfdfdf',
-    },
-    {
-        name: 'Спорт',
-        url: './contentDB/imgs/category/category6.jpg',
-        alt: 'ffffdfdfdf',
-    },
-    {
-        name: 'Электроника',
-        url: './contentDB/imgs/category/category7.jpg',
-        alt: 'ffffdfdfdf',
-    },
-    {
-        name: 'Спортивное питание',
-        url: './contentDB/imgs/category/category8.jpg',
-        alt: 'ffffdfdfdf',
-    },
-    {
-        name: 'Автотовары',
-        url: './contentDB/imgs/category/category9.jpg',
-        alt: 'ffffdfdfdf',
-    },
-    {
-        name: 'Концелярия',
-        url: './contentDB/imgs/category/category10.jpg',
-        alt: 'ffffdfdfdf',
-    },
-]
+const CategoryCards = () => {
+    const categories = useSelector(
+        (state: RootState) => state.categories.allCategories
+    )
+    const dispatch = useDispatch()
 
-const CatalogCards = () => {
-    const onBuildCategoryItems = (data: CategoryItem[]) => {
+    const { data, isFetching, isError } = useGetAllCategoriesQuery()
+
+    useEffect(() => {
+        if (data) {
+            // Dispatch the fetched data to update the state in the Redux store.
+            dispatch(setAllCategories(data))
+        }
+    }, [data])
+
+    const onBuildCategoriesItems = (data: categoryDataInterface[]) => {
         return data.map((category, key) => {
-            const { name, url, alt } = category
+            const { name, img } = category
             return (
                 <div className="catalog_card" key={key}>
-                    <img src={url} alt={alt} className="category_card_img" />
+                    <img src={img} alt={name} className="catalog_card_img" />
                     <div className="catalog_card_name">{name}</div>
                     <div className="catalog_card_name_background"></div>
                 </div>
             )
         })
     }
+
+    const onBuildCategoriesLoading = () => {
+        const card = (
+            <div className="catalog_card catalog_card_loading">
+                <div className="catalog_card_name_background"></div>
+            </div>
+        )
+        return [card, card, card, card, card]
+    }
+
     return (
         <section className="catalog_cards">
             <h2 className="section-header">Наш асортимент</h2>
+            {isError ? (
+                <div className="error">Error occurred while fetching data.</div>
+            ) : null}
             <div className="catalog_cards_wrapper">
-                {onBuildCategoryItems(categoryFromDB)}
+                {isFetching && categories.length === 0 ? (
+                    <>{onBuildCategoriesLoading()}</>
+                ) : null}
+                {categories.length !== 0 ? (
+                    <>{onBuildCategoriesItems(categories)}</>
+                ) : null}
             </div>
         </section>
     )
 }
 
-export default CatalogCards
+export { CategoryCards }

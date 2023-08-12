@@ -1,7 +1,7 @@
 import './navigationStep.scss'
 
 import { Fragment } from 'react'
-import onTransformString from '../../utils/stringTransformer'
+import { onTransformString } from '../../utils/stringTransformer'
 
 interface NavigationStepsProps {
     steps: string[] // Укажите, что ожидается массив строк

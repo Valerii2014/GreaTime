@@ -1,0 +1,15 @@
+.positions-grid {
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 32px;
+    row-gap: 44px;
+
+    .item-card {
+        place-self: center center;
+    }
+}
+.positions-line {
+    background-color: #fff;
+}

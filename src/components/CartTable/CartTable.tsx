@@ -1,79 +1,22 @@
 import './cartTable.scss'
 
-import { ItemDataInterface } from '../ItemCard/ItemCard'
+import { Position } from '../../store/appSlice/positionsSlice'
 import BuyCardLine from '../ItemCardLine/BuyCardLine'
 
-interface BuyCardLineProps {
-    positionData: ItemDataInterface // Make sure the prop is correctly defined
-}
-
-const itemData: ItemDataInterface[] = [
-    {
-        name: 'Фитбол, мяч гимнастический, размер 55 см',
-        img: {
-            src: './contentDB/imgs/storeitems/item1.jpg',
-            alt: 'ball popular',
-        },
-        rate: 5,
-        price: 330,
-        prevPrice: 550,
-    },
-    {
-        name: 'Фитбол, мяч гимнастический, размер 55 см',
-        img: {
-            src: './contentDB/imgs/storeitems/item2.jpg',
-            alt: 'ball popular',
-        },
-        rate: 2,
-        price: 300,
-        prevPrice: 450,
-    },
-    {
-        name: 'Фитбол, мяч гимнастический, размер 55 см',
-        img: {
-            src: './contentDB/imgs/storeitems/item4.jpg',
-            alt: 'ball popular',
-        },
-        rate: 3,
-        price: 150,
-        prevPrice: 220,
-    },
-    {
-        name: 'Фитбол, мяч гимнастический, размер 55 см',
-        img: {
-            src: './contentDB/imgs/storeitems/item3.jpg',
-            alt: 'ball popular',
-        },
-        rate: 1,
-        price: 300,
-        prevPrice: 700,
-    },
-    {
-        name: 'Фитбол, мяч гимнастический, размер 55 см',
-        img: {
-            src: './contentDB/imgs/storeitems/item1.jpg',
-            alt: 'ball popular',
-        },
-        rate: 5,
-        price: 330,
-        prevPrice: 550,
-    },
-]
-
 const CartTable = () => {
-    const onBuildCartPositions = () => {
-        return itemData.map((position, i) => {
-            return (
-                <div key={i} className="shop-cart_table_item">
-                    {BuyCardLine(position)}
-                    <div className="shop-cart_table_item_delete">
-                        <div></div>
-                        <div></div>
-                    </div>
-                </div>
-            )
-        })
-    }
+    // const onBuildCartPositions = () => {
+    //     return itemData.map((position, i) => {
+    //         return (
+    //             <div key={i} className="shop-cart_table_item">
+    //                 {BuyCardLine(position)}
+    //                 <div className="shop-cart_table_item_delete">
+    //                     <div></div>
+    //                     <div></div>
+    //                 </div>
+    //             </div>
+    //         )
+    //     })
+    // }
     return (
         <div className="shop-cart">
             <div className="shop-cart_header">
@@ -97,7 +40,7 @@ const CartTable = () => {
                         <span>Итого:</span>
                     </div>
                 </div>
-                {onBuildCartPositions()}
+                {/* {onBuildCartPositions()} */}
             </div>
             <div className="shop-cart_sumary">
                 <div className="shop-cart_sumary_info">

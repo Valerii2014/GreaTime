@@ -3,7 +3,6 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    cursor: default;
 }
 
 body {
@@ -77,6 +76,24 @@ input {
             &_bottom {
                 margin-left: 20px;
             }
+        }
+    }
+    &_sort {
+        width: 103px;
+    }
+    &_quantity {
+        width: 86px;
+    }
+    &_card-line {
+        width: 120px;
+        height: 35px;
+    }
+    &_sort,
+    &_quantity {
+        height: 100%;
+        cursor: default;
+        &:hover {
+            background-color: #4174cb;
         }
     }
 }

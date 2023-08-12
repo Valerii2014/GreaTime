@@ -2,60 +2,34 @@ import './promoSlider.scss'
 
 import { useState, useRef, useEffect, useMemo } from 'react'
 import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
-
-interface ContentDB {
-    src: string
-    alt: string
-    id: number
-}
-
-const sliderContentFromDB: ContentDB[] = [
-    {
-        src: './contentDB/imgs/sliderContent/slide1.jpg',
-        alt: 'fdsfsdf',
-        id: 3248745,
-    },
-    {
-        src: './contentDB/imgs/sliderContent/slide2.jpg',
-        alt: 'fdsfsdf',
-        id: 324397705,
-    },
-    {
-        src: './contentDB/imgs/sliderContent/slide3.jpg',
-        alt: 'fdsfsdf',
-        id: 3243256645,
-    },
-    {
-        src: './contentDB/imgs/sliderContent/slide1.jpg',
-        alt: 'fdsfsdf',
-        id: 3243745532,
-    },
-    {
-        src: './contentDB/imgs/sliderContent/slide2.jpg',
-        alt: 'fdsfsdf',
-        id: 3243033534,
-    },
-    {
-        src: './contentDB/imgs/sliderContent/slide3.jpg',
-        alt: 'fdsfsdf',
-        id: 3243743332,
-    },
-    {
-        src: './contentDB/imgs/sliderContent/slide2.jpg',
-        alt: 'fdsfsdf',
-        id: 32430334,
-    },
-]
+import { useSelector, useDispatch } from 'react-redux'
+import { useGetSliderDataQuery } from '../../services/categoriesApi'
+import { setSliderData } from '../../store/appSlice/categoriesSlice'
+import { SliderData } from '../../services/categoriesApi'
+import { RootState } from '../../store'
+import { Spinner } from '../spinner/Spinner'
 
 const PromoSlider = () => {
+    const sliderImagesData: SliderData = useSelector(
+        (state: RootState) => state.categories.sliderData
+    )
+    const { data, isFetching, isError } = useGetSliderDataQuery()
+    const dispatch = useDispatch()
     const animationTimeMilliseconds = 900
     const [sliderPosition, setSliderPosition] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
     const sliderRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
+        if (data) {
+            // Dispatch the fetched data to update the state in the Redux store.
+            dispatch(setSliderData(data))
+        }
+    }, [data])
+
+    useEffect(() => {
         const sliderChangeInterval = setInterval(() => {
-            if (isAnimating) {
+            if (isAnimating && sliderImagesData.length !== 0) {
                 setTimeout(
                     () => onChangeSlide('next'),
                     animationTimeMilliseconds
@@ -67,19 +41,10 @@ const PromoSlider = () => {
         return () => {
             clearInterval(sliderChangeInterval)
         }
-    }, [isAnimating])
+    }, [isAnimating, data])
 
-    const onChangeSlide = changeSlideFunctionCreator(
-        sliderRef,
-        sliderPosition,
-        setSliderPosition,
-        isAnimating,
-        setIsAnimating,
-        sliderContentFromDB.length,
-        animationTimeMilliseconds
-    )
-
-    const onBuildSliderImage = (data: ContentDB[]) => {
+    const onBuildSliderImage = (data: SliderData) => {
+        if (sliderImagesData.length === 0) return null
         const slides = data.map((slide, index) => {
             const { src, alt } = slide
             return <img key={index} src={src} alt={alt} />
@@ -100,13 +65,14 @@ const PromoSlider = () => {
         )
     }
 
-    const onBuildSliderDots = (data: ContentDB[]) => {
+    const onBuildSliderDots = (data: SliderData) => {
+        if (sliderImagesData.length === 0) return null
         return (
             <div className="slider_dots">
                 {data.map((slide, num) => {
                     return (
                         <span
-                            key={slide.id}
+                            key={slide._id}
                             className={`slider_dots_item ${
                                 num === sliderPosition
                                     ? 'slider_dots_item_active'
@@ -125,16 +91,31 @@ const PromoSlider = () => {
             </div>
         )
     }
-    const sliderImages = useMemo(
-        () => onBuildSliderImage(sliderContentFromDB),
-        [sliderContentFromDB]
+    const onChangeSlide = changeSlideFunctionCreator(
+        sliderRef,
+        sliderPosition,
+        setSliderPosition,
+        isAnimating,
+        setIsAnimating,
+        sliderImagesData.length,
+        animationTimeMilliseconds
     )
+    const SliderImages = useMemo(
+        () => onBuildSliderImage(sliderImagesData),
+        [sliderImagesData]
+    )
+
+    const SliderDots =
+        sliderImagesData.length !== 0
+            ? onBuildSliderDots(sliderImagesData)
+            : null
+    const LoadingSpinner = isFetching ? <Spinner /> : null
     return (
         <section className="slider">
             <div className="container">
                 <div className="slider_wrapper">
-                    {sliderImages}
-
+                    {LoadingSpinner}
+                    {SliderImages}
                     <div className="slider_btn">
                         <div
                             className="slider_btn_prev"
@@ -155,7 +136,7 @@ const PromoSlider = () => {
                             />
                         </div>
                     </div>
-                    {onBuildSliderDots(sliderContentFromDB)}
+                    {SliderDots}
                 </div>
             </div>
         </section>
