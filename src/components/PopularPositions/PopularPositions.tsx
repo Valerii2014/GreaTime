@@ -6,7 +6,6 @@ import { ItemCard } from '../ItemCard/ItemCard'
 import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
 import { Position, PositionsData } from '../../store/appSlice/positionsSlice'
 import { useGetRandomPositionsQuery } from '../../services/positionsApi'
-import { setRandomPositions } from '../../store/appSlice/positionsSlice'
 
 const PopularPosition = () => {
     const dispatch = useDispatch()

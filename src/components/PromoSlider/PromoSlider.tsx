@@ -42,7 +42,7 @@ const PromoSlider = () => {
         return () => {
             clearInterval(sliderChangeInterval)
         }
-    }, [isAnimating, data])
+    }, [isAnimating, sliderImagesData])
 
     const handleImageError: ReactEventHandler<HTMLImageElement> = (event) => {
         event.currentTarget.src = './icons/noImage.jpg'

@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 
 const AppHeader = () => {
     const dispatch = useDispatch()
+    const setModalTypeLogIn = () => dispatch(setModalType('logIn'))
+    const setModalTypeSignUp = () => dispatch(setModalType('signIn'))
     return (
         <div className="app-header">
             <nav className="nav">
@@ -78,7 +80,7 @@ const AppHeader = () => {
                         <div className="func-panel_icons">
                             <div
                                 className="func-panel_icon func-panel_icon_active"
-                                onClick={() => dispatch(setModalType('logIn'))}
+                                onClick={setModalTypeLogIn}
                             >
                                 <img
                                     src="./icons/system/profile.svg"
@@ -88,7 +90,7 @@ const AppHeader = () => {
                             </div>
                             <div
                                 className="func-panel_icon func-panel_icon_active"
-                                onClick={() => dispatch(setModalType('signIn'))}
+                                onClick={setModalTypeSignUp}
                             >
                                 <img
                                     src="./icons/system/favorite.svg"
