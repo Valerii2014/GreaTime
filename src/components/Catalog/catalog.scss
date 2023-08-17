@@ -1,5 +1,6 @@
 .catalog {
     &_wrapper {
+        position: relative;
         min-height: 600px;
         display: grid;
         grid-template-columns: 1fr 3fr;
@@ -9,11 +10,17 @@
         transition: all 1s;
     }
     &_categories {
+        &_list-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+        }
         &_catalog {
             padding: 16px;
             width: 100%;
             height: 100%;
-            font-size: 18px;
+            font-size: 24px;
             line-height: 20px;
             font-weight: 700;
             color: #4174cb;
@@ -21,18 +28,15 @@
         }
         &_choice {
             padding: 9px 12px 14px 12px;
-            font-size: 32px;
+            font-size: 24px;
             line-height: 32px;
-            font-weight: 400;
+            font-weight: 300;
             background-color: #fff;
         }
         &_list {
-            width: 100%;
-            height: 100%;
             padding: 12px 0 0 0;
-            background-color: #fff;
             list-style: none;
-
+            grid-column-start: 1;
             &_item {
                 min-height: 48px;
                 font-size: 18px;
@@ -80,6 +84,7 @@
             border-radius: 4px;
             box-shadow: 0px 2px 6px 0px rgba(65, 116, 203, 0.6) inset;
             animation: showSubcategory 1s forwards;
+            grid-column-start: 1;
             &_item {
                 position: relative;
                 padding-left: 30px;
@@ -136,9 +141,10 @@
         }
     }
     &_positions {
-        padding: 20px 12px 32px 12px;
         background-color: #fff;
         width: 100%;
+        height: 100%;
+        grid-column-start: 2;
     }
 }
 

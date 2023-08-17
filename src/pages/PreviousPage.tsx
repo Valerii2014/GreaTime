@@ -11,7 +11,7 @@ const PreviousPage = () => {
             <PromoSlider />
             <div className="container">
                 <CategoryCards />
-                {/* <PopularPosition /> */}
+                <PopularPosition />
                 <Benefits />
                 <Connection />
                 <Partners />

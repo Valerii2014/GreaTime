@@ -1,0 +1,10 @@
+.product-container {
+    padding: 20px 12px 0px 12px;
+    &_inactive {
+        display: none;
+    }
+    &_info {
+        padding: 20px;
+        font-size: 20px;
+    }
+}

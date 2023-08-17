@@ -1,23 +1,12 @@
 import './catalogPositionsGrid.scss'
 import { ItemCard } from '../ItemCard/ItemCard'
 import ItemLine from '../ItemLine/ItemLine'
-import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../store'
-import { useGetSubcatsPositionsQuery } from '../../services/positionsApi'
 import { PositionsData } from '../../store/appSlice/positionsSlice'
-import {
-    setPositions,
-    SortTypeLiteral,
-} from '../../store/appSlice/positionsSlice'
-import { RootState } from '../../store'
-import { useEffect } from 'react'
+import { SortTypeLiteral } from '../../store/appSlice/positionsSlice'
 import getItemPercentSale from '../../utils/getPercentSale'
 
 const CatalogPositionsGrid = () => {
-    const dispatch = useDispatch()
-    const subcatsId = useAppSelector(
-        (state) => state.categories.activeCategoriesFilter
-    )
     const sortType = useAppSelector((state) => state.positions.sortType.type)
 
     const {
@@ -26,14 +15,6 @@ const CatalogPositionsGrid = () => {
         quantityPositionsOnPage,
         positionsOffset,
     } = useAppSelector((state) => state.positions)
-
-    const { data, isFetching, isError } = useGetSubcatsPositionsQuery(subcatsId)
-
-    useEffect(() => {
-        if (data) {
-            dispatch(setPositions(data))
-        }
-    }, [data])
 
     const containerType =
         positionsType === 'card' ? 'positions-grid' : 'positions-line'

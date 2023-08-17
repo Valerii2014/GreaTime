@@ -11,6 +11,7 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
 }
 
 code {
@@ -57,9 +58,14 @@ input {
         padding: 7px 32px;
         gap: 10px;
     }
-    &_catalog {
+    &_catalog,
+    &_modal {
         width: 163px;
         height: 40px;
+    }
+    &_modal {
+        font-size: 16px;
+        margin-top: 30px;
     }
     &_shop-cart {
         padding: 8px 16px;

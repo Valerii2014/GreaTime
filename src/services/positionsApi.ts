@@ -8,7 +8,11 @@ export const positionsApi = createApi({
         getSubcatsPositions: builder.query<Array<Position>, string[]>({
             query: (idsArray) => `fromsubcats/${idsArray.join(';')}`,
         }),
+        getRandomPositions: builder.query<Array<Position>, number>({
+            query: (quantityProducts) => `random/${quantityProducts}`,
+        }),
     }),
 })
 
-export const { useGetSubcatsPositionsQuery } = positionsApi
+export const { useGetSubcatsPositionsQuery, useGetRandomPositionsQuery } =
+    positionsApi

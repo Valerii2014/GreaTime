@@ -22,6 +22,7 @@ const ItemCard = (itemData: Position) => {
                         src="./icons/system/star1.svg"
                         alt="star1"
                         className="item-card_rate_img"
+                        key={star}
                     ></img>
                 )
                 starIndex++
@@ -31,6 +32,7 @@ const ItemCard = (itemData: Position) => {
                         src="./icons/system/star2.svg"
                         alt="star2"
                         className="item-card_rate_img"
+                        key={star}
                     ></img>
                 )
             }

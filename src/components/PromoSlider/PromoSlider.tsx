@@ -8,6 +8,7 @@ import { setSliderData } from '../../store/appSlice/categoriesSlice'
 import { SliderData } from '../../services/categoriesApi'
 import { RootState } from '../../store'
 import { Spinner } from '../spinner/Spinner'
+import { ReactEventHandler } from 'react'
 
 const PromoSlider = () => {
     const sliderImagesData: SliderData = useSelector(
@@ -43,11 +44,22 @@ const PromoSlider = () => {
         }
     }, [isAnimating, data])
 
+    const handleImageError: ReactEventHandler<HTMLImageElement> = (event) => {
+        event.currentTarget.src = './icons/noImage.jpg'
+    }
+
     const onBuildSliderImage = (data: SliderData) => {
         if (sliderImagesData.length === 0) return null
         const slides = data.map((slide, index) => {
             const { src, alt } = slide
-            return <img key={index} src={src} alt={alt} />
+            return (
+                <img
+                    key={index}
+                    src={src}
+                    alt={alt}
+                    onError={handleImageError}
+                />
+            )
         })
         return (
             <div className="slider_images" ref={sliderRef}>
