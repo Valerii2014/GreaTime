@@ -1,0 +1,71 @@
+.pages-panel {
+    margin-top: 24px;
+    width: 100%;
+    height: 28px;
+    display: flex;
+    justify-content: space-between;
+    &_functions {
+        display: flex;
+        justify-content: space-between;
+        &_navigation {
+            display: flex;
+            img {
+                cursor: pointer;
+                transition: all 0.3s;
+
+                margin-left: 8px;
+
+                &:hover {
+                    scale: 1.1;
+                }
+            }
+            &_right {
+                transform: rotate(180deg);
+            }
+            &_pages {
+                margin: 0 20px;
+
+                display: flex;
+                &_item {
+                    position: relative;
+                    width: 28px;
+                    height: 28px;
+                    padding: 4px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 16px;
+                    color: #828282;
+                    font-weight: 400;
+                    transition: all 0.3s;
+                    cursor: pointer;
+                    &:hover {
+                        color: #153e84;
+                        transform: translateY(-1px);
+                    }
+                    &_active {
+                        color: #153e84;
+                        font-size: 20px;
+                        transform: translateY(-1px);
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -5px;
+                            left: 0px;
+                            transform: translateY(-50%);
+                            transition: all 0.5s;
+                            height: 3px;
+                            width: 100%;
+                            background-color: #153e84;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &_descr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

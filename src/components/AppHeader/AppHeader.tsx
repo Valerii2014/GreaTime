@@ -1,6 +1,10 @@
 import './appHeader.scss'
+import { setModalType } from '../../store/appSlice/sliderAndModalSlice'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const AppHeader = () => {
+    const dispatch = useDispatch()
     return (
         <div className="app-header">
             <nav className="nav">
@@ -55,14 +59,16 @@ const AppHeader = () => {
             <div className="func-panel">
                 <div className="container">
                     <div className="func-panel-wrapper">
-                        <button className="button_catalog">
-                            <div className="button_catalog_span-container">
-                                <span />
-                                <span />
-                                <span />
-                            </div>
-                            Каталог
-                        </button>
+                        <Link to={'/catalog'}>
+                            <button className="button_catalog">
+                                <div className="button button_catalog_span-container">
+                                    <span />
+                                    <span />
+                                    <span />
+                                </div>
+                                Каталог
+                            </button>
+                        </Link>
                         <form className="search_form" action="submit">
                             <input type="text" />
                             <button className="button_search-form">
@@ -70,14 +76,20 @@ const AppHeader = () => {
                             </button>
                         </form>
                         <div className="func-panel_icons">
-                            <div className="func-panel_icon func-panel_icon_active">
+                            <div
+                                className="func-panel_icon func-panel_icon_active"
+                                onClick={() => dispatch(setModalType('logIn'))}
+                            >
                                 <img
                                     src="./icons/system/profile.svg"
                                     alt="customicon"
                                 />
                                 <div>Войти</div>
                             </div>
-                            <div className="func-panel_icon func-panel_icon_active">
+                            <div
+                                className="func-panel_icon func-panel_icon_active"
+                                onClick={() => dispatch(setModalType('signIn'))}
+                            >
                                 <img
                                     src="./icons/system/favorite.svg"
                                     alt="customicon"

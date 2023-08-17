@@ -33,6 +33,7 @@ const categoriesSlice = createSlice({
                     catsWithoutSubcats.push(categorie)
                 }
             })
+            catsWithSubcats.reverse()
             state.allCategories = [...catsWithSubcats, ...catsWithoutSubcats]
         },
         addActiveCategorieFilter: (state, action) => {

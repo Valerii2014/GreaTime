@@ -28,6 +28,7 @@ export type PositionsData = Position[]
 
 export interface positionsSliceInitialState {
     positions: PositionsData
+    randomPositions: PositionsData
     sortType: FilterType
     quantityPositionsOnPage: QuantityType
     positionsType: 'card' | 'line'
@@ -36,6 +37,7 @@ export interface positionsSliceInitialState {
 
 const initialState: positionsSliceInitialState = {
     positions: [],
+    randomPositions: [],
     sortType: {
         descr: 'Популярные',
         type: 'popular',
@@ -52,6 +54,9 @@ const positionsSlice = createSlice({
         setPositions: (state, action) => {
             state.positions = action.payload
         },
+        setRandomPositions: (state, action) => {
+            state.randomPositions = action.payload
+        },
         setPositionsType: (state, action) => {
             state.positionsType = action.payload
         },
@@ -61,13 +66,20 @@ const positionsSlice = createSlice({
         setQuantityPositionsOnPage: (state, action) => {
             state.quantityPositionsOnPage = action.payload
         },
+        setPositionsOffset: (state, action) => {
+            if (action.payload < 0) return
+            else if (action.payload > state.positions.length - 1) return
+            else state.positionsOffset = action.payload
+        },
     },
 })
 
 const { actions, reducer } = positionsSlice
 export default reducer
 export const {
+    setPositionsOffset,
     setPositions,
+    setRandomPositions,
     setPositionsType,
     setPositionsSortType,
     setQuantityPositionsOnPage,

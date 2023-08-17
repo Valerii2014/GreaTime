@@ -14,19 +14,25 @@ const ItemLine = (itemData: Position) => {
     }
 
     return (
-        <div className="buy-card buy-card-line">
+        <div className="buy-card buy-card-line" key={_id}>
             <div className="buy-card_info">
-                <img
-                    src={img}
-                    onError={handleImageError}
-                    alt={transformedName}
-                />
+                <div className="buy-card_info_img">
+                    <img
+                        src={img}
+                        onError={handleImageError}
+                        alt={transformedName}
+                    />
+                </div>
                 <div className="buy-card_info_descr">
                     <div className="buy-card_info_descr_code">
                         <span>Артикул: </span>
                         {_id}
                     </div>
-                    <div className="buy-card_info_descr_name">{descr}</div>
+                    <div className="buy-card_info_descr_name">
+                        <span> {transformedName}</span>
+                        <br />
+                        {descr}
+                    </div>
                 </div>
             </div>
             <div className="buy-card_functional">

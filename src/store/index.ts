@@ -8,10 +8,12 @@ import categories, {
 import positions, {
     positionsSliceInitialState,
 } from './appSlice/positionsSlice'
+import sliderAndModal from './appSlice/sliderAndModalSlice'
 
 const rootReducer = combineReducers({
     categories,
     positions,
+    sliderAndModal,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
     [positionsApi.reducerPath]: positionsApi.reducer,
 })

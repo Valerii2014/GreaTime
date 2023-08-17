@@ -2,9 +2,10 @@ import './catalog.scss'
 
 import { useEffect } from 'react'
 import { onTransformString } from '../../utils/stringTransformer'
+import { setPositionsOffset } from '../../store/appSlice/positionsSlice'
+import { useDispatch } from 'react-redux'
 
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../store'
+import { useAppSelector } from '../../store'
 import {
     setAllCategories,
     addActiveCategorieFilter,
@@ -18,54 +19,54 @@ import {
     categoryDataInterface,
     subcatDataInterface,
 } from '../../services/categoriesApi'
-import CatalogPositionsGrid from '../CatalogPositionsGrid/CatalogPositionsGrid'
-import PositionFunctionalPanel from '../PositionFunctionalPanel/PositionFunctionalPanel'
+
+import CatalogProductContainer from '../CatalogProductContainer/CatalogProductContainer'
+import { Spinner } from '../spinner/Spinner'
 
 const Catalog = () => {
-    const categoriesData: CategoryData = useSelector(
-        (state: RootState) => state.categories.allCategories
-    )
-    const activeCategories: string[] = useSelector(
-        (state: RootState) => state.categories.activeCategoriesFilter
-    )
-    const visibleSubcategories: string[] = useSelector(
-        (state: RootState) => state.categories.visibleSubcategories
-    )
     const dispatch = useDispatch()
-    const { data } = useGetAllCategoriesQuery()
+    const { allCategories, activeCategoriesFilter, visibleSubcategories } =
+        useAppSelector((state) => state.categories)
+    const positionsQuantity = useAppSelector(
+        (state) => state.positions.positions.length
+    )
+
+    const { data, isFetching, isError } = useGetAllCategoriesQuery()
     useEffect(() => {
         if (data) {
             dispatch(setAllCategories(data))
         }
     }, [data])
 
-    // add/delete filter for filtration positions
-    const addActiveFilter = (categoriId: string) =>
+    // add/delete filter for filtration positions with categories
+    const addActiveFilter = (categoriId: string) => {
         dispatch(addActiveCategorieFilter(categoriId))
+        dispatch(setPositionsOffset(0))
+    }
 
     const deleteActiveFilter = (categoriId: string) => {
-        console.log(categoriId)
         dispatch(removeActiveCategorieFilter(categoriId))
+        dispatch(setPositionsOffset(0))
     }
     // check that categoory contains in active category array
     const checkIsCatActive = (categori: categoryDataInterface) => {
         if (categori.subcat) {
             return categori.subcat.every((subcat) =>
-                activeCategories.includes(subcat)
+                activeCategoriesFilter.includes(subcat)
             )
         } else {
-            return activeCategories.includes(categori._id)
+            return activeCategoriesFilter.includes(categori._id)
         }
     }
     // check that subcategoory contains in active category array
     const checkIsSubcatActive = (subcat: subcatDataInterface) =>
-        activeCategories.some((activeCat) => activeCat === subcat._id)
+        activeCategoriesFilter.some((activeCat) => activeCat === subcat._id)
 
     //check that categorie has no less that 1 active subcategorie
     const checkOneOfSubcatIsActive = (categori: categoryDataInterface) => {
         if (categori.subcat) {
             return categori.subcat.some((subcat) =>
-                activeCategories.includes(subcat)
+                activeCategoriesFilter.includes(subcat)
             )
         }
     }
@@ -76,6 +77,8 @@ const Catalog = () => {
             categori.subcat.forEach((id) =>
                 dispatch(addActiveCategorieFilter(id))
             )
+            dispatch(addVisibleSubcats(categori._id))
+            dispatch(setPositionsOffset(0))
         }
     }
     const deleteAllSubcatFromActive = (categori: categoryDataInterface) => {
@@ -83,6 +86,7 @@ const Catalog = () => {
             categori.subcat.forEach((id) =>
                 dispatch(removeActiveCategorieFilter(id))
             )
+            dispatch(setPositionsOffset(0))
         }
     }
 
@@ -99,11 +103,29 @@ const Catalog = () => {
             else return () => addAllSubcatToActive(categoriItem) // active filters doesnt contain all subcats from cat
         } else {
             // categorie has no subcats
-            if (activeCategories.includes(categoriId))
+            if (activeCategoriesFilter.includes(categoriId))
                 return () => deleteActiveFilter(categoriId)
             // active filters contain the categori id
             else return () => addActiveFilter(categoriId) // active filters doesnt contain the categori id
         }
+    }
+
+    const buildVisualActiveCategories = (allCategories: CategoryData) => {
+        const activeCategorieNames: string[] = []
+        allCategories.forEach((categorie) => {
+            if (checkOneOfSubcatIsActive(categorie))
+                activeCategorieNames.push(categorie.name)
+            else if (checkIsCatActive(categorie))
+                activeCategorieNames.push(categorie.name)
+        })
+        const allText = activeCategorieNames.join(', ')
+        const formatedText =
+            allText.length > 72
+                ? allText.slice(0, 69) + '...'
+                : allText.length === 0
+                ? 'Выберите одну или несколько категорий'
+                : allText
+        return formatedText
     }
 
     const onBuildsubcatData = (catalogItems: subcatDataInterface[]) => {
@@ -123,6 +145,7 @@ const Catalog = () => {
             subcatDataList.push(
                 <li
                     className={`catalog_subcategories_list_item  ${activeClass}`}
+                    key={subcatId}
                     onClick={onClickCB}
                 >
                     <div className="catalog_subcategories_list_item_wrapper">
@@ -156,7 +179,10 @@ const Catalog = () => {
             )
 
             categoriesList.push(
-                <li className={`catalog_categories_list_item ${activeClass}`}>
+                <li
+                    className={`catalog_categories_list_item ${activeClass}`}
+                    key={categoriId}
+                >
                     <div className="catalog_categories_list_item_wrapper">
                         <span onClick={onClickActiveCB}>{categoriesName}</span>
 
@@ -179,7 +205,7 @@ const Catalog = () => {
                 </li>
             )
         })
-        return <ul className="catalog_categories_list">{categoriesList}</ul>
+        return categoriesList
     }
 
     return (
@@ -187,18 +213,19 @@ const Catalog = () => {
             <div className="container">
                 <div className="catalog_wrapper">
                     <div className="catalog_categories_catalog">Каталог</div>
-                    <div className="catalog_categories_choice">Мячи</div>
-                    {categoriesData.length !== 0
-                        ? onBuildCategories(categoriesData)
-                        : null}
-
+                    <div className="catalog_categories_choice">
+                        {buildVisualActiveCategories(allCategories)}
+                    </div>
+                    <div className="catalog_categories_list-wrapper">
+                        {isFetching ? <Spinner /> : null}
+                        <ul className="catalog_categories_list">
+                            {allCategories.length !== 0
+                                ? onBuildCategories(allCategories)
+                                : null}
+                        </ul>
+                    </div>
                     <div className="catalog_positions">
-                        {activeCategories.length >= 1 ? (
-                            <>
-                                <PositionFunctionalPanel />
-                                <CatalogPositionsGrid />
-                            </>
-                        ) : null}
+                        <CatalogProductContainer />
                     </div>
                 </div>
             </div>
