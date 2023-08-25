@@ -64,6 +64,13 @@
     }
     &_logo {
         text-align: center;
+        h1 {
+            opacity: 0;
+            position: absolute;
+        }
+        img {
+            margin-top: 8px;
+        }
     }
     &_info {
         display: flex;
@@ -125,22 +132,54 @@
                 background-color: #ffb745;
             }
         }
+        div {
+            color: #000;
+            text-decoration: none;
+        }
     }
 }
-.search_form {
-    width: 702px;
-    height: 40px;
+.search {
     margin-left: 20px;
-    display: flex;
-    border: solid 1px #4174cb;
-    border-radius: 4px;
-    overflow: hidden;
-    input {
-        width: 600px;
-        border: none;
-        font-size: 24px;
-        &:focus {
-            outline: none !important;
+    position: relative;
+    &_form {
+        position: relative;
+        width: 702px;
+        height: 40px;
+        display: flex;
+        border: solid 1px #4174cb;
+        border-radius: 4px;
+        overflow: hidden;
+        z-index: 201;
+
+        input {
+            width: 600px;
+            padding-left: 10px;
+            border: none;
+            font-size: 18px;
+            &:focus {
+                outline: none !important;
+            }
+        }
+    }
+    &_products {
+        width: 100%;
+        max-height: 70vh;
+        overflow-y: auto;
+        position: absolute;
+        bottom: 2px;
+        transform: translateY(100%);
+        padding: 10px;
+        background-color: #fff;
+        border: solid 1px #4174cb;
+        border-top: none;
+        border-radius: 0 0 10px 10px;
+        z-index: 400;
+        animation: showList 1s forwards;
+        .button {
+            width: 100px;
+        }
+        .buy-card-line .buy-card_functional_price_summary {
+            width: 100px;
         }
     }
 }
@@ -173,5 +212,16 @@
                 width: 14px;
             }
         }
+    }
+}
+
+@keyframes showList {
+    0% {
+        max-height: 0vh;
+        opacity: 0;
+    }
+    100% {
+        max-height: 70vh;
+        opacity: 1;
     }
 }

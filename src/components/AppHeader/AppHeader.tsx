@@ -1,6 +1,82 @@
 import './appHeader.scss'
+import { setModalType } from '../../store/appSlice/sliderAndModalSlice'
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { ChangeEvent } from 'react'
+import { addProductToShopCart } from '../../store/appSlice/userSlice'
+import { useGetProductWithNameQuery } from '../../services/positionsApi'
+import ItemLine from '../ItemLine/ItemLine'
+import { Link, useLocation } from 'react-router-dom'
+
+function CustomLink({
+    to,
+    children,
+}: {
+    to: string
+    children: React.ReactNode
+}) {
+    const location = useLocation()
+
+    const isActive = location.pathname === to
+
+    const classNames = isActive ? 'active' : ''
+
+    return (
+        <Link to={to} className={classNames}>
+            {children}
+        </Link>
+    )
+}
 
 const AppHeader = () => {
+    const dispatch = useDispatch()
+    const setModalTypeLogIn = () => dispatch(setModalType('logIn'))
+    const setModalTypeSignUp = () => dispatch(setModalType('signIn'))
+
+    const [inputValue, setInputValue] = useState('')
+    const [productName, setProductName] = useState('')
+
+    const { data, isFetching, isError } =
+        useGetProductWithNameQuery(productName)
+
+    useEffect(() => {
+        if (inputValue.length > productName.length + 2) {
+            setProductName(inputValue)
+        } else if (inputValue.length < 3) {
+            setProductName('')
+        }
+    }, [inputValue])
+
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value)
+    }
+
+    const handleSearchClick = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        e.preventDefault()
+        setProductName(inputValue)
+    }
+
+    const addProductToCart = (productId: string) => {
+        dispatch(addProductToShopCart(productId))
+    }
+
+    const findedProducts =
+        data && productName !== '' ? (
+            data.length > 0 ? (
+                <div className="search_products">
+                    {data.map((productData) => (
+                        <ItemLine productData={productData} />
+                    ))}
+                </div>
+            ) : (
+                <div className="search_products">
+                    По вашему запросу товаров не найдно
+                </div>
+            )
+        ) : null
+
     return (
         <div className="app-header">
             <nav className="nav">
@@ -9,16 +85,16 @@ const AppHeader = () => {
                         <address className="nav_address">Київ</address>
                         <ul className="nav_links">
                             <li className="nav_link">
-                                <a href="мві">Розничным покупателям</a>
+                                <a href="#">Розничным покупателям</a>
                             </li>
                             <li className="nav_link">
-                                <a href="мві">Оптовым покупателям</a>
+                                <a href="#">Оптовым покупателям</a>
                             </li>
                             <li className="nav_link">
-                                <a href="мві">Регстрация юр.лиц</a>
+                                <a href="#">Регстрация юр.лиц</a>
                             </li>
                             <li className="nav_link">
-                                <a href="мві">Регстрация физ.лиц</a>
+                                <a href="#">Регстрация физ.лиц</a>
                             </li>
                         </ul>
                         <div className="nav_phone">+38 067 119 7297</div>
@@ -44,7 +120,10 @@ const AppHeader = () => {
                                 </a>
                             </div>
                         </div>
-                        <h1 className="company_logo">GreaTime</h1>
+                        <Link to={'/'} className="company_logo">
+                            <h1>GreaTime</h1>
+                            <img src="./icons/logoGrea.svg" alt="GreaTime" />
+                        </Link>
                         <div className="company_info">
                             <div className="company_info_links">О компании</div>
                             <div className="company_info_links">Контакты</div>
@@ -55,42 +134,72 @@ const AppHeader = () => {
             <div className="func-panel">
                 <div className="container">
                     <div className="func-panel-wrapper">
-                        <button className="button_catalog">
-                            <div className="button_catalog_span-container">
-                                <span />
-                                <span />
-                                <span />
-                            </div>
-                            Каталог
-                        </button>
-                        <form className="search_form" action="submit">
-                            <input type="text" />
-                            <button className="button_search-form">
-                                Найти
+                        <CustomLink to="/catalog">
+                            <button className="button_catalog">
+                                <div className="button button_catalog_span-container">
+                                    <span />
+                                    <span />
+                                    <span />
+                                </div>
+                                Каталог
                             </button>
-                        </form>
+                        </CustomLink>
+                        <div
+                            className="search"
+                            onMouseLeave={() => setProductName('')}
+                            onMouseEnter={() => {
+                                if (inputValue.length > 2)
+                                    setProductName(inputValue)
+                            }}
+                        >
+                            <form className="search_form" action="submit">
+                                <input
+                                    type="text"
+                                    placeholder="Введите название товара:"
+                                    value={inputValue}
+                                    onChange={handleInputChange}
+                                />
+                                <button
+                                    className="button_search-form"
+                                    onClick={handleSearchClick}
+                                >
+                                    Найти
+                                </button>
+                            </form>
+                            {findedProducts}
+                        </div>
+
                         <div className="func-panel_icons">
-                            <div className="func-panel_icon func-panel_icon_active">
+                            <div
+                                className="func-panel_icon func-panel_icon_active"
+                                onClick={setModalTypeLogIn}
+                            >
                                 <img
                                     src="./icons/system/profile.svg"
                                     alt="customicon"
                                 />
                                 <div>Войти</div>
                             </div>
-                            <div className="func-panel_icon func-panel_icon_active">
+                            <div
+                                className="func-panel_icon func-panel_icon_active"
+                                onClick={setModalTypeSignUp}
+                            >
                                 <img
                                     src="./icons/system/favorite.svg"
                                     alt="customicon"
                                 />
                                 <div>Избранное</div>
                             </div>
-                            <div className="func-panel_icon func-panel_icon_active">
+                            <Link
+                                to="/shopcart"
+                                className="func-panel_icon func-panel_icon_active"
+                            >
                                 <img
                                     src="./icons/system/buy.svg"
                                     alt="customicon"
                                 />
                                 <div>Корзина</div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>

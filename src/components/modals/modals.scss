@@ -1,0 +1,119 @@
+.overflow {
+    position: absolute;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #7373738b;
+    z-index: 600;
+    &_hidden {
+        display: none;
+    }
+}
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 590px;
+    min-height: 290px;
+    padding: 70px 20px 20px 20px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #fff;
+    animation: showModal 1s ease-out 1;
+    &_login {
+        min-height: 300px;
+        align-items: end;
+    }
+    &_name {
+        position: absolute;
+        top: 20px;
+        left: 25px;
+        font-size: 26px;
+        color: #4d4d4d;
+    }
+    &_descr {
+        font-size: 20px;
+        font-weight: 200px;
+        text-align: center;
+        color: rgb(72, 72, 72);
+        &_active {
+            color: #4174cb;
+        }
+        &_inactive {
+            cursor: pointer;
+            transition: all 0.5s;
+            &:hover {
+                color: #000;
+            }
+        }
+    }
+    &_wrapper {
+        width: 90%;
+    }
+    &_form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &_input-wrapper {
+            margin: 20px auto 0 auto;
+            width: 100%;
+            input {
+                width: 100%;
+                height: 32px;
+                padding-left: 15px;
+                font-size: 16px;
+                border: none;
+                border-bottom: solid 2px #7e7e7e;
+                outline: none !important;
+            }
+        }
+        &_error {
+            margin-top: 5px;
+            padding-left: 10px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #bb2d2d;
+        }
+    }
+    &_close {
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        div {
+            position: absolute;
+            width: 25px;
+            height: 2px;
+            border-radius: 3px;
+            background-color: #7c7c7c;
+            transition: all 0.3s;
+            &:first-child {
+                transform: rotate(45deg);
+            }
+            &:last-child {
+                transform: rotate(-45deg);
+            }
+        }
+        &:hover {
+            div {
+                background-color: #bb2d2d;
+                height: 3px;
+            }
+        }
+    }
+}
+
+@keyframes showModal {
+    from {
+        top: -50%;
+    }
+    to {
+        top: 50%;
+    }
+}

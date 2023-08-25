@@ -1,26 +1,18 @@
-.popular-positions-slider {
-    height: 424px;
+.popular-items {
+    margin-top: 60px;
     padding: 40px 0 36px 0;
     &_wrapper {
         position: relative;
-        overflow: hidden;
-    }
-    &_images {
-        height: 400px;
-        position: relative;
-        display: flex;
-        transition: all 0.8s;
-        &_image {
-            position: absolute;
-            display: grid;
-            grid-template-columns: repeat(4, 250px);
-            column-gap: 20px;
-            width: 1190px;
-            height: 400px;
-            padding-right: 10px;
-            &[visibility='hide'] {
-                display: none;
-            }
+        margin: 32px auto 0 auto;
+        width: 1120px;
+        &_cards {
+            position: relative;
+            margin: 0 20px;
+            width: 1080px;
+            height: 424px;
+            padding-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
         }
     }
     &_btns {
@@ -32,6 +24,7 @@
         align-items: center;
         border-radius: 65%;
         background-color: #4174cb;
+        z-index: 200;
         cursor: pointer;
         transition: all 0.3s;
 
@@ -80,5 +73,38 @@
                 scale: 2;
             }
         }
+    }
+}
+.cards {
+    position: absolute;
+    top: 0px;
+    width: 1080px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    .item-card {
+        &:first-child {
+            &:hover {
+                box-shadow: -5px 7px 5px rgba(33, 33, 33, 0.2);
+            }
+        }
+        &_loading {
+            &:first-child {
+                &:hover {
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+    &.hide {
+        display: none;
+    }
+    &.showSlideRight,
+    &.showSlideLeft {
+        z-index: 100;
+    }
+    &.hideSlideRight,
+    &.hideSlideLeft {
+        z-index: 0;
     }
 }
