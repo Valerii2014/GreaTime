@@ -118,14 +118,14 @@ const PopularPosition = () => {
 
     const sliderContent = useMemo(() => sliderImages(Images), [data])
     const sliderDots = Images ? onBuildItemDots(Images) : null
-    // const sliderLoading = isLoading ? onBuildSliderLoading() : null
+    const sliderLoading = isLoading ? onBuildSliderLoading() : null
     return (
         <section className="popular-items">
             <h2 className="section-header">Популярные товары</h2>
 
             <div className="popular-items_wrapper">
                 {sliderContent}
-                {/* {sliderLoading} */}
+                {sliderLoading}
                 <div
                     className="popular-items_btns popular-items_btns_prev"
                     onClick={() => onChangeSlide('prev')}
@@ -153,12 +153,16 @@ export default PopularPosition
 //
 //
 //
-//
-// const onBuildSliderLoading = () => {
-//     const card = ItemCard()
-//     return (
-//         <div className="popular-items_wrapper_cards">
-//             <div className="cards">{[card, card, card, card]}</div>
-//         </div>
-//     )
-// }
+
+const onBuildSliderLoading = () => {
+    return (
+        <div className="popular-items_wrapper_cards">
+            <div className="cards">
+                <ProductCard key={1} productData={null} />
+                <ProductCard key={2} productData={null} />
+                <ProductCard key={3} productData={null} />
+                <ProductCard key={4} productData={null} />
+            </div>
+        </div>
+    )
+}

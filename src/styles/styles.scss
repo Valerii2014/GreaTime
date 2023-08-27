@@ -69,6 +69,7 @@ input {
     }
     &_shop-cart {
         padding: 8px 16px;
+        height: 100%;
         &_white {
             background-color: #fff;
             border: 1px solid #4174cb;
@@ -91,7 +92,7 @@ input {
         width: 86px;
     }
     &_card-line {
-        width: 120px;
+        width: 130px;
         height: 35px;
     }
     &_sort,
@@ -112,7 +113,7 @@ input {
             border-radius: 65%;
             background-color: #153e84;
             background-image: url('../../public/icons/system/done.svg');
-            animation: buy-animation 1s ease-in-out 1 forwards;
+            animation: buy-animation 0.5s ease-in 1;
         }
     }
 }
@@ -128,10 +129,8 @@ input {
     0% {
         opacity: 0;
     }
-    50% {
-        opacity: 1;
-    }
+
     100% {
-        opacity: 0;
+        opacity: 1;
     }
 }

@@ -1,0 +1,8 @@
+.stars-container {
+    height: 16px;
+    display: flex;
+    justify-content: flex-start;
+    .star-item {
+        margin-right: 5px;
+    }
+}

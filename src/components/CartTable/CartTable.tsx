@@ -1,34 +1,24 @@
 import './cartTable.scss'
 
 import { Position, PositionsData } from '../../store/appSlice/positionsSlice'
-import BuyCardLine from '../ItemCartLine/BuyCardLine'
+import { Link } from 'react-router-dom'
+import BuyCardLine from '../ShopProductLine/BuyCardLine'
 import { useAppSelector } from '../../store'
 import { useGetProductWithIdQuery } from '../../services/positionsApi'
-import {
-    addProductToShopCart,
-    delProductFromShopCart,
-    setProductQuantityInCart,
-} from '../../store/appSlice/userSlice'
+import { useMemo, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { onTransformPrice } from '../../utils/stringTransformer'
+import { Spinner } from '../spinner/Spinner'
+import { clearShopCart } from '../../store/appSlice/userSlice'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const CartTable = () => {
     const dispatch = useDispatch()
     const products = useAppSelector((store) => store.user.shopCart)
-    const { data, isFetching, isError } = useGetProductWithIdQuery(
+    const { data, isLoading, isError } = useGetProductWithIdQuery(
         products.map((productData) => productData[0])
     )
     const productsObject = Object.fromEntries(products)
-
-    const addProduct = (productId: string) => {
-        dispatch(addProductToShopCart(productId))
-    }
-    const delProduct = (productId: string) => {
-        dispatch(delProductFromShopCart(productId))
-    }
-    const setQuantityProduct = (productId: string, newQuantity: number) => {
-        dispatch(setProductQuantityInCart({ productId, newQuantity }))
-    }
 
     const totalAmount = data
         ? data.reduce((acc, product) => {
@@ -41,26 +31,49 @@ const CartTable = () => {
     const totalAmountWithNds = totalAmount + ndsAmount
 
     const buildCartProducts = (data: PositionsData) => {
-        return data.map((productData) =>
-            BuyCardLine(
-                productData,
-                productsObject[productData._id],
-                addProduct,
-                delProduct,
-                setQuantityProduct
-            )
-        )
+        return data.map((productData) => (
+            <CSSTransition
+                key={productData._id}
+                timeout={500}
+                classNames="item"
+            >
+                <BuyCardLine productData={productData} />
+            </CSSTransition>
+        ))
     }
 
-    const cartProducts = data ? buildCartProducts(data) : null
+    const CartProducts =
+        data && products.length > 0 && !isLoading
+            ? buildCartProducts(data)
+            : null
+    const CartLoading =
+        isLoading && !data ? (
+            <div className="shop-cart_service-wrapper">
+                <Spinner />
+            </div>
+        ) : null
+
+    const CartNoProducts =
+        products.length === 0 ? (
+            <CSSTransition key={'noProduct'} timeout={500} classNames="item">
+                <div className="shop-cart_service-wrapper">
+                    В вашей корзине нет ни одного товара !<br />
+                    <Link to={'/catalog'}>За Покупками !</Link>
+                </div>
+            </CSSTransition>
+        ) : null
+
     return (
         <div className="shop-cart">
             <div className="shop-cart_header">
                 <div className="section-header">Ваша корзина</div>
                 <div className="shop-cart_header_buttons">
-                    <button className="button_shop-cart button_shop-cart_white button_shop-cart_white_header">
-                        Продолжить покупки
-                    </button>
+                    <Link to={'/catalog'}>
+                        <button className="button_shop-cart button_shop-cart_white button_shop-cart_white_header">
+                            Продолжить покупки
+                        </button>
+                    </Link>
+
                     <button className="button_shop-cart">Оформить заказ</button>
                 </div>
             </div>
@@ -76,7 +89,11 @@ const CartTable = () => {
                         <span>Итого:</span>
                     </div>
                 </div>
-                {cartProducts}
+                {CartLoading}
+                <TransitionGroup>
+                    {CartProducts}
+                    {CartNoProducts}
+                </TransitionGroup>
             </div>
             <div className="shop-cart_sumary">
                 <div className="shop-cart_sumary_info">
@@ -102,10 +119,15 @@ const CartTable = () => {
             </div>
             <div className="shop-cart_btns">
                 <div className="shop-cart_header_buttons">
-                    <button className="button_shop-cart">
-                        Продолжить покупки
-                    </button>
-                    <button className="button_shop-cart button_shop-cart_white button_shop-cart_white_bottom">
+                    <Link to={'/catalog'}>
+                        <button className="button_shop-cart">
+                            Продолжить покупки
+                        </button>
+                    </Link>
+                    <button
+                        className="button_shop-cart button_shop-cart_white button_shop-cart_white_bottom"
+                        onClick={() => dispatch(clearShopCart())}
+                    >
                         Очистить корзину
                     </button>
                 </div>

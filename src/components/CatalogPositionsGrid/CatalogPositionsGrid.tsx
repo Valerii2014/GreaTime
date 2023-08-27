@@ -5,11 +5,8 @@ import { useAppSelector } from '../../store'
 import { PositionsData, Position } from '../../store/appSlice/positionsSlice'
 import { SortTypeLiteral } from '../../store/appSlice/positionsSlice'
 import getItemPercentSale from '../../utils/getPercentSale'
-import { useDispatch } from 'react-redux'
-import { addProductToShopCart } from '../../store/appSlice/userSlice'
 
 const CatalogPositionsGrid = () => {
-    const dispatch = useDispatch()
     const sortType = useAppSelector((state) => state.positions.sortType.type)
 
     const {
@@ -24,10 +21,6 @@ const CatalogPositionsGrid = () => {
 
     const sortedPositionsData =
         positions.length > 0 ? onSortPositionsData(positions, sortType) : null
-
-    const addProductToCart = (productId: string) => {
-        dispatch(addProductToShopCart(productId))
-    }
 
     const buildPositionCards = (
         data: PositionsData,
@@ -99,16 +92,15 @@ const onSortPositionsData = (data: PositionsData, type: SortTypeLiteral) => {
 }
 
 const buildLoadinProducts = () => {
-    const loadingProduct = <ProductCard productData={{}} />
     return [
-        loadingProduct,
-        loadingProduct,
-        loadingProduct,
-        loadingProduct,
-        loadingProduct,
-        loadingProduct,
-        loadingProduct,
-        loadingProduct,
-        loadingProduct,
+        <ProductCard key={1} productData={null} />,
+        <ProductCard key={2} productData={null} />,
+        <ProductCard key={3} productData={null} />,
+        <ProductCard key={4} productData={null} />,
+        <ProductCard key={5} productData={null} />,
+        <ProductCard key={6} productData={null} />,
+        <ProductCard key={7} productData={null} />,
+        <ProductCard key={8} productData={null} />,
+        <ProductCard key={9} productData={null} />,
     ]
 }

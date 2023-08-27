@@ -50,16 +50,26 @@ const userSlice = createSlice({
             state.shopCart.forEach((product) => {
                 if (product[0] === action.payload) {
                     const newQuantity = product[1] - 1
-                    if (newQuantity > 0) product[1] = newQuantity
+                    if (newQuantity >= 0) product[1] = newQuantity
                 }
             })
         },
         setProductQuantityInCart: (state, action) => {
+            const { _id, quantity } = action.payload
+            console.log(_id, quantity)
             for (const product of state.shopCart) {
-                if (product[0] === action.payload.productId) {
-                    product[1] = action.payload.newQuantity
+                if (product[0] === _id) {
+                    product[1] = quantity
                 }
             }
+        },
+        removeProduct: (state, action) => {
+            state.shopCart = state.shopCart.filter(
+                (product) => product[0] !== action.payload
+            )
+        },
+        clearShopCart: (state) => {
+            state.shopCart = []
         },
     },
 })
@@ -68,6 +78,8 @@ const { actions, reducer } = userSlice
 export default reducer
 export const {
     setUserData,
+    clearShopCart,
+    removeProduct,
     addProductToShopCart,
     delProductFromShopCart,
     setProductQuantityInCart,

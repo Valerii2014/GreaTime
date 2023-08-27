@@ -1,23 +1,42 @@
 import './itemLine.scss'
 
 import { Position } from '../../store/appSlice/positionsSlice'
-import { ReactEventHandler } from 'react'
 import { onTransformString } from '../../utils/stringTransformer'
-import { ProductCardProps } from '../ProductCard/ProductCard'
+import { handleImageError } from '../../utils/handleImageError'
+import { useDispatch } from 'react-redux'
+import { useAppSelector } from '../../store'
+import {
+    addProductToShopCart,
+    delProductFromShopCart,
+} from '../../store/appSlice/userSlice'
 
-const ItemLine = (props: ProductCardProps) => {
-    // const { productData } = props
-    // const { imgs, name, price, descr, _id } = productData
-    // const img = imgs[0]
-    // const transformedName = onTransformString(name)
+interface ItemLineProps {
+    productData: Position
+}
 
-    // const handleImageError: ReactEventHandler<HTMLImageElement> = (event) => {
-    //     event.currentTarget.src = './icons/noImage.jpg'
-    // }
+const ItemLine = (props: ItemLineProps) => {
+    const dispatch = useDispatch()
+    const cartData = useAppSelector((state) => state.user.shopCart)
+
+    const { productData } = props
+    const { imgs, name, price, descr, _id } = productData
+    const img = imgs[0]
+    const transformedName = onTransformString(name)
+
+    const isProductInShopCart =
+        cartData && cartData.length > 0
+            ? cartData.some((product) => product[0] === _id && product[1] !== 0)
+            : false
+
+    const buttonCB = isProductInShopCart
+        ? () => dispatch(delProductFromShopCart(_id))
+        : () => dispatch(addProductToShopCart(_id))
+
+    const buttonText = isProductInShopCart ? 'Убрать из корзины' : 'В корзину'
 
     return (
         <div className="buy-card buy-card-line">
-            {/* <div className="buy-card_info">
+            <div className="buy-card_info">
                 <div className="buy-card_info_img">
                     <img
                         src={img}
@@ -41,11 +60,14 @@ const ItemLine = (props: ProductCardProps) => {
                 <div className="buy-card_functional_price">Цена за 1шт.:</div>
                 <div className="buy-card_functional_more-less">{price} ₴</div>
                 <div className="buy-card_functional_price_summary">
-                    <button className="button button_card-line">
-                        В корзину
+                    <button
+                        className={`button button_card-line`}
+                        onClick={buttonCB}
+                    >
+                        {buttonText}
                     </button>
                 </div>
-            </div> */}
+            </div>
         </div>
     )
 }
