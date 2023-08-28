@@ -180,16 +180,16 @@ const AppHeader = () => {
                                 />
                                 <div>Войти</div>
                             </div>
-                            <div
+                            <Link
+                                to="/shopcart"
                                 className="func-panel_icon func-panel_icon_active"
-                                onClick={setModalTypeSignUp}
                             >
                                 <img
                                     src="./icons/system/favorite.svg"
                                     alt="customicon"
                                 />
                                 <div>Избранное</div>
-                            </div>
+                            </Link>
                             <Link
                                 to="/shopcart"
                                 className="func-panel_icon func-panel_icon_active"

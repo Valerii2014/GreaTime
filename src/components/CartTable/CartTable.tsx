@@ -23,7 +23,7 @@ const CartTable = () => {
     const totalAmount = data
         ? data.reduce((acc, product) => {
               const price = product.price
-              const productQuantity = productsObject[product._id]
+              const productQuantity = productsObject[product._id] || 0
               return acc + price * productQuantity
           }, 0)
         : 0
@@ -46,6 +46,7 @@ const CartTable = () => {
         data && products.length > 0 && !isLoading
             ? buildCartProducts(data)
             : null
+
     const CartLoading =
         isLoading && !data ? (
             <div className="shop-cart_service-wrapper">
@@ -54,13 +55,11 @@ const CartTable = () => {
         ) : null
 
     const CartNoProducts =
-        products.length === 0 ? (
-            <CSSTransition key={'noProduct'} timeout={500} classNames="item">
-                <div className="shop-cart_service-wrapper">
-                    В вашей корзине нет ни одного товара !<br />
-                    <Link to={'/catalog'}>За Покупками !</Link>
-                </div>
-            </CSSTransition>
+        products.length === 0 && !isLoading ? (
+            <div className="shop-cart_service-wrapper">
+                В вашей корзине нет ни одного товара !<br />
+                <Link to={'/catalog'}>За Покупками !</Link>
+            </div>
         ) : null
 
     return (
@@ -90,10 +89,8 @@ const CartTable = () => {
                     </div>
                 </div>
                 {CartLoading}
-                <TransitionGroup>
-                    {CartProducts}
-                    {CartNoProducts}
-                </TransitionGroup>
+                <TransitionGroup>{CartProducts}</TransitionGroup>
+                {CartNoProducts}
             </div>
             <div className="shop-cart_sumary">
                 <div className="shop-cart_sumary_info">

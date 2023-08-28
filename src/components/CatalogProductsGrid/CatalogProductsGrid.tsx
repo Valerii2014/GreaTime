@@ -1,4 +1,4 @@
-import './catalogPositionsGrid.scss'
+import './catalogProductsGrid.scss'
 import ProductCard from '../ProductCard/ProductCard'
 import ItemLine from '../ItemLine/ItemLine'
 import { useAppSelector } from '../../store'
@@ -33,8 +33,8 @@ const CatalogPositionsGrid = () => {
             offset,
             quantity + offset
         )
-        return copyData.map((productData) => (
-            <Builder key={productData._id} productData={productData} />
+        return copyData.map((PositionsData) => (
+            <Builder key={PositionsData._id} productData={PositionsData} />
         ))
     }
     const VisibleProductsGrid = sortedPositionsData
@@ -93,8 +93,8 @@ const onSortPositionsData = (data: PositionsData, type: SortTypeLiteral) => {
 
 const buildLoadinProducts = () => {
     return [
-        <ProductCard key={1} productData={null} />,
         <ProductCard key={2} productData={null} />,
+        <ProductCard key={1} productData={null} />,
         <ProductCard key={3} productData={null} />,
         <ProductCard key={4} productData={null} />,
         <ProductCard key={5} productData={null} />,

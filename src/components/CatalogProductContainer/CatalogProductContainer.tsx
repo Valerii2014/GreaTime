@@ -8,7 +8,7 @@ import { setPositions } from '../../store/appSlice/positionsSlice'
 
 import LoadingLine from '../LoadingLine/LoadingLine'
 import CatalogPagesPanel from '../CatalogPagesPanel/CatalogPagesPanel'
-import CatalogPositionsGrid from '../CatalogPositionsGrid/CatalogPositionsGrid'
+import CatalogProductsGrid from '../CatalogProductsGrid/CatalogProductsGrid'
 import PositionFunctionalPanel from '../PositionFunctionalPanel/PositionFunctionalPanel'
 
 const CatalogProductContainer = () => {
@@ -44,9 +44,9 @@ const CatalogProductContainer = () => {
             {InfoText}
             {Loading}
             <div className={`product-container${inactiveClass}`}>
-                {PositionFunctionalPanel()}
-                {CatalogPositionsGrid()}
-                {CatalogPagesPanel()}
+                <PositionFunctionalPanel />
+                <CatalogProductsGrid />
+                <CatalogPagesPanel />
             </div>
         </>
     )
