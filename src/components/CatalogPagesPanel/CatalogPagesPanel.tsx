@@ -1,21 +1,21 @@
 import './catalogPagesPanel.scss'
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../store'
-import { setPositionsOffset } from '../../store/appSlice/positionsSlice'
+import { setProductsOffset } from '../../store/appSlice/productsSlice'
 import { useState, useEffect } from 'react'
 
 const CatalogPagesPanel = () => {
     const dispatch = useDispatch()
-    const { positions, quantityPositionsOnPage, positionsOffset, sortType } =
-        useAppSelector((state) => state.positions)
-    const positionsQuantity = positions.length - 1
-    const pagesQuantity = Math.ceil(positionsQuantity / quantityPositionsOnPage)
+    const { products, quantityProductsOnPage, productsOffset, sortType } =
+        useAppSelector((state) => state.products)
+    const productsQuantity = products.length - 1
+    const pagesQuantity = Math.ceil(productsQuantity / quantityProductsOnPage)
 
     const [pagesVisibleOffset, setPagesVisibleOffset] = useState(0)
 
     useEffect(() => {
         setPagesVisibleOffset(0)
-    }, [quantityPositionsOnPage, sortType])
+    }, [quantityProductsOnPage, sortType])
 
     const plusVisibleOffset = () => {
         if (pagesVisibleOffset > pagesQuantity - 6) return
@@ -26,32 +26,29 @@ const CatalogPagesPanel = () => {
         setPagesVisibleOffset((pagesVisibleOffset) => pagesVisibleOffset - 1)
     }
 
-    const activePageVisibleSaver = (newPositionsOffset: number) => {
-        if (newPositionsOffset > positionsQuantity || newPositionsOffset < 0)
+    const activePageVisibleSaver = (newProductsOffset: number) => {
+        if (newProductsOffset > productsQuantity || newProductsOffset < 0)
             return
-        if (pagesVisibleOffset > newPositionsOffset / quantityPositionsOnPage)
-            setPagesVisibleOffset(newPositionsOffset / quantityPositionsOnPage)
-        if (
-            newPositionsOffset / quantityPositionsOnPage >
-            pagesVisibleOffset + 4
-        )
+        if (pagesVisibleOffset > newProductsOffset / quantityProductsOnPage)
+            setPagesVisibleOffset(newProductsOffset / quantityProductsOnPage)
+        if (newProductsOffset / quantityProductsOnPage > pagesVisibleOffset + 4)
             setPagesVisibleOffset(
-                newPositionsOffset / quantityPositionsOnPage - 4
+                newProductsOffset / quantityProductsOnPage - 4
             )
     }
 
     const prevPage = () => {
-        const newPositionsOffset = positionsOffset - quantityPositionsOnPage
-        dispatch(setPositionsOffset(newPositionsOffset))
-        activePageVisibleSaver(newPositionsOffset)
+        const newProductsOffset = productsOffset - quantityProductsOnPage
+        dispatch(setProductsOffset(newProductsOffset))
+        activePageVisibleSaver(newProductsOffset)
     }
     const nextPage = () => {
-        const newPositionsOffset = positionsOffset + quantityPositionsOnPage
-        dispatch(setPositionsOffset(newPositionsOffset))
-        activePageVisibleSaver(newPositionsOffset)
+        const newProductsOffset = productsOffset + quantityProductsOnPage
+        dispatch(setProductsOffset(newProductsOffset))
+        activePageVisibleSaver(newProductsOffset)
     }
     const setPage = (pageNumber: number) => {
-        dispatch(setPositionsOffset(pageNumber * quantityPositionsOnPage))
+        dispatch(setProductsOffset(pageNumber * quantityProductsOnPage))
     }
 
     const buildPagesItem = () => {
@@ -59,7 +56,7 @@ const CatalogPagesPanel = () => {
         const pagesItem = []
         while (pagesQuantity > pagesItem.length + skippedPages) {
             const activeClass =
-                positionsOffset / quantityPositionsOnPage ===
+                productsOffset / quantityProductsOnPage ===
                 pagesItem.length + skippedPages
                     ? 'pages-panel_functions_navigation_pages_item_active'
                     : ''
@@ -80,15 +77,15 @@ const CatalogPagesPanel = () => {
     }
 
     const showFromTo =
-        positionsOffset + quantityPositionsOnPage > positionsQuantity
-            ? positionsQuantity
-            : positionsOffset + quantityPositionsOnPage
+        productsOffset + quantityProductsOnPage > productsQuantity
+            ? productsQuantity
+            : productsOffset + quantityProductsOnPage
     const pagesDescr =
-        positions.length > 0
-            ? `Показано с ${positionsOffset} по ${showFromTo} из ${positionsQuantity} (всего ${pagesQuantity} страниц)`
+        products.length > 0
+            ? `Показано с ${productsOffset} по ${showFromTo} из ${productsQuantity} (всего ${pagesQuantity} страниц)`
             : ''
 
-    const pagesItem = positions.length > 0 ? buildPagesItem() : null
+    const pagesItem = products.length > 0 ? buildPagesItem() : null
 
     return (
         <div className="pages-panel">

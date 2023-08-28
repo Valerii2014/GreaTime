@@ -2,54 +2,50 @@ import './catalogProductsGrid.scss'
 import ProductCard from '../ProductCard/ProductCard'
 import ItemLine from '../ItemLine/ItemLine'
 import { useAppSelector } from '../../store'
-import { PositionsData, Position } from '../../store/appSlice/positionsSlice'
-import { SortTypeLiteral } from '../../store/appSlice/positionsSlice'
+import { ProductsData, Product } from '../../store/appSlice/productsSlice'
+import { SortTypeLiteral } from '../../store/appSlice/productsSlice'
 import getItemPercentSale from '../../utils/getPercentSale'
 
-const CatalogPositionsGrid = () => {
-    const sortType = useAppSelector((state) => state.positions.sortType.type)
+const CatalogproductsGrid = () => {
+    const sortType = useAppSelector((state) => state.products.sortType.type)
 
-    const {
-        positions,
-        positionsType,
-        quantityPositionsOnPage,
-        positionsOffset,
-    } = useAppSelector((state) => state.positions)
+    const { products, productsType, quantityProductsOnPage, productsOffset } =
+        useAppSelector((state) => state.products)
 
     const containerType =
-        positionsType === 'card' ? 'positions-grid' : 'positions-line'
+        productsType === 'card' ? 'products-grid' : 'products-line'
 
-    const sortedPositionsData =
-        positions.length > 0 ? onSortPositionsData(positions, sortType) : null
+    const sortedproductsData =
+        products.length > 0 ? onSortproductsData(products, sortType) : null
 
-    const buildPositionCards = (
-        data: PositionsData,
+    const buildProductCards = (
+        data: ProductsData,
         type: 'card' | 'line',
         quantity: number,
         offset: number
     ) => {
         const Builder = type === 'card' ? ProductCard : ItemLine
-        const copyData: PositionsData = JSON.parse(JSON.stringify(data)).slice(
+        const copyData: ProductsData = JSON.parse(JSON.stringify(data)).slice(
             offset,
             quantity + offset
         )
-        return copyData.map((PositionsData) => (
-            <Builder key={PositionsData._id} productData={PositionsData} />
+        return copyData.map((productsData) => (
+            <Builder key={productsData._id} productData={productsData} />
         ))
     }
-    const VisibleProductsGrid = sortedPositionsData
-        ? buildPositionCards(
-              sortedPositionsData,
-              positionsType,
-              quantityPositionsOnPage,
-              positionsOffset
+    const VisibleProductsGrid = sortedproductsData
+        ? buildProductCards(
+              sortedproductsData,
+              productsType,
+              quantityProductsOnPage,
+              productsOffset
           )
         : buildLoadinProducts()
 
     return <div className={containerType}>{VisibleProductsGrid}</div>
 }
 
-export default CatalogPositionsGrid
+export default CatalogproductsGrid
 //
 //
 //
@@ -59,30 +55,30 @@ export default CatalogPositionsGrid
 //
 //
 //
-const onSortPositionsData = (data: PositionsData, type: SortTypeLiteral) => {
-    const copyData: PositionsData = JSON.parse(JSON.stringify(data))
+const onSortproductsData = (data: ProductsData, type: SortTypeLiteral) => {
+    const copyData: ProductsData = JSON.parse(JSON.stringify(data))
     switch (type) {
         case 'less-more_price':
             return copyData.sort(
-                (position1, position2) => position1.price - position2.price
+                (Product1, Product2) => Product1.price - Product2.price
             )
         case 'more-less_price':
             return copyData.sort(
-                (position1, position2) => position2.price - position1.price
+                (Product1, Product2) => Product2.price - Product1.price
             )
         case 'popular':
             return copyData.sort(
-                (position1, position2) => position2.rate - position1.rate
+                (Product1, Product2) => Product2.rate - Product1.rate
             )
         case 'with_sale':
-            return copyData.sort((position1, position2) => {
+            return copyData.sort((Product1, Product2) => {
                 const saleOne = getItemPercentSale(
-                    position1.price,
-                    position1.prevPrice
+                    Product1.price,
+                    Product1.prevPrice
                 )
                 const saleTwo = getItemPercentSale(
-                    position2.price,
-                    position2.prevPrice
+                    Product2.price,
+                    Product2.prevPrice
                 )
                 return saleTwo - saleOne
             })

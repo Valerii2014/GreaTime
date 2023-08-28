@@ -17,7 +17,7 @@ const PromoSlider = () => {
     const { data, isFetching, isError } = useGetSliderDataQuery()
     const dispatch = useDispatch()
     const animationTimeMilliseconds = 900
-    const [sliderPosition, setSliderPosition] = useState(0)
+    const [sliderProduct, setSliderProduct] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
     const sliderRef = useRef<HTMLDivElement>(null)
 
@@ -66,7 +66,7 @@ const PromoSlider = () => {
                 {slides.map((slide, index) => (
                     <div
                         className={`slider_images_image ${
-                            index === sliderPosition ? '' : 'hide'
+                            index === sliderProduct ? '' : 'hide'
                         }`}
                         key={index}
                     >
@@ -86,14 +86,14 @@ const PromoSlider = () => {
                         <span
                             key={slide._id}
                             className={`slider_dots_item ${
-                                num === sliderPosition
+                                num === sliderProduct
                                     ? 'slider_dots_item_active'
                                     : null
                             }`}
                             onClick={() => {
-                                if (num > sliderPosition)
+                                if (num > sliderProduct)
                                     onChangeSlide('next', num)
-                                else if (num < sliderPosition)
+                                else if (num < sliderProduct)
                                     onChangeSlide('prev', num)
                                 else return
                             }}
@@ -105,8 +105,8 @@ const PromoSlider = () => {
     }
     const onChangeSlide = changeSlideFunctionCreator(
         sliderRef,
-        sliderPosition,
-        setSliderPosition,
+        sliderProduct,
+        setSliderProduct,
         isAnimating,
         setIsAnimating,
         sliderImagesData.length,

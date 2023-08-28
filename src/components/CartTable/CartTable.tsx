@@ -1,11 +1,10 @@
 import './cartTable.scss'
 
-import { Position, PositionsData } from '../../store/appSlice/positionsSlice'
+import { ProductsData } from '../../store/appSlice/productsSlice'
 import { Link } from 'react-router-dom'
 import BuyCardLine from '../ShopProductLine/BuyCardLine'
 import { useAppSelector } from '../../store'
-import { useGetProductWithIdQuery } from '../../services/positionsApi'
-import { useMemo, useCallback } from 'react'
+import { useGetProductWithIdQuery } from '../../services/productsApi'
 import { useDispatch } from 'react-redux'
 import { onTransformPrice } from '../../utils/stringTransformer'
 import { Spinner } from '../spinner/Spinner'
@@ -30,7 +29,7 @@ const CartTable = () => {
     const ndsAmount = totalAmount > 0 ? Math.floor((totalAmount / 10) * 2) : 0
     const totalAmountWithNds = totalAmount + ndsAmount
 
-    const buildCartProducts = (data: PositionsData) => {
+    const buildCartProducts = (data: ProductsData) => {
         return data.map((productData) => (
             <CSSTransition
                 key={productData._id}

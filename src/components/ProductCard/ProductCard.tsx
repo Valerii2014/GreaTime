@@ -1,9 +1,9 @@
-import { Position } from '../../store/appSlice/positionsSlice'
+import { Product } from '../../store/appSlice/productsSlice'
 import { BuildLoadingCard } from './BuildLoadingCard'
 import { BuildCard } from './BuildCard'
 
 export interface ProductCardProps {
-    productData: Position | null
+    productData: Product | null
 }
 
 const ProductCard = (props: ProductCardProps) => {

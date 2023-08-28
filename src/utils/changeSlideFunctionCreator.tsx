@@ -1,28 +1,28 @@
 const changeSlideFunctionCreator = (
     sliderRef: React.RefObject<HTMLDivElement>,
-    sliderPosition: number,
-    setSliderPosition: React.Dispatch<React.SetStateAction<number>>,
+    sliderProduct: number,
+    setSliderProduct: React.Dispatch<React.SetStateAction<number>>,
     isAnimating: boolean,
     setIsAnimating: React.Dispatch<React.SetStateAction<boolean>>,
     sliderContentLength: number,
     animationTimeMilliseconds: number
 ) => {
-    return (move: 'prev' | 'next', choisedPosition?: number) => {
+    return (move: 'prev' | 'next', choisedProduct?: number) => {
         if (isAnimating) return
 
         setIsAnimating(true)
         if (move === 'next') {
-            const newPosition = choisedPosition
-                ? choisedPosition
-                : sliderPosition + 1 >= sliderContentLength
+            const newProduct = choisedProduct
+                ? choisedProduct
+                : sliderProduct + 1 >= sliderContentLength
                 ? 0
-                : sliderPosition + 1
+                : sliderProduct + 1
 
             const children = sliderRef.current?.children
 
             if (children instanceof HTMLCollection) {
-                const hidingElement = children[sliderPosition] as HTMLElement
-                const showingElement = children[newPosition] as HTMLElement
+                const hidingElement = children[sliderProduct] as HTMLElement
+                const showingElement = children[newProduct] as HTMLElement
                 if (hidingElement && showingElement) {
                     for (let i = 0; i < children.length; i++) {
                         const hidingElement = children[i] as HTMLElement
@@ -38,24 +38,24 @@ const changeSlideFunctionCreator = (
                     hidingElement.classList.remove('hide')
                     showingElement.classList.add('showSlideRight')
                     hidingElement.classList.add('hideSlideLeft')
-                    setSliderPosition(
-                        (sliderPosition) => (sliderPosition = newPosition)
+                    setSliderProduct(
+                        (sliderProduct) => (sliderProduct = newProduct)
                     )
                 }
             }
         } else if (move === 'prev') {
-            const newPosition =
-                typeof choisedPosition === 'number'
-                    ? choisedPosition
-                    : sliderPosition - 1 < 0
+            const newProduct =
+                typeof choisedProduct === 'number'
+                    ? choisedProduct
+                    : sliderProduct - 1 < 0
                     ? sliderContentLength - 1
-                    : sliderPosition - 1
+                    : sliderProduct - 1
 
             const children = sliderRef.current?.children
 
             if (children instanceof HTMLCollection) {
-                const hidingElement = children[sliderPosition] as HTMLElement
-                const showingElement = children[newPosition] as HTMLElement
+                const hidingElement = children[sliderProduct] as HTMLElement
+                const showingElement = children[newProduct] as HTMLElement
                 if (hidingElement && showingElement) {
                     for (let i = 0; i < children.length; i++) {
                         const hidingElement = children[i] as HTMLElement
@@ -72,8 +72,8 @@ const changeSlideFunctionCreator = (
                     showingElement.classList.add('showSlideLeft')
                     hidingElement.classList.add('hideSlideRight')
 
-                    setSliderPosition(
-                        (sliderPosition) => (sliderPosition = newPosition)
+                    setSliderProduct(
+                        (sliderProduct) => (sliderProduct = newProduct)
                     )
                 }
             }

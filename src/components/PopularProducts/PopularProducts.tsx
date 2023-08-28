@@ -1,21 +1,21 @@
-import './popularPositions.scss'
+import './popularProducts.scss'
 
 import { useState, useRef, useEffect, useMemo, Fragment } from 'react'
 import { useDispatch } from 'react-redux'
 import ProductCard from '../ProductCard/ProductCard'
 import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
-import { PositionsData } from '../../store/appSlice/positionsSlice'
-import { useGetRandomPositionsQuery } from '../../services/positionsApi'
+import { ProductsData } from '../../store/appSlice/productsSlice'
+import { useGetRandomProductsQuery } from '../../services/productsApi'
 import { addProductToShopCart } from '../../store/appSlice/userSlice'
 
-const PopularPosition = () => {
+const PopularProduct = () => {
     const dispatch = useDispatch()
     const animationTimeMilliseconds = 900
-    const [sliderPosition, setSliderPosition] = useState(0)
+    const [sliderProduct, setSliderProduct] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
     const sliderRef = useRef<HTMLDivElement>(null)
 
-    const { data, isLoading, isError } = useGetRandomPositionsQuery(20)
+    const { data, isLoading, isError } = useGetRandomProductsQuery(20)
 
     useEffect(() => {
         const sliderChangeInterval = setInterval(() => {
@@ -37,7 +37,7 @@ const PopularPosition = () => {
         dispatch(addProductToShopCart(productId))
     }
 
-    const onBuildSliderImage = (productDataArray: PositionsData) => {
+    const onBuildSliderImage = (productDataArray: ProductsData) => {
         const allSliderImages: JSX.Element[] = []
         let sliderImage: JSX.Element[] = []
 
@@ -70,7 +70,7 @@ const PopularPosition = () => {
                     return (
                         <div
                             className={`cards ${
-                                index === sliderPosition ? '' : 'hide'
+                                index === sliderProduct ? '' : 'hide'
                             }`}
                             key={index}
                         >
@@ -84,8 +84,8 @@ const PopularPosition = () => {
 
     const onChangeSlide = changeSlideFunctionCreator(
         sliderRef,
-        sliderPosition,
-        setSliderPosition,
+        sliderProduct,
+        setSliderProduct,
         isAnimating,
         setIsAnimating,
         Images.length,
@@ -100,12 +100,12 @@ const PopularPosition = () => {
                         <span
                             key={index}
                             className={`popular-items_dots_item ${
-                                sliderPosition === index
+                                sliderProduct === index
                                     ? 'popular-items_dots_item_active'
                                     : ''
                             }`}
                             onClick={() => {
-                                index > sliderPosition
+                                index > sliderProduct
                                     ? onChangeSlide('next', index)
                                     : onChangeSlide('prev', index)
                             }}
@@ -144,7 +144,7 @@ const PopularPosition = () => {
     )
 }
 
-export default PopularPosition
+export default PopularProduct
 
 //
 //

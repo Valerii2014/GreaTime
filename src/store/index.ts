@@ -1,23 +1,19 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { categoriesApi } from '../services/categoriesApi'
-import { positionsApi } from '../services/positionsApi'
+import { productsApi } from '../services/productsApi'
 import { useSelector } from 'react-redux'
-import categories, {
-    CategoriesSliceStateInterface,
-} from './appSlice/categoriesSlice'
-import positions, {
-    positionsSliceInitialState,
-} from './appSlice/positionsSlice'
+import categories from './appSlice/categoriesSlice'
+import products from './appSlice/productsSlice'
 import sliderAndModal from './appSlice/sliderAndModalSlice'
 import user from './appSlice/userSlice'
 
 const rootReducer = combineReducers({
     categories,
-    positions,
+    products,
     sliderAndModal,
     user,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
-    [positionsApi.reducerPath]: positionsApi.reducer,
+    [productsApi.reducerPath]: productsApi.reducer,
 })
 
 const store = configureStore({
@@ -25,7 +21,7 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
             categoriesApi.middleware,
-            positionsApi.middleware
+            productsApi.middleware
         ),
     devTools: process.env.NODE_ENV !== 'production',
 })

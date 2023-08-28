@@ -4,7 +4,7 @@ import hostName from './.node-host'
 export interface subcatDataInterface {
     _id: string
     name: string
-    positions: []
+    products: []
     categoryFather: string
 }
 
@@ -14,7 +14,7 @@ export interface categoryDataInterface {
     name: string
     img: string
     subcatData?: subcatDataInterface[]
-    positions?: []
+    products?: []
 }
 
 export type CategoryData = categoryDataInterface[]

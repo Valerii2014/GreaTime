@@ -1,6 +1,6 @@
 import '../ItemLine/itemLine.scss'
 
-import { Position } from '../../store/appSlice/positionsSlice'
+import { Product } from '../../store/appSlice/productsSlice'
 import { ChangeEvent, ReactEventHandler, useState } from 'react'
 import { onTransformPrice } from '../../utils/stringTransformer'
 import {
@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../store'
 
 interface BuyCardProps {
-    productData: Position
+    productData: Product
 }
 
 const BuyCardLine = (props: BuyCardProps) => {

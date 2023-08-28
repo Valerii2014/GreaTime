@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { PositionsData, Position } from './positionsSlice'
+import { ProductsData, Product } from './productsSlice'
 
 export interface UserDataInterface {
     firstName: string
@@ -13,7 +13,7 @@ export interface UserSliceInitialStateInterface {
     isAutorized: boolean
     userKey: string | null
     userData: UserDataInterface | null
-    favoritePosition: PositionsData
+    favoriteProduct: ProductsData
     shopCart: [string, number][]
 }
 
@@ -21,7 +21,7 @@ const initialState: UserSliceInitialStateInterface = {
     isAutorized: false,
     userKey: null,
     userData: null,
-    favoritePosition: [],
+    favoriteProduct: [],
     shopCart: [],
 }
 

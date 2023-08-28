@@ -3,13 +3,13 @@ import './productContainer.scss'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../store'
-import { useGetSubcatsPositionsQuery } from '../../services/positionsApi'
-import { setPositions } from '../../store/appSlice/positionsSlice'
+import { useGetSubcatsProductsQuery } from '../../services/productsApi'
+import { setProducts } from '../../store/appSlice/productsSlice'
 
 import LoadingLine from '../LoadingLine/LoadingLine'
 import CatalogPagesPanel from '../CatalogPagesPanel/CatalogPagesPanel'
 import CatalogProductsGrid from '../CatalogProductsGrid/CatalogProductsGrid'
-import PositionFunctionalPanel from '../PositionFunctionalPanel/PositionFunctionalPanel'
+import ProductFunctionalPanel from '../ProductFunctionalPanel/ProductFunctionalPanel'
 
 const CatalogProductContainer = () => {
     const dispatch = useDispatch()
@@ -18,11 +18,11 @@ const CatalogProductContainer = () => {
     )
     const haveActiveCategory = subcatsId.length > 0
     const { data, isLoading, isFetching, isError } =
-        useGetSubcatsPositionsQuery(subcatsId)
+        useGetSubcatsProductsQuery(subcatsId)
 
     useEffect(() => {
         if (data) {
-            dispatch(setPositions(data))
+            dispatch(setProducts(data))
         }
     }, [data])
 
@@ -44,7 +44,7 @@ const CatalogProductContainer = () => {
             {InfoText}
             {Loading}
             <div className={`product-container${inactiveClass}`}>
-                <PositionFunctionalPanel />
+                <ProductFunctionalPanel />
                 <CatalogProductsGrid />
                 <CatalogPagesPanel />
             </div>

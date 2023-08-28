@@ -1,6 +1,6 @@
 import './itemLine.scss'
 
-import { Position } from '../../store/appSlice/positionsSlice'
+import { Product } from '../../store/appSlice/productsSlice'
 import { onTransformString } from '../../utils/stringTransformer'
 import { handleImageError } from '../../utils/handleImageError'
 import { useDispatch } from 'react-redux'
@@ -11,7 +11,7 @@ import {
 } from '../../store/appSlice/userSlice'
 
 interface ItemLineProps {
-    productData: Position
+    productData: Product
 }
 
 const ItemLine = (props: ItemLineProps) => {

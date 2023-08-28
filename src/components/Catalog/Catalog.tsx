@@ -42,7 +42,7 @@ const Catalog = () => {
         }
     }, [data])
 
-    const buildVisualActiveCategories = (allCategories: CategoryData) => {
+    const buildActiveCategoriesList = (allCategories: CategoryData) => {
         const activeCategorieNames: string[] = []
 
         for (const categorie of allCategories) {
@@ -62,7 +62,7 @@ const Catalog = () => {
         return formatedText
     }
 
-    const onBuildsubcatData = (catalogItems: subcatDataInterface[]) => {
+    const BuildsubcatList = (catalogItems: subcatDataInterface[]) => {
         const subcatDataList: JSX.Element[] = []
 
         for (const subcatDataItem of catalogItems) {
@@ -95,7 +95,7 @@ const Catalog = () => {
         return <ul className="catalog_subcategories_list">{subcatDataList}</ul>
     }
 
-    const onBuildCategories = (categoriesItems: CategoryData) => {
+    const BuildCategoriesList = (categoriesItems: CategoryData) => {
         const categoriesList: JSX.Element[] = []
 
         for (const categorie of categoriesItems) {
@@ -152,7 +152,7 @@ const Catalog = () => {
                     </div>
 
                     {activeSubcategory
-                        ? onBuildsubcatData(categorie.subcatData!)
+                        ? BuildsubcatList(categorie.subcatData!)
                         : null}
                 </li>
             )
@@ -163,15 +163,15 @@ const Catalog = () => {
 
     const Loading = isFetching ? <Spinner /> : null
     const CategoriesList =
-        allCategories.length !== 0 ? onBuildCategories(allCategories) : null
+        allCategories.length !== 0 ? BuildCategoriesList(allCategories) : null
 
     return (
         <div className="catalog">
             <div className="container">
                 <div className="catalog_wrapper">
-                    <div className="catalog_categories_catalog">Каталог</div>
+                    <div className="catalog_categories_title">Каталог</div>
                     <div className="catalog_categories_choice">
-                        {buildVisualActiveCategories(allCategories)}
+                        {buildActiveCategoriesList(allCategories)}
                     </div>
                     <div className="catalog_categories_list-wrapper">
                         {Loading}
@@ -179,7 +179,7 @@ const Catalog = () => {
                             {CategoriesList}
                         </ul>
                     </div>
-                    <div className="catalog_positions">
+                    <div className="catalog_products">
                         <CatalogProductContainer />
                     </div>
                 </div>

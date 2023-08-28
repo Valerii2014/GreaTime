@@ -1,6 +1,6 @@
 import PromoSlider from '../components/PromoSlider/PromoSlider'
 import { CategoryCards } from '../components/CategoryCards/CategoryCards'
-import PopularPosition from '../components/PopularPositions/PopularPositions'
+import PopularProduct from '../components/PopularProducts/PopularProducts'
 import Benefits from '../components/Benefits/Benefits'
 import Connection from '../components/Connection/Connection'
 import Partners from '../components/Partners/Partners'
@@ -12,7 +12,7 @@ const PreviousPage = () => {
             <PromoSlider />
             <div className="container">
                 <CategoryCards />
-                <PopularPosition />
+                <PopularProduct />
                 <Benefits />
                 <Connection />
                 <Partners />

@@ -1,6 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit'
 
-import { setPositionsOffset } from '../store/appSlice/positionsSlice'
+import { setProductsOffset } from '../store/appSlice/productsSlice'
 import {
     addActiveCategorieFilter,
     deleteActiveCategorieFilter,
@@ -13,15 +13,15 @@ import {
 } from '../services/categoriesApi'
 
 const createFunctionsForCatalog = (dispatch: Dispatch) => {
-    // add/delete filter for filtration positions with categories
+    // add/delete filter for filtrationproducts with categories
     const addActiveFilter = (categorie: categoryDataInterface | string) => {
         dispatch(addActiveCategorieFilter(categorie))
-        dispatch(setPositionsOffset(0))
+        dispatch(setProductsOffset(0))
     }
 
     const deleteActiveFilter = (categorie: categoryDataInterface | string) => {
         dispatch(deleteActiveCategorieFilter(categorie))
-        dispatch(setPositionsOffset(0))
+        dispatch(setProductsOffset(0))
     }
     // check that categoory contains in active category array
     const checkIsCatActive = (

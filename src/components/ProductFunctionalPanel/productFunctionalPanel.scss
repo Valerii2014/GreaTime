@@ -1,4 +1,4 @@
-.position-functional-panel {
+.product-functional-panel {
     width: 100%;
     height: 56px;
     &_wrapper {
@@ -68,7 +68,7 @@
             }
         }
     }
-    &_positionstype {
+    &_product-type {
         width: 80px;
         height: 100%;
         display: flex;
@@ -150,7 +150,7 @@
             }
         }
     }
-    &_positions {
+    &_products {
         padding: 20px 12px 32px 12px;
         background-color: #fff;
         width: 100%;

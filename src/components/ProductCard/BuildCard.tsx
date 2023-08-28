@@ -3,7 +3,7 @@ import './productCard.scss'
 import { useDispatch } from 'react-redux'
 
 import { useAppSelector } from '../../store'
-import { Position } from '../../store/appSlice/positionsSlice'
+import { Product } from '../../store/appSlice/productsSlice'
 import {
     addProductToShopCart,
     removeProduct,
@@ -15,7 +15,7 @@ import { onTransformPrice } from '../../utils/stringTransformer'
 import { handleImageError } from '../../utils/handleImageError'
 import { RateStars } from '../rateStars/RateStars'
 
-export const BuildCard = (props: Position) => {
+export const BuildCard = (props: Product) => {
     const dispatch = useDispatch()
     const cartData = useAppSelector((state) => state.user.shopCart)
 

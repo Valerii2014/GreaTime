@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { ChangeEvent } from 'react'
 import { addProductToShopCart } from '../../store/appSlice/userSlice'
-import { useGetProductWithNameQuery } from '../../services/positionsApi'
+import { useGetProductWithNameQuery } from '../../services/productsApi'
 import ItemLine from '../ItemLine/ItemLine'
 import { Link, useLocation } from 'react-router-dom'
 
