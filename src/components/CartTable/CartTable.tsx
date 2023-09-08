@@ -1,15 +1,18 @@
 import './cartTable.scss'
 
-import { ProductsData } from '../../store/appSlice/productsSlice'
 import { Link } from 'react-router-dom'
-import BuyCardLine from '../ShopProductLine/BuyCardLine'
-import { useAppSelector } from '../../store'
-import { useGetProductWithIdQuery } from '../../services/productsApi'
 import { useDispatch } from 'react-redux'
-import { onTransformPrice } from '../../utils/stringTransformer'
-import { Spinner } from '../spinner/Spinner'
-import { clearShopCart } from '../../store/appSlice/userSlice'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+import { useAppSelector } from '../../store'
+import { clearShopCart } from '../../store/appSlice/userSlice'
+import { ProductsData } from '../../store/appSlice/productsSlice'
+import { useGetProductWithIdQuery } from '../../services/productsApi'
+
+import { Spinner } from '../spinner/Spinner'
+import BuyCardLine from '../ShopProductLine/BuyCardLine'
+
+import { onTransformPrice } from '../../utils/stringTransformer'
 
 const CartTable = () => {
     const dispatch = useDispatch()

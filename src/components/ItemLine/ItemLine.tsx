@@ -1,14 +1,16 @@
 import './itemLine.scss'
 
-import { Product } from '../../store/appSlice/productsSlice'
-import { onTransformString } from '../../utils/stringTransformer'
-import { handleImageError } from '../../utils/handleImageError'
 import { useDispatch } from 'react-redux'
-import { useAppSelector } from '../../store'
+
 import {
     addProductToShopCart,
     delProductFromShopCart,
 } from '../../store/appSlice/userSlice'
+import { useAppSelector } from '../../store'
+import { Product } from '../../store/appSlice/productsSlice'
+
+import { handleImageError } from '../../utils/handleImageError'
+import { onTransformString } from '../../utils/stringTransformer'
 
 interface ItemLineProps {
     productData: Product

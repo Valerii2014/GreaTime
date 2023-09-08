@@ -1,7 +1,9 @@
+@import '../../styles/variables';
+
 .footer {
     min-height: 395px;
     margin-top: 150px;
-    background-color: #153e84;
+    background-color: $my-blue_hover;
     &_flex {
         padding-top: 32px;
         display: flex;

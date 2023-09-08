@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .catalog {
     &_wrapper {
         position: relative;
@@ -23,7 +25,7 @@
             font-size: 24px;
             line-height: 20px;
             font-weight: 700;
-            color: #4174cb;
+            color: $my-blue;
             background-color: #fff;
         }
         &_choice {
@@ -60,7 +62,7 @@
                 }
                 &_active {
                     font-weight: 700;
-                    color: #4174cb;
+                    color: $my-blue;
                     font-size: 18px;
                 }
                 img {
@@ -99,8 +101,8 @@
                 }
                 &:hover {
                     &::before {
-                        background-color: #4174cbac;
-                        border: #4174cbac solid 1px;
+                        background-color: $my-blue;
+                        border: $my-blue solid 1px;
                     }
                 }
                 &_wrapper {
@@ -127,13 +129,13 @@
                 }
                 &_active {
                     &::before {
-                        background-color: #4174cb;
-                        border: #4174cb solid 1px;
+                        background-color: $my-blue;
+                        border: $my-blue solid 1px;
                     }
                     &:hover {
                         &::before {
-                            background-color: #4174cb;
-                            border: #4174cb solid 1px;
+                            background-color: $my-blue;
+                            border: $my-blue solid 1px;
                         }
                     }
                 }

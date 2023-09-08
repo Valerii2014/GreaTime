@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .popular-items {
     margin-top: 60px;
     padding: 40px 0 36px 0;
@@ -23,7 +25,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 65%;
-        background-color: #4174cb;
+        background-color: $my-blue;
         z-index: 200;
         cursor: pointer;
         transition: all 0.3s;
@@ -62,7 +64,7 @@
             width: 6px;
             margin-right: 16px;
             border-radius: 65%;
-            background-color: #4174cb;
+            background-color: $my-blue;
             transition: all 0.4s;
             cursor: pointer;
             opacity: 0.9;

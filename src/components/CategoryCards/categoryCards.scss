@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .catalog_cards {
     margin-top: 90px;
     &_wrapper {
@@ -43,7 +45,7 @@
         width: 100%;
         position: absolute;
         bottom: 0px;
-        background-color: #4174cb;
+        background-color: $my-blue;
         opacity: 0.6;
     }
     &_loading {

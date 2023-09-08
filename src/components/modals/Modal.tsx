@@ -1,11 +1,13 @@
 import './modals.scss'
 
-import { useState, useEffect, MouseEvent } from 'react'
+import { useDispatch } from 'react-redux'
+import { useEffect, MouseEvent } from 'react'
+
+import { useAppSelector } from '../../store'
+import { setModalType } from '../../store/appSlice/sliderAndModalSlice'
+
 import LogInModal from './LogInModal'
 import SignInModal from './SignInModal'
-import { useAppSelector } from '../../store'
-import { useDispatch } from 'react-redux'
-import { setModalType } from '../../store/appSlice/sliderAndModalSlice'
 
 const Modal = () => {
     const dispatch = useDispatch()

@@ -1,16 +1,18 @@
 import '../ItemLine/itemLine.scss'
 
-import { Product } from '../../store/appSlice/productsSlice'
-import { ChangeEvent, ReactEventHandler, useState } from 'react'
-import { onTransformPrice } from '../../utils/stringTransformer'
+import { useDispatch } from 'react-redux'
+import { ChangeEvent, ReactEventHandler } from 'react'
+
 import {
     removeProduct,
     addProductToShopCart,
     delProductFromShopCart,
     setProductQuantityInCart,
 } from '../../store/appSlice/userSlice'
-import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../store'
+import { Product } from '../../store/appSlice/productsSlice'
+
+import { onTransformPrice } from '../../utils/stringTransformer'
 
 interface BuyCardProps {
     productData: Product

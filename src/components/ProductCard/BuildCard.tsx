@@ -3,17 +3,18 @@ import './productCard.scss'
 import { useDispatch } from 'react-redux'
 
 import { useAppSelector } from '../../store'
-import { Product } from '../../store/appSlice/productsSlice'
 import {
     addProductToShopCart,
     removeProduct,
 } from '../../store/appSlice/userSlice'
+import { Product } from '../../store/appSlice/productsSlice'
+
+import { RateStars } from '../rateStars/RateStars'
 
 import { onTransformName } from '../../utils/stringTransformer'
 import getItemPercentSale from '../../utils/getPercentSale'
 import { onTransformPrice } from '../../utils/stringTransformer'
 import { handleImageError } from '../../utils/handleImageError'
-import { RateStars } from '../rateStars/RateStars'
 
 export const BuildCard = (props: Product) => {
     const dispatch = useDispatch()

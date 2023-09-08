@@ -15,11 +15,11 @@ import {
     subcatDataInterface,
 } from '../../services/categoriesApi'
 
-import createFunctionsForCatalog from '../../utils/functionsForCatalog'
-
 import { Spinner } from '../spinner/Spinner'
-import { onTransformString } from '../../utils/stringTransformer'
 import CatalogProductContainer from '../CatalogProductContainer/CatalogProductContainer'
+
+import { onTransformString } from '../../utils/stringTransformer'
+import createFunctionsForCatalog from '../../utils/functionsForCatalog'
 
 const Catalog = () => {
     const dispatch = useDispatch()

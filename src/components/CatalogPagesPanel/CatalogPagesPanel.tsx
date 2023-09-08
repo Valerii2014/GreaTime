@@ -1,8 +1,10 @@
 import './catalogPagesPanel.scss'
+
 import { useDispatch } from 'react-redux'
+import { useState, useEffect } from 'react'
+
 import { useAppSelector } from '../../store'
 import { setProductsOffset } from '../../store/appSlice/productsSlice'
-import { useState, useEffect } from 'react'
 
 const CatalogPagesPanel = () => {
     const dispatch = useDispatch()

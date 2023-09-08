@@ -1,12 +1,14 @@
 import './appHeader.scss'
-import { setModalType } from '../../store/appSlice/sliderAndModalSlice'
-import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+
 import { ChangeEvent } from 'react'
-import { addProductToShopCart } from '../../store/appSlice/userSlice'
-import { useGetProductWithNameQuery } from '../../services/productsApi'
-import ItemLine from '../ItemLine/ItemLine'
+import { useDispatch } from 'react-redux'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+
+import { useGetProductWithNameQuery } from '../../services/productsApi'
+import { setModalType } from '../../store/appSlice/sliderAndModalSlice'
+
+import ItemLine from '../ItemLine/ItemLine'
 
 function CustomLink({
     to,
@@ -31,7 +33,6 @@ function CustomLink({
 const AppHeader = () => {
     const dispatch = useDispatch()
     const setModalTypeLogIn = () => dispatch(setModalType('logIn'))
-    const setModalTypeSignUp = () => dispatch(setModalType('signIn'))
 
     const [inputValue, setInputValue] = useState('')
     const [productName, setProductName] = useState('')
@@ -56,10 +57,6 @@ const AppHeader = () => {
     ) => {
         e.preventDefault()
         setProductName(inputValue)
-    }
-
-    const addProductToCart = (productId: string) => {
-        dispatch(addProductToShopCart(productId))
     }
 
     const findedProducts =
@@ -106,13 +103,13 @@ const AppHeader = () => {
                     <div className="company-wrapper">
                         <div className="company_social">
                             <div className="company_social_container">
-                                <a href="dsfds">
+                                <a href="/">
                                     <img
                                         src="./icons/system/whatsapp.svg"
                                         alt="whatsapp"
                                     />
                                 </a>
-                                <a href="dsfds">
+                                <a href="/">
                                     <img
                                         src="./icons/system/telegram.svg"
                                         alt="telegram"
@@ -176,7 +173,7 @@ const AppHeader = () => {
                             >
                                 <img
                                     src="./icons/system/profile.svg"
-                                    alt="customicon"
+                                    alt="custom icon"
                                 />
                                 <div>Войти</div>
                             </div>
@@ -196,7 +193,7 @@ const AppHeader = () => {
                             >
                                 <img
                                     src="./icons/system/buy.svg"
-                                    alt="customicon"
+                                    alt="custom icon"
                                 />
                                 <div>Корзина</div>
                             </Link>

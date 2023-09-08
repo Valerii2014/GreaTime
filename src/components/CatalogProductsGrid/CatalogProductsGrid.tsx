@@ -1,12 +1,15 @@
 import './catalogProductsGrid.scss'
-import ProductCard from '../ProductCard/ProductCard'
-import ItemLine from '../ItemLine/ItemLine'
+
 import { useAppSelector } from '../../store'
-import { ProductsData, Product } from '../../store/appSlice/productsSlice'
+import { ProductsData } from '../../store/appSlice/productsSlice'
 import { SortTypeLiteral } from '../../store/appSlice/productsSlice'
+
+import ItemLine from '../ItemLine/ItemLine'
+import ProductCard from '../ProductCard/ProductCard'
+
 import getItemPercentSale from '../../utils/getPercentSale'
 
-const CatalogproductsGrid = () => {
+const CatalogProductsGrid = () => {
     const sortType = useAppSelector((state) => state.products.sortType.type)
 
     const { products, productsType, quantityProductsOnPage, productsOffset } =
@@ -45,7 +48,7 @@ const CatalogproductsGrid = () => {
     return <div className={containerType}>{VisibleProductsGrid}</div>
 }
 
-export default CatalogproductsGrid
+export default CatalogProductsGrid
 //
 //
 //

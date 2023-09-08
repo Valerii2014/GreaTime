@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .buy-card {
     position: relative;
     width: 100%;
@@ -36,7 +38,7 @@
             font-weight: 400;
             &_code {
                 span {
-                    color: #4174cb;
+                    color: $my-blue;
                 }
             }
             &_name {
@@ -62,12 +64,12 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: #4174cb;
+                color: $my-blue;
                 border: 1px solid #bdbdbd;
                 transition: all 0.3s;
                 cursor: pointer;
                 &:hover {
-                    background-color: #4174cb;
+                    background-color: $my-blue;
                     color: #fff;
                 }
                 &:nth-child(2) {

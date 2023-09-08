@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .overflow {
     position: absolute;
     top: 0px;
@@ -40,7 +42,7 @@
         text-align: center;
         color: rgb(72, 72, 72);
         &_active {
-            color: #4174cb;
+            color: $my-blue;
         }
         &_inactive {
             cursor: pointer;

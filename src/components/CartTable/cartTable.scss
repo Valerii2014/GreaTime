@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .shop-cart {
     &_header {
         display: flex;
@@ -115,7 +117,7 @@
             span {
                 font-size: 20px;
                 font-weight: 500;
-                color: #4174cb;
+                color: $my-blue;
                 &:nth-child(2) {
                     margin-left: 60px;
                 }
@@ -145,7 +147,7 @@
             text-decoration: none;
             color: #5e5e5e;
             &:hover {
-                color: #4174cb;
+                color: $my-blue;
             }
         }
     }

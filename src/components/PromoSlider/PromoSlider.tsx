@@ -1,14 +1,16 @@
 import './promoSlider.scss'
 
-import { useState, useRef, useEffect, useMemo } from 'react'
-import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
 import { useSelector, useDispatch } from 'react-redux'
+import { useState, useRef, useEffect, useMemo, ReactEventHandler } from 'react'
+
+import { RootState } from '../../store'
+import { SliderData } from '../../services/categoriesApi'
 import { useGetSliderDataQuery } from '../../services/categoriesApi'
 import { setSliderData } from '../../store/appSlice/categoriesSlice'
-import { SliderData } from '../../services/categoriesApi'
-import { RootState } from '../../store'
+
 import { Spinner } from '../spinner/Spinner'
-import { ReactEventHandler } from 'react'
+
+import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
 
 const PromoSlider = () => {
     const sliderImagesData: SliderData = useSelector(

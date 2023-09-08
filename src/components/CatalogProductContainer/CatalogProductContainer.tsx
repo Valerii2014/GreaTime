@@ -2,9 +2,10 @@ import './productContainer.scss'
 
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+
 import { useAppSelector } from '../../store'
-import { useGetSubcatsProductsQuery } from '../../services/productsApi'
 import { setProducts } from '../../store/appSlice/productsSlice'
+import { useGetSubcatsProductsQuery } from '../../services/productsApi'
 
 import LoadingLine from '../LoadingLine/LoadingLine'
 import CatalogPagesPanel from '../CatalogPagesPanel/CatalogPagesPanel'

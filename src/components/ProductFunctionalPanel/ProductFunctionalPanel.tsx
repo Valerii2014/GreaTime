@@ -1,7 +1,9 @@
 import './productFunctionalPanel.scss'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../store'
+
 import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { RootState } from '../../store'
 import {
     setQuantityProductsOnPage,
     setProductsSortType,

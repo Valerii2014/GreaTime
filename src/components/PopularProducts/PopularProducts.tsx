@@ -1,12 +1,15 @@
 import './popularProducts.scss'
 
-import { useState, useRef, useEffect, useMemo, Fragment } from 'react'
 import { useDispatch } from 'react-redux'
-import ProductCard from '../ProductCard/ProductCard'
-import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
+import { useState, useRef, useEffect, useMemo, Fragment } from 'react'
+
 import { ProductsData } from '../../store/appSlice/productsSlice'
-import { useGetRandomProductsQuery } from '../../services/productsApi'
 import { addProductToShopCart } from '../../store/appSlice/userSlice'
+import { useGetRandomProductsQuery } from '../../services/productsApi'
+
+import ProductCard from '../ProductCard/ProductCard'
+
+import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
 
 const PopularProduct = () => {
     const dispatch = useDispatch()

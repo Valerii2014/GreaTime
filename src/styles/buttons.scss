@@ -1,11 +1,67 @@
-button {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.button_search-form {
-  padding: 7px 32px;
-  gap: 10px;
+.button {
+    * {
+        cursor: pointer;
+    }
+    &_search-form {
+        padding: 7px 32px;
+        gap: 10px;
+    }
+    &_catalog,
+    &_modal {
+        width: 163px;
+        height: 40px;
+    }
+    &_modal {
+        font-size: 16px;
+        margin-top: 30px;
+    }
+    &_shop-cart {
+        padding: 8px 16px;
+        height: 100%;
+        &_white {
+            background-color: #fff;
+            border: 1px solid $my-blue;
+            color: $my-blue;
+            &:hover {
+                background-color: #c3d6f8;
+            }
+            &_header {
+                margin-right: 20px;
+            }
+            &_bottom {
+                margin-left: 20px;
+            }
+        }
+    }
+    &_sort {
+        width: 103px;
+    }
+    &_quantity {
+        width: 86px;
+    }
+    &_card-line {
+        width: 130px;
+        height: 35px;
+    }
+    &_sort,
+    &_quantity {
+        height: 100%;
+        cursor: default;
+        &:hover {
+            background-color: $my-blue;
+        }
+    }
+    &_buy {
+        position: relative;
+        &:before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border-radius: 65%;
+            background-color: $my-blue_hover;
+            background-image: url('../../public/icons/system/done.svg');
+            animation: buy-animation 0.5s ease-in 1;
+        }
+    }
 }

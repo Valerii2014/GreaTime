@@ -1,0 +1,10 @@
+.product-info {
+    display: flex;
+    &_images {
+        width: 580px;
+    }
+    &_information {
+        width: 600px;
+        padding-left: 20px;
+    }
+}
