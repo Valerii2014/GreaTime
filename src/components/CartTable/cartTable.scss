@@ -23,7 +23,7 @@
             font-size: 14px;
             font-weight: 400;
             &_left {
-                width: 25%;
+                width: 27%;
                 display: flex;
 
                 justify-content: space-around;
@@ -167,3 +167,5 @@
     transform: translateX(-100%);
     transition: transform 500ms ease-in;
 }
+
+@import './media';

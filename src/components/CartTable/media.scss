@@ -1,0 +1,58 @@
+@media (max-width: 1200px) {
+    .shop-cart {
+        &_table {
+            &_headers {
+                &_left {
+                    width: 34%;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .shop-cart {
+        &_table {
+            &_headers {
+                &_left {
+                    width: 44%;
+                }
+                &_right {
+                    width: 39%;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .shop-cart {
+        &_table {
+            &_headers {
+                &_left {
+                    width: 44%;
+                }
+                &_right {
+                    width: 39%;
+                }
+            }
+        }
+        &_service-wrapper {
+            height: 130px;
+        }
+        &_sumary {
+            &_info {
+                flex-direction: column;
+                &_price {
+                    margin-top: 25px;
+                    &_summ {
+                        justify-content: start;
+                    }
+                }
+            }
+            &_total {
+                text-align: start;
+            }
+        }
+    }
+}

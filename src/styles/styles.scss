@@ -48,7 +48,7 @@ input {
 
 .container {
     width: 1180px;
-    margin: auto;
+    margin: 0 auto 0 auto;
 }
 
 .section-header {
@@ -67,3 +67,5 @@ input {
         opacity: 1;
     }
 }
+
+@import './media';

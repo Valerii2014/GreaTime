@@ -1,6 +1,7 @@
 @import '../../styles/variables';
 
 .catalog {
+    min-height: 700px;
     &_wrapper {
         position: relative;
         min-height: 600px;
@@ -161,3 +162,5 @@
         opacity: 1;
     }
 }
+
+@import './media.scss';

@@ -1,0 +1,14 @@
+@media (max-width: 1200px) {
+    .partners {
+        margin-top: 110px;
+        &_wrapper {
+            column-gap: 30px;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .partners {
+        display: none;
+    }
+}

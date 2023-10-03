@@ -13,18 +13,20 @@ import ItemLine from '../ItemLine/ItemLine'
 function CustomLink({
     to,
     children,
+    className,
 }: {
     to: string
     children: React.ReactNode
+    className: string
 }) {
     const location = useLocation()
 
     const isActive = location.pathname === to
 
-    const classNames = isActive ? 'active' : ''
+    const classNameActive = isActive ? 'active' : ''
 
     return (
-        <Link to={to} className={classNames}>
+        <Link to={to} className={`${classNameActive} ${className}`}>
             {children}
         </Link>
     )
@@ -131,7 +133,10 @@ const AppHeader = () => {
             <div className="func-panel">
                 <div className="container">
                     <div className="func-panel-wrapper">
-                        <CustomLink to="/catalog">
+                        <CustomLink
+                            to="/catalog"
+                            className="button_catalog_wrapper"
+                        >
                             <button className="button_catalog">
                                 <div className="button button_catalog_span-container">
                                     <span />

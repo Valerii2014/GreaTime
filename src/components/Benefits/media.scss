@@ -1,0 +1,40 @@
+@media (max-width: 1200px) {
+    .benefits {
+        margin-top: 70px;
+        &_grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .benefits {
+        &_grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        &_item {
+            width: 220px;
+            place-self: start center;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .benefits {
+        margin-top: 40px;
+        &_grid {
+            grid-template-rows: auto;
+        }
+        &_item {
+            width: 130px;
+            min-width: 130px;
+            &_header {
+                font-size: 13px;
+            }
+            &_description {
+                font-size: 11px;
+                text-align: center;
+            }
+        }
+    }
+}

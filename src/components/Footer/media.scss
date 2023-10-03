@@ -1,0 +1,116 @@
+@media (max-width: 1200px) {
+    .footer {
+        margin-top: 110px;
+
+        &_flex {
+            padding: 32px 20px 0 20px;
+            &_info {
+                &_description {
+                    width: 100px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .footer {
+        margin-top: 80px;
+
+        &_flex {
+            padding: 32px 20px 0 20px;
+            &_info {
+                &:last-child {
+                    display: none;
+                }
+            }
+        }
+        &_bottom {
+            a {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        &_flex {
+            &_info {
+                &:nth-child(3),
+                &:nth-child(4) {
+                    display: none;
+                }
+            }
+        }
+        &_bottom {
+            justify-content: center;
+            &_inn {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .footer {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        min-height: 365px;
+        &_flex {
+            flex-wrap: wrap;
+            &_contacts {
+                width: 170px;
+                img {
+                    width: 90%;
+                }
+                &_icons {
+                    img {
+                        width: 20px;
+                        margin-right: 12px;
+                    }
+                }
+            }
+            &_info {
+                width: 100px;
+                &:nth-child(3) {
+                    display: block;
+                }
+                &_header {
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                }
+                &_list {
+                    &_item {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+        &_bottom {
+            margin-top: 22px;
+            &_company {
+                font-size: 10px;
+            }
+        }
+    }
+}
+
+@media (max-width: 440px) {
+    .footer {
+        &_flex {
+            justify-content: space-between;
+            &_info {
+                width: calc(100% - 170px);
+                max-width: 133px;
+                &:nth-child(3) {
+                    display: none;
+                }
+            }
+        }
+    }
+}

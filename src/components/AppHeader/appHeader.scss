@@ -1,6 +1,7 @@
 @import '../../styles/variables';
 
 .app-header {
+    width: 100%;
     min-height: 203px;
     box-shadow: 0 5px 5px #00000033;
 }
@@ -91,7 +92,7 @@
     }
 }
 .func-panel {
-    margin: 19px 0 19px 0;
+    margin: 19px 0 0 0;
     min-height: 40px;
     &-wrapper {
         display: flex;
@@ -144,6 +145,7 @@
 .search {
     margin-left: 20px;
     position: relative;
+    z-index: 2000;
     &_form {
         position: relative;
         width: 702px;
@@ -189,7 +191,7 @@
 
 .button_catalog {
     padding: 0 32px;
-    font-size: 18px;
+
     font-weight: 400;
     &_span-container {
         margin-right: 15px;
@@ -228,3 +230,5 @@
         opacity: 1;
     }
 }
+
+@import './media';

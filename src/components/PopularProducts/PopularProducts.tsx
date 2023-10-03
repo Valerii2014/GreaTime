@@ -1,22 +1,29 @@
 import './popularProducts.scss'
 
-import { useDispatch } from 'react-redux'
 import { useState, useRef, useEffect, useMemo, Fragment } from 'react'
 
+import { RootState } from '../../store'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { ProductsData } from '../../store/appSlice/productsSlice'
-import { addProductToShopCart } from '../../store/appSlice/userSlice'
 import { useGetRandomProductsQuery } from '../../services/productsApi'
 
 import ProductCard from '../ProductCard/ProductCard'
 
 import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
+import createTouchHandler from '../../utils/createTouchHandler'
 
 const PopularProduct = () => {
-    const dispatch = useDispatch()
+    const displayWidth = useSelector(
+        (state: RootState) => state.user.displayWidth
+    )
+    const productsQuantityOnSlide =
+        displayWidth > 991 ? 4 : displayWidth > 768 ? 3 : 2
+
     const animationTimeMilliseconds = 900
     const [sliderProduct, setSliderProduct] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
     const sliderRef = useRef<HTMLDivElement>(null)
+    const touchStartX = useRef<number | null>(null)
 
     const { data, isLoading, isError } = useGetRandomProductsQuery(20)
 
@@ -36,10 +43,6 @@ const PopularProduct = () => {
         }
     }, [isAnimating, data])
 
-    const addProductToCart = (productId: string) => {
-        dispatch(addProductToShopCart(productId))
-    }
-
     const onBuildSliderImage = (productDataArray: ProductsData) => {
         const allSliderImages: JSX.Element[] = []
         let sliderImage: JSX.Element[] = []
@@ -48,14 +51,17 @@ const PopularProduct = () => {
             sliderImage.push(
                 <ProductCard key={productData._id} productData={productData} />
             )
-            if ((index + 1) % 4 === 0) {
+            if ((index + 1) % productsQuantityOnSlide === 0) {
                 allSliderImages.push(
                     <div className="cards" key={allSliderImages.length}>
                         {sliderImage}
                     </div>
                 )
                 sliderImage = []
-            } else if (index + 1 === productDataArray.length) {
+            } else if (
+                index + 1 === productDataArray.length &&
+                index + 1 === productsQuantityOnSlide
+            ) {
                 allSliderImages.push(
                     <Fragment key={index}>{sliderImage}</Fragment>
                 )
@@ -119,11 +125,23 @@ const PopularProduct = () => {
         )
     }
 
-    const sliderContent = useMemo(() => sliderImages(Images), [data])
+    const { handleTouchStart, handleTouchMove } = createTouchHandler(
+        touchStartX,
+        onChangeSlide
+    )
+
+    const sliderContent = useMemo(
+        () => sliderImages(Images),
+        [data, displayWidth]
+    )
     const sliderDots = Images ? onBuildItemDots(Images) : null
     const sliderLoading = isLoading ? onBuildSliderLoading() : null
     return (
-        <section className="popular-items">
+        <section
+            className="popular-items"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchMove}
+        >
             <h2 className="section-header">Популярные товары</h2>
 
             <div className="popular-items_wrapper">

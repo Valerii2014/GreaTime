@@ -10,6 +10,7 @@
         row-gap: 34px;
     }
     &_item {
+        min-width: 220px;
         &_img {
             margin: auto;
             width: 80px;
@@ -31,7 +32,9 @@
             margin-top: 12px;
             font-size: 14px;
             font-weight: 350;
-            text-align: center;
+            text-align: start;
         }
     }
 }
+
+@import './media';

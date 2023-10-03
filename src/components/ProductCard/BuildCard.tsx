@@ -73,11 +73,13 @@ export const BuildCard = (props: Product) => {
                 <h4 className="item-card_name">{onTransformName(name)}</h4>
                 <div className="item-card_price">
                     {getStyledPrice(price, prevPrice)}
-                    <div
-                        className={`item-card_price_basket ${inCartClass}`}
-                        onClick={buttonCB}
-                    >
-                        <img src="./icons/system/buy-white.svg" alt="buy" />
+                    <div className="item-card_price_basket_wrapper">
+                        <div
+                            className={`item-card_price_basket ${inCartClass}`}
+                            onClick={buttonCB}
+                        >
+                            <img src="./icons/system/buy-white.svg" alt="buy" />
+                        </div>
                     </div>
                 </div>
             </div>

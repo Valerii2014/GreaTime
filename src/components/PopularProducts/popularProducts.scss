@@ -6,11 +6,11 @@
     &_wrapper {
         position: relative;
         margin: 32px auto 0 auto;
-        width: 1120px;
+        width: calc(100% - 60px);
         &_cards {
             position: relative;
             margin: 0 20px;
-            width: 1080px;
+            width: calc(100% - 40px);
             height: 424px;
             padding-bottom: 15px;
             border-radius: 10px;
@@ -80,7 +80,7 @@
 .cards {
     position: absolute;
     top: 0px;
-    width: 1080px;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     background-color: #fff;
@@ -110,3 +110,5 @@
         z-index: 0;
     }
 }
+
+@import './media';

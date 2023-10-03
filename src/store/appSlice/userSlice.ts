@@ -15,6 +15,7 @@ export interface UserSliceInitialStateInterface {
     userData: UserDataInterface | null
     favoriteProduct: ProductsData
     shopCart: [string, number][]
+    displayWidth: number
 }
 
 const initialState: UserSliceInitialStateInterface = {
@@ -23,6 +24,7 @@ const initialState: UserSliceInitialStateInterface = {
     userData: null,
     favoriteProduct: [],
     shopCart: [],
+    displayWidth: 1980,
 }
 
 const userSlice = createSlice({
@@ -71,6 +73,9 @@ const userSlice = createSlice({
         clearShopCart: (state) => {
             state.shopCart = []
         },
+        setDisplayWidth: (state, action) => {
+            state.displayWidth = action.payload
+        },
     },
 })
 
@@ -80,6 +85,7 @@ export const {
     setUserData,
     clearShopCart,
     removeProduct,
+    setDisplayWidth,
     addProductToShopCart,
     delProductFromShopCart,
     setProductQuantityInCart,

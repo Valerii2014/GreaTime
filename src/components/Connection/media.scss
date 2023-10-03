@@ -1,0 +1,53 @@
+@media (max-width: 991px) {
+    .connection {
+        &_header {
+            font-size: 42px;
+        }
+        &_description {
+            font-size: 22px;
+            text-align: center;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .connection {
+        &_header {
+            font-size: 32px;
+        }
+        &_description {
+            font-size: 18px;
+            text-align: center;
+        }
+        &_search_form {
+            width: 90%;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .connection {
+        margin-top: 30px;
+        &_wrapper {
+            padding: 30px 5px;
+        }
+        &_header {
+            font-size: 26px;
+        }
+        &_description {
+            font-size: 14px;
+            text-align: center;
+        }
+        &_search_form {
+            margin-top: 24px;
+            width: 90%;
+            height: 30px;
+            input {
+                font-size: 13px;
+            }
+            &_button {
+                font-size: 13px;
+            }
+        }
+    }
+}

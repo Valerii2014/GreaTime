@@ -1,0 +1,24 @@
+@media (max-width: 991px) {
+    .product-functional-panel {
+        &_functions {
+        }
+        &_functions_sort {
+            width: 250px;
+        }
+        &_functions_quantity {
+            width: 152px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .product-functional-panel {
+        &_product-type {
+            justify-content: end;
+            align-items: center;
+            span {
+                height: 27px;
+            }
+        }
+    }
+}

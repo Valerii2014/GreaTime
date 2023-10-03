@@ -4,7 +4,6 @@ import { setProductsOffset } from '../store/appSlice/productsSlice'
 import {
     addActiveCategorieFilter,
     deleteActiveCategorieFilter,
-    addVisibleSubcats,
 } from '../store/appSlice/categoriesSlice'
 
 import {

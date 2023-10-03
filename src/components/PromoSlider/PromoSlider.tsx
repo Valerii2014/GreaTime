@@ -9,8 +9,10 @@ import { useGetSliderDataQuery } from '../../services/categoriesApi'
 import { setSliderData } from '../../store/appSlice/categoriesSlice'
 
 import { Spinner } from '../spinner/Spinner'
+import SliderBtns from './PromoSliderBtns'
 
 import changeSlideFunctionCreator from '../../utils/changeSlideFunctionCreator'
+import createTouchHandler from '../../utils/createTouchHandler'
 
 const PromoSlider = () => {
     const sliderImagesData: SliderData = useSelector(
@@ -22,6 +24,7 @@ const PromoSlider = () => {
     const [sliderProduct, setSliderProduct] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
     const sliderRef = useRef<HTMLDivElement>(null)
+    const touchStartX = useRef<number | null>(null)
 
     useEffect(() => {
         if (data) {
@@ -124,34 +127,28 @@ const PromoSlider = () => {
             ? onBuildSliderDots(sliderImagesData)
             : null
 
-    const SliderBtns =
-        sliderImagesData.length !== 0 ? (
-            <div className="slider_btn">
-                <div
-                    className="slider_btn_prev"
-                    onClick={() => onChangeSlide('prev')}
-                >
-                    <img src="./icons/system/arrowBlue.svg" alt="prev" />
-                </div>
-                <div
-                    className="slider_btn_next"
-                    onClick={() => onChangeSlide('next')}
-                >
-                    <img src="./icons/system/arrowBlue.svg" alt="prev" />
-                </div>
-            </div>
-        ) : null
+    const { handleTouchStart, handleTouchMove } = createTouchHandler(
+        touchStartX,
+        onChangeSlide
+    )
 
     const LoadingSpinner =
         isFetching && sliderImagesData.length === 0 ? <Spinner /> : null
 
     return (
-        <section className="slider">
+        <section
+            className="slider"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchMove}
+        >
             <div className="container">
                 <div className="slider_wrapper">
                     {LoadingSpinner}
                     {SliderImages}
-                    {SliderBtns}
+                    <SliderBtns
+                        sliderImagesData={sliderImagesData}
+                        onChangeSlide={onChangeSlide}
+                    />
                     {SliderDots}
                 </div>
             </div>

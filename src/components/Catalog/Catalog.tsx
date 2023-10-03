@@ -1,8 +1,8 @@
 import './catalog.scss'
 
-import { useEffect } from 'react'
+import { useEffect, useState, MouseEvent } from 'react'
 import { useDispatch } from 'react-redux'
-import { useAppSelector } from '../../store'
+import { useAppSelector, RootState } from '../../store'
 
 import {
     setAllCategories,
@@ -33,9 +33,17 @@ const Catalog = () => {
     } = createFunctionsForCatalog(dispatch)
 
     const { allCategories, activeCategoriesFilter, visibleSubcategories } =
-        useAppSelector((state) => state.categories)
+        useAppSelector((state: RootState) => state.categories)
+
+    const { displayWidth } = useAppSelector((state: RootState) => state.user)
+
+    const [visibleCategoriesForMobileMode, setVisibleCategoriesForMobileMode] =
+        useState(activeCategoriesFilter.length > 0 ? false : true)
+
+    const appMode = displayWidth > 991 ? 'desktop' : 'mobile'
 
     const { data, isFetching, isError } = useGetAllCategoriesQuery()
+
     useEffect(() => {
         if (data) {
             dispatch(setAllCategories(data))
@@ -166,14 +174,55 @@ const Catalog = () => {
         allCategories.length !== 0 ? BuildCategoriesList(allCategories) : null
 
     return (
-        <div className="catalog">
+        <div
+            className="catalog"
+            onClick={(event: MouseEvent<HTMLDivElement>) => {
+                if (
+                    event.target instanceof HTMLDivElement &&
+                    (event.target.classList.contains('catalog') ||
+                        event.target.classList.contains(
+                            'catalog_categories_list-wrapper'
+                        ))
+                ) {
+                    setVisibleCategoriesForMobileMode(false)
+                }
+            }}
+        >
             <div className="container">
-                <div className="catalog_wrapper">
+                <div
+                    className={`catalog_wrapper ${
+                        appMode === 'mobile' ? 'catalog_wrapper_mobile' : ''
+                    }`}
+                >
                     <div className="catalog_categories_title">Каталог</div>
                     <div className="catalog_categories_choice">
                         {buildActiveCategoriesList(allCategories)}
                     </div>
-                    <div className="catalog_categories_list-wrapper">
+
+                    {appMode === 'mobile' ? (
+                        <button
+                            className="button button_filters_mobile"
+                            onClick={() => {
+                                setVisibleCategoriesForMobileMode(
+                                    (visibleCategoriesForMobileMode) =>
+                                        !visibleCategoriesForMobileMode
+                                )
+                            }}
+                        >
+                            {visibleCategoriesForMobileMode
+                                ? 'Скрыть категории'
+                                : 'Показать категории'}
+                        </button>
+                    ) : null}
+
+                    <div
+                        className={`catalog_categories_list-wrapper${
+                            !visibleCategoriesForMobileMode &&
+                            appMode === 'mobile'
+                                ? '_hide'
+                                : ''
+                        }`}
+                    >
                         {Loading}
                         <ul className="catalog_categories_list">
                             {CategoriesList}

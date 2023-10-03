@@ -5,7 +5,7 @@
     &_wrapper {
         margin-top: 48px;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         flex-wrap: wrap;
         gap: 20px;
     }
@@ -62,3 +62,5 @@
     font-size: 24px;
     color: #fd6c6c;
 }
+
+@import './media';

@@ -1,0 +1,58 @@
+@media (max-width: 1200px) {
+    .buy-card {
+        &_functional {
+            width: 42%;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .buy-card {
+        &_functional {
+            width: 32%;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-columns: 1fr;
+
+            height: 100%;
+            &_price {
+                grid-row-start: 1;
+                grid-column-start: 1;
+                place-self: start center;
+            }
+            &_more-less {
+                grid-row-start: 2;
+                grid-column-start: 1;
+                place-self: center center;
+            }
+            &_price_summary {
+                width: auto;
+                grid-row-start: 3;
+                place-self: end center;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .buy-card-line {
+        align-items: start;
+        .buy-card {
+            &_functional {
+                width: 32%;
+                display: grid;
+                grid-template-rows: 1fr 1fr;
+                grid-template-columns: 100%;
+                height: 100%;
+                &_price_summary {
+                    margin-top: 10px;
+                }
+                &_more-less {
+                    margin-top: 3px;
+                    font-weight: 500;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}

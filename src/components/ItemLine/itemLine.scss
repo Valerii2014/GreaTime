@@ -13,12 +13,9 @@
     background-color: #fff;
     &-line {
         padding-right: 12px;
-        .buy-card_functional {
-            width: 40%;
-        }
-        .buy-card_functional_price_summary {
-            width: 120px;
-        }
+    }
+    &_price_summary {
+        width: 120px;
     }
     &_info {
         display: flex;
@@ -51,7 +48,7 @@
         }
     }
     &_functional {
-        width: 30%;
+        width: 40%;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -98,7 +95,7 @@
         }
         &_price {
             &_summary {
-                width: 70px;
+                width: 130px;
 
                 &_max {
                     position: relative;
@@ -146,3 +143,5 @@
         }
     }
 }
+
+@import './media';
