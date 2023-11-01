@@ -91,6 +91,11 @@
         .search {
             width: 505px;
         }
+        &_icon {
+            &:hover {
+                background-color: #fff;
+            }
+        }
     }
 }
 

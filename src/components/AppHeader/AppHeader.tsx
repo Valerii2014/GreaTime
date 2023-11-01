@@ -9,30 +9,14 @@ import { useGetProductWithNameQuery } from '../../services/productsApi'
 import { setModalType } from '../../store/appSlice/sliderAndModalSlice'
 
 import ItemLine from '../ItemLine/ItemLine'
-
-function CustomLink({
-    to,
-    children,
-    className,
-}: {
-    to: string
-    children: React.ReactNode
-    className: string
-}) {
-    const location = useLocation()
-
-    const isActive = location.pathname === to
-
-    const classNameActive = isActive ? 'active' : ''
-
-    return (
-        <Link to={to} className={`${classNameActive} ${className}`}>
-            {children}
-        </Link>
-    )
-}
+import { CatalogButton, HomeButton } from './headerButtons'
 
 const AppHeader = () => {
+    const location = useLocation()
+
+    const HeaderNavigationButton =
+        location.pathname === '/catalog' ? <HomeButton /> : <CatalogButton />
+
     const dispatch = useDispatch()
     const setModalTypeLogIn = () => dispatch(setModalType('logIn'))
 
@@ -133,19 +117,7 @@ const AppHeader = () => {
             <div className="func-panel">
                 <div className="container">
                     <div className="func-panel-wrapper">
-                        <CustomLink
-                            to="/catalog"
-                            className="button_catalog_wrapper"
-                        >
-                            <button className="button_catalog">
-                                <div className="button button_catalog_span-container">
-                                    <span />
-                                    <span />
-                                    <span />
-                                </div>
-                                Каталог
-                            </button>
-                        </CustomLink>
+                        {HeaderNavigationButton}
                         <div
                             className="search"
                             onMouseLeave={() => setProductName('')}

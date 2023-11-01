@@ -21,6 +21,9 @@
 @media (max-width: 768px) {
     .item-card {
         border: solid 1px #8282822d;
+        &:hover {
+            box-shadow: none;
+        }
     }
 }
 

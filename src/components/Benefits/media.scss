@@ -26,14 +26,18 @@
             grid-template-rows: auto;
         }
         &_item {
-            width: 130px;
+            width: 90%;
             min-width: 130px;
+            place-self: start end;
+            &:nth-child(2n) {
+                place-self: start start;
+            }
             &_header {
                 font-size: 13px;
             }
             &_description {
                 font-size: 11px;
-                text-align: center;
+                text-align: start;
             }
         }
     }

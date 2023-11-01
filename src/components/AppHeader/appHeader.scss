@@ -208,14 +208,37 @@
                 width: 20px;
             }
         }
+        &-home {
+            margin-right: 15px;
+            width: 14px;
+            height: 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2px;
+            span {
+                width: 6px;
+                height: 6px;
+                background-color: #fff;
+                border-radius: 2px;
+            }
+        }
+    }
+    &_span-container {
+        &:hover {
+            span {
+                transition: all 0.5s;
+                width: 20px;
+                &:nth-child(2) {
+                    width: 14px;
+                }
+            }
+        }
     }
     &:hover {
-        span {
-            transition: all 0.5s;
-            width: 20px;
-            &:nth-child(2) {
-                width: 14px;
-            }
+        .button_catalog_span-container-home {
+            transition: all 1s;
+            transform: rotate(360deg);
         }
     }
 }

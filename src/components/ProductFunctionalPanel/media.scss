@@ -3,7 +3,7 @@
         &_functions {
         }
         &_functions_sort {
-            width: 250px;
+            width: 300px;
         }
         &_functions_quantity {
             width: 152px;
@@ -13,11 +13,35 @@
 
 @media (max-width: 768px) {
     .product-functional-panel {
+        &_functions {
+            width: 80%;
+            button {
+                display: none;
+            }
+            &_sort {
+                width: 70%;
+            }
+            &_quantity {
+                width: 30%;
+            }
+        }
         &_product-type {
-            justify-content: end;
+            width: 20%;
+            justify-content: center;
             align-items: center;
             span {
                 height: 27px;
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .product-functional-panel {
+        &_functions {
+            &_sort_type,
+            &_quantity {
+                font-size: 12px;
             }
         }
     }
